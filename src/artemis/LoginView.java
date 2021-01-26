@@ -5,6 +5,10 @@
  */
 package artemis;
 
+import Controllers.LoginController;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Moagi Moja
@@ -34,10 +38,10 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         userName = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
+        passWord = new javax.swing.JPasswordField();
+        lblUserName = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btnStudent = new javax.swing.JButton();
         btnTeacher = new javax.swing.JButton();
@@ -65,29 +69,52 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(30, 30, 30));
 
         userName.setBackground(new java.awt.Color(30, 30, 30));
+        userName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         userName.setForeground(new java.awt.Color(255, 255, 255));
         userName.setText("Username");
         userName.setBorder(null);
         userName.setCaretColor(new java.awt.Color(255, 255, 255));
         userName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         userName.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        userName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                userNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userNameFocusLost(evt);
+            }
+        });
 
-        jPasswordField1.setBackground(new java.awt.Color(30, 30, 30));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(null);
-        jPasswordField1.setCaretColor(new java.awt.Color(255, 255, 255));
+        passWord.setBackground(new java.awt.Color(30, 30, 30));
+        passWord.setForeground(new java.awt.Color(255, 255, 255));
+        passWord.setText("jPasswordField1");
+        passWord.setBorder(null);
+        passWord.setCaretColor(new java.awt.Color(255, 255, 255));
+        passWord.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passWordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passWordFocusLost(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel2.setText("USERNAME");
+        lblUserName.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
+        lblUserName.setForeground(new java.awt.Color(204, 204, 204));
+        lblUserName.setText("USERNAME");
 
-        jLabel3.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel3.setText("PASSWORD");
+        lblPassword.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(204, 204, 204));
+        lblPassword.setText("PASSWORD");
 
         btnStudent.setFocusPainted(false);
         btnStudent.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnStudent.setText("LOGIN AS STUDENT");
+        btnStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStudentActionPerformed(evt);
+            }
+        });
 
         btnTeacher.setFocusPainted(false);
         btnTeacher.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
@@ -117,9 +144,9 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(btnAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                     .addComponent(btnTeacher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnStudent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jPasswordField1)
+                    .addComponent(lblPassword)
+                    .addComponent(lblUserName)
+                    .addComponent(passWord)
                     .addComponent(userName)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2))
@@ -135,15 +162,15 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109)
-                .addComponent(jLabel2)
+                .addComponent(lblUserName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lblPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -152,7 +179,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(btnTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 440, 520));
@@ -182,6 +209,33 @@ public class LoginView extends javax.swing.JFrame {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void passWordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passWordFocusGained
+      lblPassword.setForeground(new java.awt.Color(0, 70, 141));
+    }//GEN-LAST:event_passWordFocusGained
+
+    private void passWordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passWordFocusLost
+      lblPassword.setForeground(new java.awt.Color(204, 204, 204));  
+    }//GEN-LAST:event_passWordFocusLost
+
+    private void userNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userNameFocusGained
+      lblUserName.setForeground(new java.awt.Color(0, 70, 141));
+    }//GEN-LAST:event_userNameFocusGained
+
+    private void userNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userNameFocusLost
+      lblUserName.setForeground(new java.awt.Color(204, 204, 204));
+    }//GEN-LAST:event_userNameFocusLost
+
+    private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
+        
+        if(!userName.getText().equals("") && !passWord.getText().equals("")){
+            LoginController login = new LoginController(userName.getText(),passWord.getText());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Enter both a username AND a password");
+        }
+        
+    }//GEN-LAST:event_btnStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,12 +279,12 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JButton btnStudent;
     private javax.swing.JButton btnTeacher;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUserName;
+    private javax.swing.JPasswordField passWord;
     private javax.swing.JTextField userName;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
