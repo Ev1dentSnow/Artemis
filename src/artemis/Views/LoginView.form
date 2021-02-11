@@ -255,7 +255,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="artemis.BackgroundPanel" name="backgroundPanel1">
+    <Container class="artemis.Views.BackgroundPanel" name="backgroundPanel1">
 
       <Layout>
         <DimensionLayout dim="0">

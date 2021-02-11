@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package artemis;
+package artemis.Views;
 
-import Controllers.LoginController;
-import java.awt.Color;
+import artemis.Controllers.LoginController;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -23,12 +22,14 @@ public class LoginView extends javax.swing.JFrame {
 
     static Image img;
 
-    public static Image getImg() {
-        return img;
-    }
+
     int xMouse;
     int yMouse;
     Graphics g;
+
+    public static Image getImg() {
+        return img;
+    }
     /**
      * Creates new form LoginView
      */
@@ -67,7 +68,7 @@ public class LoginView extends javax.swing.JFrame {
         String[] optionList = {"Student","Teacher","Administrator"};
         jComboBox1 = new javax.swing.JComboBox<>(optionList);
         lbluserOption = new javax.swing.JLabel();
-        backgroundPanel1 = new artemis.BackgroundPanel();
+        backgroundPanel1 = new BackgroundPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -273,7 +274,8 @@ public class LoginView extends javax.swing.JFrame {
     private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         
         if(!userName.getText().equals("") && !passWord.getText().equals("")){
-            LoginController login = new LoginController(userName.getText(),passWord.getText());
+            this.dispose();
+            temporary.main(null);
         }
         else{
             JOptionPane.showMessageDialog(null, "Enter both a username AND a password");
@@ -327,7 +329,7 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private artemis.BackgroundPanel backgroundPanel1;
+    private BackgroundPanel backgroundPanel1;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnStudent;
     private javax.swing.JComboBox<String> jComboBox1;

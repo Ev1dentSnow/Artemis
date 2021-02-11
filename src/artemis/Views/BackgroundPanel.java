@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package artemis;
+package artemis.Views;
+
+import artemis.Views.LoginView;
 
 import java.awt.Graphics;
 import java.awt.Image;

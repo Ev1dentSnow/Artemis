@@ -11,11 +11,8 @@ import java.util.Date;
  *
  * @author Moagi Moja
  */
-public class Student {
-    
-    private String fName;
-    private String lName;
-    private Date DOB;
+public class Student extends Person{
+
     private String house;
     private int form;
     private boolean isMatric;

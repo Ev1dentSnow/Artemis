@@ -1,0 +1,16 @@
+.leftside-pane{
+-fx-background-color:#0058a6;
+}
+
+.sidebar-button{
+-fx-background-color:#0058a6;
+}
+
+.sidebar-button:hover{
+-fx-border-color:#ffffff;
+-fx-border-width:0px 0px 0px 2px;
+}
+
+.sidebar-button:focus{
+-fx-background-color:#002699;
+}
