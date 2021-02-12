@@ -9,8 +9,38 @@
 .sidebar-button:hover{
 -fx-border-color:#ffffff;
 -fx-border-width:0px 0px 0px 2px;
+-fx-background-color:#004D93;
 }
 
-.sidebar-button:focus{
--fx-background-color:#002699;
+.sidebar-button:focused{
+-fx-background-color:#00519A;
+-fx-border-color:#E0E0E0;
+-fx-border-width:0px 0px 0px 4px;
+}
+
+.logout-button{
+-fx-background-color:#FAFAFA;
+}
+
+.rightside-pane{
+-fx-background-color:#E5E4E5;
+}
+
+.top-bar-pane{
+-fx-background-color:#FAFAFA;
+-fx-background-radius: 4px;
+}
+
+.anchor-pane{
+-fx-background-color:#E5E4E5;
+}
+
+.first-block-pane{
+-fx-background-color:#FAFAFA;
+-fx-background-radius: 20px;
+}
+
+.widget-header{
+-fx-background-color:#FAFAFA;
+-fx-background-radius: 20px;
 }

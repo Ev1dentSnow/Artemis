@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="artemis.Views.StudentDashboard">
+<AnchorPane prefHeight="650.0" prefWidth="1100.0" styleClass="anchor-pane" stylesheets="@Stylesheet.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="artemis.Views.StudentDashboard">
    <children>
-      <Pane prefHeight="650.0" prefWidth="241.0" styleClass="leftside-pane" stylesheets="@Stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="650.0" prefWidth="205.0" styleClass="leftside-pane" stylesheets="@Stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_RIGHT" layoutY="288.0" prefHeight="362.0" prefWidth="241.0">
+            <VBox alignment="TOP_RIGHT" layoutY="288.0" prefHeight="362.0" prefWidth="205.0">
                <children>
-                  <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Home" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnHomeActionPerformed" prefHeight="77.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Home" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" x="100.0">
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
                               <Image url="@../Assets/icons8-home-384.png" />
                            </image>
@@ -29,45 +33,45 @@
                         <Insets />
                      </VBox.margin>
                      <padding>
-                        <Insets left="50.0" top="16.0" />
+                        <Insets left="30.0" top="16.0" />
                      </padding>
                      <font>
-                        <Font name="SansSerif Regular" size="16.0" />
+                        <Font name="SansSerif Regular" size="14.0" />
                      </font></Button>
-                  <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Marks" textFill="WHITE">
+                  <Button id="btnMarks" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnMarksActionPerformed" prefHeight="73.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Marks" textFill="WHITE">
                      <font>
-                        <Font name="SansSerif Regular" size="16.0" />
+                        <Font name="SansSerif Regular" size="14.0" />
                      </font>
                      <padding>
-                        <Insets left="50.0" top="16.0" />
+                        <Insets left="30.0" top="16.0" />
                      </padding>
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" x="100.0">
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
                               <Image url="@../Assets/icons8-graph-report-96.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Subjects" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnSubjectsActionPerformed" prefHeight="75.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Subjects" textAlignment="RIGHT" textFill="WHITE">
                      <font>
-                        <Font name="SansSerif Regular" size="16.0" />
+                        <Font name="SansSerif Regular" size="14.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" x="100.0">
+                        <ImageView fitHeight="51.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
                               <Image url="@../Assets/icons8-briefcase-480.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <padding>
-                        <Insets left="50.0" top="16.0" />
+                        <Insets left="30.0" top="16.0" />
                      </padding></Button>
-                  <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Discipline" textFill="WHITE">
+                  <Button id="btnDiscipline" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnDisciplineActionPerformed" prefHeight="73.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Discipline" textFill="WHITE">
                      <font>
-                        <Font name="SansSerif Regular" size="16.0" />
+                        <Font name="SansSerif Regular" size="14.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" x="100.0">
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
                               <Image url="@../Assets/icons8-handcuffs-96.png" />
                            </image>
@@ -77,27 +81,94 @@
                         <Insets />
                      </VBox.margin>
                      <padding>
-                        <Insets left="50.0" top="16.0" />
+                        <Insets left="30.0" top="16.0" />
                      </padding></Button>
-                  <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Weather" textFill="WHITE">
+                  <Button id="btnWeather" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnWeatherActionperformed" prefHeight="77.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@Stylesheet.css" text="Weather" textFill="WHITE">
                      <font>
-                        <Font name="SansSerif Regular" size="16.0" />
+                        <Font name="SansSerif Regular" size="14.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" x="100.0">
+                        <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
                               <Image url="@../Assets/icons8-cloud-96.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <padding>
-                        <Insets left="50.0" top="16.0" />
+                        <Insets left="30.0" top="16.0" />
                      </padding></Button>
                </children>
             </VBox>
-            <Label layoutX="77.0" layoutY="191.0" text="Jacob Vantalala" textFill="WHITE" />
-            <Label layoutX="98.0" layoutY="214.0" text="FORM 4" textFill="WHITE" />
-            <Circle fill="DODGERBLUE" layoutX="120.0" layoutY="106.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label layoutX="54.0" layoutY="221.0" text="Jacob Vantalala" textFill="WHITE" />
+            <Label layoutX="74.0" layoutY="254.0" text="FORM 4" textFill="WHITE" />
+            <Circle fill="DODGERBLUE" layoutX="97.0" layoutY="159.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
          </children></Pane>
+      <StackPane id="stackPanee" fx:id="stackPane" layoutX="241.0" layoutY="116.0" prefHeight="534.0" prefWidth="859.0">
+         <children>
+            <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@Stylesheet.css" />
+            <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@Stylesheet.css" />
+            <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@Stylesheet.css" />
+            <Pane id="DisciplinePane" fx:id="disciplinePane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@Stylesheet.css" />
+            <Pane id="HomePane" fx:id="homePane" prefHeight="526.0" prefWidth="759.0" styleClass="rightside-pane" stylesheets="@Stylesheet.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="3.0" text="Welcome, Moagi">
+                     <font>
+                        <Font name="SansSerif Regular" size="19.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutY="57.0" prefHeight="408.0" prefWidth="400.0" styleClass="first-block-pane" stylesheets="@Stylesheet.css">
+                     <children>
+                        <Separator layoutY="74.0" prefHeight="5.0" prefWidth="400.0" />
+                        <Label layoutX="96.0" layoutY="31.0" prefHeight="21.0" prefWidth="196.0" text="My Goals For The Year">
+                           <font>
+                              <Font name="Helvetica" size="18.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutY="74.0" prefHeight="330.0" prefWidth="400.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="436.0" layoutY="57.0" prefHeight="408.0" prefWidth="400.0" styleClass="first-block-pane" stylesheets="@Stylesheet.css">
+                     <children>
+                        <Separator layoutY="74.0" prefHeight="5.0" prefWidth="400.0" />
+                        <Label layoutX="135.0" layoutY="32.0" text="Announcements">
+                           <font>
+                              <Font name="Helvetica" size="18.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutY="77.0" prefHeight="330.0" prefWidth="400.0" />
+                     </children>
+                  </AnchorPane>
+               </children></Pane>
+         </children></StackPane>
+      <Pane layoutX="205.0" prefHeight="75.0" prefWidth="895.0" styleClass="top-bar-pane" stylesheets="@Stylesheet.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <DropShadow height="5.91" radius="6.2275" />
+         </effect>
+         <children>
+            <Label layoutX="21.0" layoutY="22.0" prefHeight="29.0" prefWidth="189.0" text="Monday 12 February">
+               <font>
+                  <Font name="Arial Bold" size="19.0" />
+               </font>
+            </Label>
+            <Button layoutX="803.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="34.0" styleClass="logout-button" stylesheets="@Stylesheet.css" />
+            <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="823.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/icons8-emergency-exit-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+            <Separator layoutX="228.0" layoutY="11.0" orientation="VERTICAL" prefHeight="54.0" prefWidth="1.0" />
+            <Label layoutX="250.0" layoutY="22.0" prefHeight="30.0" prefWidth="76.0" text="9:21 AM">
+               <font>
+                  <Font name="Arial Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
