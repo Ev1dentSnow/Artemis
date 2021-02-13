@@ -9,17 +9,21 @@
 .sidebar-button:hover{
 -fx-border-color:#ffffff;
 -fx-border-width:0px 0px 0px 2px;
--fx-background-color:#004D93;
+-fx-background-color:#005cb3;
 }
 
 .sidebar-button:focused{
--fx-background-color:#00519A;
+-fx-background-color:#0077e6;
 -fx-border-color:#E0E0E0;
 -fx-border-width:0px 0px 0px 4px;
 }
 
-.logout-button{
+.top-bar-button{
 -fx-background-color:#FAFAFA;
+}
+
+.top-bar-button:hover{
+cursor:grab
 }
 
 .rightside-pane{
@@ -44,3 +48,40 @@
 -fx-background-color:#FAFAFA;
 -fx-background-radius: 20px;
 }
+
+.discipline-list-view{
+-fx-background-radius: 10px;
+}
+
+.add-goal-button{
+-fx-background-color:#65cf83;
+-fx-background-radius: 5px;
+}
+
+.add-goal-button:hover{
+-fx-background-color:#37ae59;
+}
+
+.edit-goal-button{
+-fx-background-color:#edd35c;
+-fx-background-radius:5px;
+}
+
+.edit-goal-button:hover{
+-fx-background-color:#b89a14;
+}
+
+.remove-goal-button{
+-fx-background-color:#de4e4e;
+-fx-background-radius: 5px;
+}
+
+.remove-goal-button:hover{
+-fx-background-color:#ac2020;
+}
+
+.goal-list{
+-fx-border-width: 0px;
+}
+
+

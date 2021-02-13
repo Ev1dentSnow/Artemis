@@ -44,6 +44,7 @@ public class StudentDashboard extends Application {
         //Load FXML file and display window
         Parent root = FXMLLoader.load(getClass().getResource("/artemis/Views/StudentDashboard.fxml"));
         Scene scene = new Scene(root,1100,650);
+        scene.getStylesheets().add("artemis/Views/LightMode.css");
         primaryStage.setScene(scene);
         primaryStage.show();
         this.hidePreviousPane(homePane);

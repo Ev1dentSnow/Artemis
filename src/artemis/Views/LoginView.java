@@ -5,11 +5,9 @@
  */
 package artemis.Views;
 
-import artemis.Controllers.LoginController;
-
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -35,10 +33,11 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         try{
-            img = ImageIO.read(new File("bckgnd.jpg"));
+            img = ImageIO.read(new FileInputStream("/Users/moagimoja/IdeaProjects/Artemis/src/artemis/lgb.jpg"));
         } 
         catch(IOException e){
             JOptionPane.showMessageDialog(null, "Error opening background image");
+            e.printStackTrace();
         }
         
         initComponents();
