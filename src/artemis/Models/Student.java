@@ -15,16 +15,40 @@ public class Student extends Person{
 
     private String house;
     private int form;
-    private boolean isMatric;
+    private boolean prefectStatus;
     
-    public Student(String f, String l, Date dob, String h, int fo, boolean im){
+    public Student(String f, String l, Date dob, String h, int fo, boolean ps){
         
         fName = f;
         lName = l;
         DOB = dob;
         house = h;
         form = fo;
-        isMatric = im;
+        prefectStatus = ps;
         
+    }
+
+    public String getHouse(){
+        return house;
+    }
+
+    public void setHouse(String house){
+        this.house = house;
+    }
+
+    public int getForm(){
+        return form;
+    }
+
+    public void setForm(int form){
+        this.form = form;
+    }
+
+    public boolean isPrefectStatus(){
+        return prefectStatus;
+    }
+
+    public void setPrefectStatus(boolean prefectStatus){
+        this.prefectStatus = prefectStatus;
     }
 }

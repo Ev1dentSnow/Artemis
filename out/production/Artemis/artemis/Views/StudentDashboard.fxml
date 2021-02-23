@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -109,19 +111,23 @@
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="241.0" layoutY="116.0" prefHeight="534.0" prefWidth="859.0">
          <children>
             <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
-            <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
+            <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="DisciplinePane" fx:id="disciplinePane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
-                  <ListView id="dotsListView" fx:id="dotsListView" editable="true" layoutX="47.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="664.0" styleClass="discipline-list-view" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.20000000298023224" />
-                           </color>
-                        </DropShadow>
-                     </effect></ListView>
-                  <Label layoutX="55.0" layoutY="66.0" text="Your dots for this week" />
+                  <Label layoutX="55.0" layoutY="66.0" text="Your dots for this week">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font></Label>
+                  <TableView layoutX="55.0" layoutY="113.0" prefHeight="335.0" prefWidth="721.0" stylesheets="@LightMode-Tables.css">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="DotID" />
+                      <TableColumn prefWidth="75.0" text="Amount" />
+                        <TableColumn prefWidth="75.0" text="Given by" />
+                        <TableColumn prefWidth="394.0" text="Reason" />
+                        <TableColumn prefWidth="101.0" text="Appeal " />
+                    </columns>
+                  </TableView>
                </children>
             </Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="526.0" prefWidth="759.0" styleClass="rightside-pane" stylesheets="@LightMode.css">

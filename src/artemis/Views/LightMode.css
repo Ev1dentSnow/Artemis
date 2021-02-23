@@ -32,7 +32,6 @@ cursor:grab
 
 .top-bar-pane{
 -fx-background-color:#FAFAFA;
--fx-background-radius: 4px;
 }
 
 .anchor-pane{
@@ -54,7 +53,7 @@ cursor:grab
 }
 
 .add-goal-button{
--fx-background-color:#65cf83;
+-fx-background-color:#77d492;
 -fx-background-radius: 5px;
 }
 
@@ -63,7 +62,7 @@ cursor:grab
 }
 
 .edit-goal-button{
--fx-background-color:#edd35c;
+-fx-background-color:#f0d975;
 -fx-background-radius:5px;
 }
 
@@ -72,7 +71,7 @@ cursor:grab
 }
 
 .remove-goal-button{
--fx-background-color:#de4e4e;
+-fx-background-color:#e36868;
 -fx-background-radius: 5px;
 }
 

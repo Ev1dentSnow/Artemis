@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -109,21 +111,8 @@
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="241.0" layoutY="116.0" prefHeight="534.0" prefWidth="859.0">
          <children>
             <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
-            <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
-            <Pane id="DisciplinePane" fx:id="disciplinePane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
-               <children>
-                  <ListView id="dotsListView" fx:id="dotsListView" editable="true" layoutX="47.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="664.0" styleClass="discipline-list-view" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.20000000298023224" />
-                           </color>
-                        </DropShadow>
-                     </effect></ListView>
-                  <Label layoutX="55.0" layoutY="66.0" text="Your dots for this week" />
-               </children>
-            </Pane>
+            <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="HomePane" fx:id="homePane" prefHeight="526.0" prefWidth="759.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <Label layoutX="14.0" layoutY="3.0" text="Welcome, Moagi">
@@ -234,13 +223,34 @@
                      </effect>
                   </AnchorPane>
                </children></Pane>
+            <Pane id="DisciplinePane" fx:id="disciplinePane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <Label layoutX="378.0" layoutY="14.0" text="Your dots for this week">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="7.0" layoutY="48.0" prefHeight="472.0" prefWidth="845.0" stylesheets="@LightMode-Tables.css">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="DotID" />
+                      <TableColumn prefWidth="75.0" text="Amount" />
+                        <TableColumn prefWidth="75.0" text="Given by" />
+                        <TableColumn prefWidth="394.0" text="Reason" />
+                        <TableColumn prefWidth="222.0" text="Appeal " />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
          </children></StackPane>
       <Pane layoutX="205.0" prefHeight="75.0" prefWidth="895.0" styleClass="top-bar-pane">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <effect>
-            <DropShadow height="5.91" radius="6.2275" />
+            <DropShadow height="5.91" radius="6.2275">
+               <color>
+                  <Color opacity="0.19784946739673615" />
+               </color></DropShadow>
          </effect>
          <children>
             <Label layoutX="21.0" layoutY="22.0" prefHeight="29.0" prefWidth="189.0" text="Monday 12 February">
