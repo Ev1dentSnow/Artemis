@@ -3,7 +3,7 @@
 }
 
 .sidebar-button{
--fx-background-color:#0058a6;
+-fx-background-color:#0058a6
 }
 
 .sidebar-button:hover{
@@ -15,7 +15,7 @@
 .sidebar-button:focused{
 -fx-background-color:#0077e6;
 -fx-border-color:#E0E0E0;
--fx-border-width:0px 0px 0px 4px;
+-fx-border-width:0px 0px 0px 3px;
 }
 
 .top-bar-button{
