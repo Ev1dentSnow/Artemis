@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="15" />
+    <bytecodeTargetLevel target="15">
+      <module name="Artemis.app" target="15" />
+      <module name="Artemis.app.main" target="15" />
+      <module name="Artemis.app.test" target="15" />
+      <module name="IdeaProjects.Artemis.main" target="15" />
+      <module name="IdeaProjects.Artemis.test" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>
