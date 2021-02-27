@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import org.kordamp.bootstrapfx.BootstrapFX;
+import org.kordamp.bootstrapfx.scene.layout.Panel;
 
 import java.io.IOException;
 
@@ -38,8 +40,15 @@ public class StudentDashboard extends Application {
     public void start(Stage primaryStage) throws IOException{
         //Load FXML file and display window
         Parent root = FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+
+        Panel alertPanel = new Panel();
+        alertPanel.getStyleClass().add("alert");
+
+
+
         Scene scene = new Scene(root,1100,650);
         scene.getStylesheets().add("LightMode.css");
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); //for bootstrapFX compatibility
         hidePreviousPane(homePane);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -3,12 +3,15 @@
  */
 package Artemis;
 
+import Artemis.Views.LoginView;
+import Artemis.Views.StudentDashboard;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        LoginView.main(args);
+
+
     }
 }

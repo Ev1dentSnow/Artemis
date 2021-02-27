@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.calendarfx.view.YearMonthView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -18,8 +17,6 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.HyperlinkLabel?>
-<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
 
 <AnchorPane prefHeight="650.0" prefWidth="1100.0" styleClass="anchor-pane" stylesheets="@LightMode.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Views.StudentDashboard">
    <children>
@@ -112,7 +109,7 @@
             <Label layoutX="68.0" layoutY="244.0" text="FORM 4" textFill="WHITE" />
             <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="158.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
          </children></Pane>
-      <StackPane id="stackPanee" fx:id="stackPane" layoutX="178.0" layoutY="74.0" prefHeight="576.0" prefWidth="922.0">
+      <StackPane id="stackPanee" fx:id="stackPane" layoutX="241.0" layoutY="116.0" prefHeight="534.0" prefWidth="859.0">
          <children>
             <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
@@ -134,6 +131,115 @@
                   </TableView>
                </children>
             </Pane>
+            <Pane id="HomePane" fx:id="homePane" prefHeight="526.0" prefWidth="759.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="3.0" text="Welcome, Moagi">
+                     <font>
+                        <Font name="Calibri Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutY="57.0" prefHeight="433.0" prefWidth="319.0" styleClass="first-block-pane" stylesheets="@LightMode.css">
+                     <children>
+                        <Separator layoutY="74.0" prefHeight="5.0" prefWidth="400.0" />
+                        <Label layoutX="119.0" layoutY="32.0" prefHeight="21.0" prefWidth="196.0" text="My goals for the year">
+                           <font>
+                              <Font name="Calibri Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button graphicTextGap="5.0" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="105.0" styleClass="add-goal-button" stylesheets="@LightMode.css" text="Add Goal" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Artemis/Assets/icons8-edit-144.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <DropShadow>
+                                 <color>
+                                    <Color opacity="0.15000000596046448" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <Button graphicTextGap="5.0" layoutX="148.0" layoutY="87.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="105.0" styleClass="edit-goal-button" stylesheets="@LightMode.css" text="Edit Goal" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Artemis/Assets/icons8-edit-144.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <DropShadow>
+                                 <color>
+                                    <Color opacity="0.15000000596046448" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <Button graphicTextGap="2.0" layoutX="281.0" layoutY="87.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="105.0" styleClass="remove-goal-button" stylesheets="@LightMode.css" text="Remove Goal" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="10.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Artemis/Assets/icons8-macos-close-90.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <DropShadow>
+                                 <color>
+                                    <Color opacity="0.15000000596046448" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                     </children>
+                     <effect>
+                        <DropShadow height="31.56" radius="15.655000000000001" width="33.06">
+                           <color>
+                              <Color opacity="0.20000000298023224" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </AnchorPane>
+                  <AnchorPane layoutX="436.0" layoutY="57.0" prefHeight="408.0" prefWidth="400.0" styleClass="first-block-pane" stylesheets="@LightMode.css">
+                     <children>
+                        <Separator layoutY="74.0" prefHeight="5.0" prefWidth="400.0" />
+                        <Label layoutX="135.0" layoutY="32.0" text="Announcements">
+                           <font>
+                              <Font name="Helvetica" size="18.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutY="77.0" prefHeight="362.0" prefWidth="400.0" />
+                     </children>
+                     <effect>
+                        <DropShadow height="32.0" radius="15.75" width="33.0">
+                           <color>
+                              <Color opacity="0.20000000298023224" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </AnchorPane>
+               </children></Pane>
             <Pane id="MarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="223.0" prefWidth="370.0" text="View Markbook" />
@@ -142,82 +248,8 @@
                   <Button layoutX="14.0" layoutY="267.0" mnemonicParsing="false" prefHeight="223.0" prefWidth="370.0" text="View Markbook" />
                </children>
             </Pane>
-            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
-               <children>
-                  <AnchorPane layoutX="517.0" layoutY="295.0" prefHeight="244.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <YearMonthView layoutX="14.0" layoutY="-2.0" prefHeight="254.0" prefWidth="331.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="517.0" layoutY="60.0" prefHeight="223.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Label layoutX="130.0" layoutY="34.0" text="My Goals" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="34.0" layoutY="60.0" prefHeight="484.0" prefWidth="466.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
-                        <Label layoutX="115.0" layoutY="29.0" text="📣 Announcements">
-                           <font>
-                              <Font name="Calibri" size="30.0" />
-                           </font>
-                        </Label>
-                        <VBox layoutX="11.0" layoutY="77.0" prefHeight="401.0" prefWidth="445.0">
-                           <children>
-                              <HyperlinkLabel text="Announcement 1">
-                                 <padding>
-                                    <Insets bottom="50.0" top="30.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement 2">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement 3">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announecment 4">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement  5">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-                  <Panel id="alertPanel" fx:id="alertPanel" layoutX="48.0" prefHeight="49.0" prefWidth="827.0" stylesheets="@BootstrapFXStylesheet.css" text="Success!" />
-               </children></Pane>
          </children></StackPane>
-      <Pane layoutX="178.0" prefHeight="66.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@LightMode.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
+      <Pane layoutX="178.0" prefHeight="75.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@LightMode.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -228,7 +260,7 @@
                </color></DropShadow>
          </effect>
          <children>
-            <Label layoutX="30.0" layoutY="18.0" prefHeight="29.0" prefWidth="189.0" text="Monday 12 February">
+            <Label layoutX="30.0" layoutY="23.0" prefHeight="29.0" prefWidth="189.0" text="Monday 12 February">
                <font>
                   <Font name="Calibri Bold" size="21.0" />
                </font>
@@ -237,7 +269,7 @@
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor></Button>
-            <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="852.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="852.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../java/Artemis/Assets/icons8-emergency-exit-96.png" />
                </image>
@@ -246,13 +278,13 @@
                </cursor>
             </ImageView>
             <Separator layoutX="225.0" layoutY="18.0" orientation="VERTICAL" prefHeight="41.0" prefWidth="5.0" />
-            <Label layoutX="240.0" layoutY="18.0" prefHeight="30.0" prefWidth="76.0" text="9:21 AM">
+            <Label layoutX="240.0" layoutY="23.0" prefHeight="30.0" prefWidth="76.0" text="9:21 AM">
                <font>
                   <Font name="Calibri Bold" size="21.0" />
                </font>
             </Label>
             <Button layoutX="769.0" layoutY="24.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css" />
-            <ImageView fitHeight="28.0" fitWidth="29.0" layoutX="787.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="29.0" layoutX="787.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../java/Artemis/Assets/icons8-job-96.png" />
                </image>
@@ -260,8 +292,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Label layoutX="782.0" layoutY="39.0" text="Settings" />
-            <Label layoutX="843.0" layoutY="39.0" text="Sign Out" />
+            <Label layoutX="780.0" layoutY="44.0" text="Settings" />
+            <Label layoutX="843.0" layoutY="45.0" text="Sign Out" />
          </children>
       </Pane>
    </children>

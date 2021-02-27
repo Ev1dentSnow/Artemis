@@ -15,7 +15,6 @@ plugins {
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()
-    mavenCentral()
 }
 
 dependencies {
@@ -24,10 +23,9 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-
-    // https://mvnrepository.com/artifact/com.formdev/flatlaf
-    implementation group: 'com.formdev', name: 'flatlaf', version: '0.20'
-
+    implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0'
+    implementation 'com.calendarfx:view:11.8.3'
+    implementation 'eu.hansolo:tilesfx:11.48'
 
 }
 
@@ -40,6 +38,5 @@ javafx{
     version = "15.0.1"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
-
 
 
