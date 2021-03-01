@@ -29,6 +29,9 @@ public class StudentDashboard extends Application {
     @FXML
     Pane weatherPane = new Pane();
 
+    @FXML
+    Panel alertPanel = new Panel();
+
     Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
     
 
@@ -41,15 +44,15 @@ public class StudentDashboard extends Application {
         //Load FXML file and display window
         Parent root = FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
 
-        Panel alertPanel = new Panel();
-        alertPanel.getStyleClass().add("alert");
+
+        //alertPanel.getStyleClass().setAll("alert","alert-success");
 
 
 
         Scene scene = new Scene(root,1100,650);
-        scene.getStylesheets().add("LightMode.css");
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); //for bootstrapFX compatibility
-        hidePreviousPane(homePane);
+        //scene.getStylesheets().add("LightMode.css");
+        scene.getStylesheets().setAll(BootstrapFX.bootstrapFXStylesheet()); //for bootstrapFX compatibility
+        //hidePreviousPane(homePane);
         primaryStage.setScene(scene);
         primaryStage.show();
 
