@@ -1,12 +1,12 @@
 package Artemis.ViewTests;
 
-import Artemis.Views.LoginView;
+import Artemis.ViewControllers.AdminDashboard;
 
 public class ViewTests {
 
     public static void main(String[] args) {
 
-        LoginView.main(args);
+        AdminDashboard.main(args);
     }
 
 }

@@ -1,6 +1,6 @@
 package Artemis.ViewTests;
 
-import Artemis.Views.AdminDashboard;
+import Artemis.ViewControllers.AdminDashboard;
 
 public class AdminDashboardTest {
     public static void main(String[] args) {

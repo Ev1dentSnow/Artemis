@@ -3,14 +3,13 @@
  */
 package Artemis;
 
-import Artemis.Views.LoginView;
-import Artemis.Views.StudentDashboard;
+import Artemis.ViewControllers.AdminDashboard;
 
 public class App {
 
     public static void main(String[] args) {
 
-        LoginView.main(args);
+        AdminDashboard.main(args);
 
 
     }

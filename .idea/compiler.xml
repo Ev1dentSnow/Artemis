@@ -6,7 +6,6 @@
       <module name="Artemis.app.main" target="15" />
       <module name="Artemis.app.test" target="15" />
       <module name="IdeaProjects.Artemis.main" target="15" />
-      <module name="IdeaProjects.Artemis.test" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
