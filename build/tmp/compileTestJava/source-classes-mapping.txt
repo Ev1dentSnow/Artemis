@@ -1,0 +1,6 @@
+Artemis/ViewTests/ViewTests.java
+ Artemis.ViewTests.ViewTests
+Artemis/ViewTests/StudentDashboardTest.java
+ Artemis.ViewTests.StudentDashboardTest
+Artemis/ViewTests/AdminDashboardTest.java
+ Artemis.ViewTests.AdminDashboardTest

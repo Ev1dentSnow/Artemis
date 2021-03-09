@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.calendarfx.view.YearMonthView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="736.0" prefWidth="1200.0" styleClass="background-dark" stylesheets="@AdminDashboard.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.ViewControllers.AdminDashboard">
+   <children>
+      <Pane prefHeight="736.0" prefWidth="150.0" styleClass="leftside-panel" stylesheets="@AdminDashboard.css">
+         <children>
+            <VBox layoutY="144.0" prefHeight="302.0" prefWidth="150.0" stylesheets="@AdminDashboard.css">
+               <children>
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" stylesheets="@AdminDashboard.css" text="Home" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/icons8-home-48.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Button>
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Students" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/icons8-student-male-64.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Teachers" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/icons8-teacher-50.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Timetables" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/icons8-timetable-64.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Button>
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Admin Panel" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/icons8-control-panel-64.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <Label layoutX="64.0" layoutY="620.0" styleClass="label-medium" stylesheets="@AdminDashboard.css" text="Pops Cantola" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="13.0" />
+               </font></Label>
+            <Label layoutX="63.0" layoutY="640.0" styleClass="label-medium" stylesheets="@AdminDashboard.css" text="Administrator" textFill="#d0cdcd">
+               <font>
+                  <Font name="Roboto Medium" size="13.0" />
+               </font></Label>
+            <ImageView id="avatarr" fx:id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="10.0" layoutY="506.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@AdminDashboard.css" text="Sign Out" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane layoutX="148.0" prefHeight="68.0" prefWidth="1052.0" styleClass="leftside-panel" />
+      <StackPane layoutX="150.0" layoutY="68.0" prefHeight="636.0" prefWidth="1042.0">
+         <children>
+            <Pane id="HomePane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="StudentsPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="TeachersPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="TimetablesPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="AdminPane" prefHeight="636.0" prefWidth="891.0">
+               <children>
+                  <Pane id="Dashboard" layoutX="29.0" layoutY="24.0" prefHeight="606.0" prefWidth="1012.0" styleClass="dashboard" stylesheets="@AdminDashboard.css">
+                     <children>
+                        <Pane id="WeatherCard" layoutX="540.0" layoutY="303.0" prefHeight="283.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                           <children>
+                              <Text fill="WHITE" layoutX="34.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-black" text="Weather">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="150.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-medium" text="7 Day Forecast">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Text>
+                              <HBox layoutX="38.0" layoutY="193.0" prefHeight="54.0" prefWidth="360.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon">
+                                       <HBox.margin>
+                                          <Insets top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tue">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Fri">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sat">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sun">
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                 </children></HBox>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-sun-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-partly-cloudy-day-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-storm-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="540.0" layoutY="19.0" prefHeight="262.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                           <children>
+                              <YearMonthView layoutX="19.0" layoutY="4.0" prefHeight="254.0" prefWidth="398.0" showUsageColors="true" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="38.0" layoutY="19.0" prefHeight="564.0" prefWidth="476.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                           <children>
+                              <Text fill="WHITE" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
+                                 <font>
+                                    <Font name="Roboto Black" size="30.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

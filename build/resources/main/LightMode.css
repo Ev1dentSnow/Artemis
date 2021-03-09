@@ -1,0 +1,99 @@
+@font-face{
+font-family: 'Roboto';
+font-family: 'Roboto';
+}
+
+.text{
+font-family: 'Roboto';
+}
+
+.leftside-pane{
+-fx-background-color:#0058a6;
+}
+
+.sidebar-button{
+-fx-background-color:#0058a6
+}
+
+.sidebar-button:hover{
+-fx-border-color:#ffffff;
+-fx-border-width:0px 0px 0px 2px;
+-fx-background-color:#005cb3;
+}
+
+.sidebar-button:focused{
+-fx-background-color:#0077e6;
+-fx-border-color:#E0E0E0;
+-fx-border-width:0px 0px 0px 3px;
+}
+
+.top-bar-button{
+-fx-background-color:#FAFAFA;
+}
+
+.top-bar-button:hover{
+cursor:grab
+}
+
+.rightside-pane{
+-fx-background-color:#E5E4E5;
+}
+
+.top-bar-pane{
+-fx-background-color:#FAFAFA;
+}
+
+.anchor-pane{
+-fx-background-color:#E5E4E5;
+}
+
+.first-block-pane{
+-fx-background-color:#FAFAFA;
+-fx-background-radius: 20px;
+}
+
+.widget-header{
+-fx-background-color:#FAFAFA;
+-fx-background-radius: 20px;
+}
+
+.discipline-list-view{
+-fx-background-radius: 10px;
+}
+
+.add-goal-button{
+-fx-background-color:#77d492;
+-fx-background-radius: 5px;
+}
+
+.add-goal-button:hover{
+-fx-background-color:#37ae59;
+}
+
+.edit-goal-button{
+-fx-background-color:#f0d975;
+-fx-background-radius:5px;
+}
+
+.edit-goal-button:hover{
+-fx-background-color:#b89a14;
+}
+
+.remove-goal-button{
+-fx-background-color:#e36868;
+-fx-background-radius: 5px;
+}
+
+.remove-goal-button:hover{
+-fx-background-color:#ac2020;
+}
+
+.goal-list{
+-fx-border-width: 0px;
+}
+
+.text{
+-fx-font-smoothing-type: gray;
+}
+
+
