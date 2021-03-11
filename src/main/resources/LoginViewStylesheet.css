@@ -1,14 +1,25 @@
+@font-face {
+    src: url('Roboto-Black.ttf');
+}
+
+@font-face {
+    src: url('Roboto-Medium.ttf');
+}
+
 .rightside-pane{
 -fx-background-color:#141414;
 }
 
 .text-fields{
 -fx-background-color:#141414;
+-fx-text-fill: white;
 }
 
+
 .loginbtn{
+-fx-font-family: 'Roboto Medium';
 -fx-background-color: white;
--fx-border-radius: 50px;
+-fx-background-radius: 50px;
 }
 
 .loginbtn:hover{

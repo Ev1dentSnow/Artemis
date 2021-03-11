@@ -39,6 +39,17 @@
 -fx-background-color:#0f96fc;
 }
 
+.signout-button{
+-fx-background-color:#00a6ff;
+-fx-background-radius:15px;
+}
+
+
+
+
+
+
+
 .year-month-view{
     -fx-foreground-color:#00468D;
 }
