@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.calendarfx.view.YearMonthView?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
@@ -118,7 +119,6 @@
          </children></Pane>
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="178.0" layoutY="74.0" prefHeight="576.0" prefWidth="922.0">
          <children>
-            <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css" />
             <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <AnchorPane layoutX="517.0" layoutY="308.0" prefHeight="235.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
@@ -456,6 +456,169 @@
                         </Tab>
                      </tabs>
                   </JFXTabPane>
+               </children>
+            </Pane>
+            <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <JFXTabPane layoutX="96.0" layoutY="77.0" prefHeight="455.0" prefWidth="609.0" stylesheets="@TabbedPanes.css">
+                     <tabs>
+                        <Tab styleClass="tab-timetable" text="Day 1">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="427.0" prefWidth="609.0">
+                                       <children>
+                                          <Pane prefHeight="53.5" prefWidth="609.0" styleClass="period-one" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mathematics">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 1">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="609.0" styleClass="period-two" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Physics">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 2">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="609.0" styleClass="period-three" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Business">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 3">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="609.0" styleClass="period-four" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I.T">
+                                                   <font>
+                                                      <Font size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 4">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="609.0" styleClass="period-five" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="274.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BREAK">
+                                                   <font>
+                                                      <Font size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="200.0" styleClass="period-break" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="English">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 5">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="200.0" styleClass="period-six" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L.O">
+                                                   <font>
+                                                      <Font size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 6">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="53.5" prefWidth="200.0" styleClass="period-seven" stylesheets="@TimeTablecolors.css">
+                                             <children>
+                                                <Text fill="WHITE" layoutX="357.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Afrikaans">
+                                                   <font>
+                                                      <Font name="System Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fill="WHITE" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period 7">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="22.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 2">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 3">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 4">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 5">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 6">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-timetable" text="Day 7">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+                  <Text layoutX="96.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timetable">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+                  <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="31.0" prefHeight="27.0" prefWidth="130.0" ripplerFill="WHITE" styleClass="btn-primary" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Export as PDF" />
                </children>
             </Pane>
          </children></StackPane>
