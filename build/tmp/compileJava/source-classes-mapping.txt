@@ -1,32 +1,28 @@
 Artemis/Models/Person.java
  Artemis.Models.Person
-Artemis/Models/Teacher.java
- Artemis.Models.Teacher
-Artemis/Models/Admin.java
- Artemis.Models.Admin
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
-Artemis/Models/Student.java
- Artemis.Models.Student
-Artemis/Models/House.java
- Artemis.Models.House
-Artemis/ViewControllers/temporary.java
- Artemis.ViewControllers.temporary
-Artemis/ViewControllers/StudentDashboard.java
- Artemis.ViewControllers.StudentDashboard
-Artemis/Controllers/MainController.java
- Artemis.Controllers.MainController
-Artemis/ViewControllers/AdminDashboard.java
- Artemis.ViewControllers.AdminDashboard
-Artemis/Views/StudentDashboard.java
- Artemis.Views.StudentDashboard
 Artemis/Views/LoginView.java
  Artemis.Views.LoginView
-Artemis/Views/AdminDashboard.java
- Artemis.Views.AdminDashboard
+Artemis/ViewControllers/AdminDashboard.java
+ Artemis.ViewControllers.AdminDashboard
+Artemis/Models/Student.java
+ Artemis.Models.Student
 Artemis/Views/temporary.java
  Artemis.Views.temporary
+Artemis/Models/House.java
+ Artemis.Models.House
+Artemis/Models/Admin.java
+ Artemis.Models.Admin
+Artemis/Views/StudentDashboard.java
+ Artemis.Views.StudentDashboard
+Artemis/ViewControllers/temporary.java
+ Artemis.ViewControllers.temporary
+Artemis/Models/Teacher.java
+ Artemis.Models.Teacher
+Artemis/ViewControllers/StudentDashboard.java
+ Artemis.ViewControllers.StudentDashboard
+Artemis/Views/AdminDashboard.java
+ Artemis.Views.AdminDashboard
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController
 Artemis/App.java
  Artemis.App
-Artemis/ViewControllers/LoginView.java
- Artemis.ViewControllers.LoginView

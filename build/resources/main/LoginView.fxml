@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="556.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="556.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.LoginController">
    <children>
       <Pane prefHeight="556.0" prefWidth="404.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,12 +26,11 @@
       </Pane>
       <Pane layoutX="404.0" prefHeight="556.0" prefWidth="489.0" styleClass="rightside-pane" stylesheets="@LoginViewStylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="68.0" layoutY="425.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="LOGIN">
+            <Button fx:id="btnLogin" layoutX="68.0" layoutY="425.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="41.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="LOGIN">
                <font>
                   <Font name="Segoe UI Bold" size="17.0" />
                </font>
             </Button>
-            <TextField id="txfUsername" fx:id="txfUsername" layoutX="76.0" layoutY="191.0" prefHeight="25.0" prefWidth="271.0" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
             <VBox fx:id="VBox" layoutX="68.0" layoutY="152.0" prefHeight="209.0" prefWidth="354.0">
                <children>
                   <Label prefHeight="20.0" prefWidth="67.0" text="Username" textFill="WHITE">
@@ -42,7 +41,7 @@
                         <Insets bottom="15.0" />
                      </padding>
                   </Label>
-                  <TextField styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <TextField fx:id="txfUsername" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
                   <Separator prefWidth="200.0">
                      <padding>
                         <Insets top="5.0" />
@@ -59,7 +58,7 @@
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Label>
-                  <PasswordField styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <PasswordField fx:id="txfPassword" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets />

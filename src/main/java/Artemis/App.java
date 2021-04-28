@@ -3,15 +3,37 @@
  */
 package Artemis;
 
-import Artemis.ViewControllers.AdminDashboard;
-import Artemis.ViewControllers.LoginView;
+import Artemis.Controllers.LoginController;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import org.apache.commons.logging.Log;
 
-public class App {
+public class App extends Application{
 
-    public static void main(String[] args) {
+    private String accessToken;
 
-        LoginView.main(args);
+    public static void main(String[] args){
 
+        launch(args);
+
+        LoginController loginController = new LoginController();
+        loginController.main(args);
+        loginController.setAccessToken(loginController.getAccessToken());
+        System.out.println(loginController.getAccessToken());
+
+
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
     }
 }
