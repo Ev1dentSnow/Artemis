@@ -1,15 +1,14 @@
 Artemis/Models/Person.java
  Artemis.Models.Person
-Artemis/Views/LoginView.java
- Artemis.Views.LoginView
+Artemis/App.java
+ Artemis.App
+ Artemis.App$1
 Artemis/ViewControllers/AdminDashboard.java
  Artemis.ViewControllers.AdminDashboard
-Artemis/Models/Student.java
- Artemis.Models.Student
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController
 Artemis/Views/temporary.java
  Artemis.Views.temporary
-Artemis/Models/House.java
- Artemis.Models.House
 Artemis/Models/Admin.java
  Artemis.Models.Admin
 Artemis/Views/StudentDashboard.java
@@ -22,7 +21,9 @@ Artemis/ViewControllers/StudentDashboard.java
  Artemis.ViewControllers.StudentDashboard
 Artemis/Views/AdminDashboard.java
  Artemis.Views.AdminDashboard
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
-Artemis/App.java
- Artemis.App
+Artemis/Views/LoginView.java
+ Artemis.Views.LoginView
+Artemis/Models/House.java
+ Artemis.Models.House
+Artemis/Models/Student.java
+ Artemis.Models.Student

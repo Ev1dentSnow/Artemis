@@ -4,25 +4,70 @@
 package Artemis;
 
 import Artemis.Controllers.LoginController;
+import Artemis.Views.StudentDashboard;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.commons.logging.Log;
 
+import javax.swing.*;
+import java.io.IOException;
+
 public class App extends Application{
 
-    private String accessToken;
+    private String permissionLevel = "";
+    private String accessToken = "";
 
     public static void main(String[] args){
 
+
         launch(args);
 
-        LoginController loginController = new LoginController();
-        loginController.main(args);
-        loginController.setAccessToken(loginController.getAccessToken());
-        System.out.println(loginController.getAccessToken());
+    }
+
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+        Parent root = loader.load();
+        LoginController loginController = loader.getController();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    loginController.start(primaryStage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
+
+        this.setAccessToken(loginController.getAccessToken());
+        this.setPermissionLevel(loginController.getRole());
+        System.out.println(loginController.getAccessToken());// line for testing purposes
+
+
+
 
 
     }
+
+
+
+
+
+
+
 
     public String getAccessToken() {
         return accessToken;
@@ -32,8 +77,12 @@ public class App extends Application{
         this.accessToken = accessToken;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
 
+    public String getPermissionLevel() {
+        return permissionLevel;
+    }
+
+    public void setPermissionLevel(String permissionLevel) {
+        this.permissionLevel = permissionLevel;
     }
 }

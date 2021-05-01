@@ -1,15 +1,15 @@
 package Artemis.Controllers;
 
+import Artemis.Models.Student;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.http.NameValuePair;
@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class LoginController extends Application {
     ComboBox choiceBox = new ComboBox(FXCollections.observableArrayList(userTypes));
 
     private String accessToken = "";
+    private String role = "";
 
     public static void main(String[] args) {
         launch(args);
@@ -53,23 +55,30 @@ public class LoginController extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
-        root.getChildren().add(choiceBox);
 
-        choiceBox.setLayoutX(520);
-        choiceBox.setLayoutY(365);
 
-        Scene scene = new Scene(root, 893,556);
-        scene.getStylesheets().add("LoginViewStylesheet.css");
+            AnchorPane root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
+            root.getChildren().add(choiceBox);
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            choiceBox.setLayoutX(520);
+            choiceBox.setLayoutY(365);
+
+            Scene scene = new Scene(root, 893,556);
+            scene.getStylesheets().add("LoginViewStylesheet.css");
+
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+
+
+
+
 
 
     }
 
     @FXML
-    private void submitLoginDetails(ActionEvent event) throws IOException, JSONException {
+    private void submitLoginDetails(ActionEvent event) throws UnsupportedEncodingException, IOException, JSONException {
         event.consume();
         String username = txfUsername.getText();
         String password = txfPassword.getText();
@@ -83,12 +92,54 @@ public class LoginController extends Application {
         httpPost.setEntity(new UrlEncodedFormEntity(body));
 
 
+        try{
+            CloseableHttpResponse response = httpClient.execute(httpPost);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            JSONObject tokenobj = new JSONObject(responseBody);
+            String responseToken = (String) tokenobj.get("access_token");
+            //String responsePermissionLevel = (String) tokenobj.get("role");
+            this.setAccessToken(responseToken);
+            //this.setRole(responsePermissionLevel);
+        }
+        catch(ConnectException e){
 
-        CloseableHttpResponse response = httpClient.execute(httpPost);
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject tokenobj = new JSONObject(responseBody);
-        String responseToken = (String) tokenobj.get("access_token");
-        this.setAccessToken(responseToken);
+            Alert connError = new Alert(Alert.AlertType.ERROR);
+            connError.setContentText("Error connecting to server");
+            connError.showAndWait();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        if((!this.getAccessToken().equals(""))){
+            alert.setContentText("Login Successful");
+            alert.showAndWait();
+
+            AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(StudentDashboard));
+            window.setResizable(false);
+            window.show();
+
+            Platform.exit();
+        }
+        else{
+
+
+            alert.setContentText("Login Failed");
+            alert.showAndWait();
+
+            alert.setContentText("Login Successful");
+            alert.showAndWait();
+
+            AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+            StudentDashboard.getStylesheets().add("TabbedPanes.css");
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(StudentDashboard));
+            window.setResizable(false);
+            window.show();
+
+        }
+
 
     }
 
@@ -99,5 +150,13 @@ public class LoginController extends Application {
 
     public void setAccessToken(String responseToken) {
         accessToken = responseToken;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
