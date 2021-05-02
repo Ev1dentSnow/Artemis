@@ -1,6 +1,6 @@
 package Artemis.ViewTests;
 
-import Artemis.ViewControllers.StudentDashboard;
+import Artemis.Controllers.StudentDashboard;
 
 public class StudentDashboardTest {
 

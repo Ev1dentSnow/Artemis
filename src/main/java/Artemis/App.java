@@ -4,17 +4,13 @@
 package Artemis;
 
 import Artemis.Controllers.LoginController;
-import Artemis.Views.StudentDashboard;
+import Artemis.Controllers.StudentDashboard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.apache.commons.logging.Log;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class App extends Application{
@@ -56,6 +52,7 @@ public class App extends Application{
         this.setPermissionLevel(loginController.getRole());
         System.out.println(loginController.getAccessToken());// line for testing purposes
 
+        StudentDashboard studentDashboardController = (StudentDashboard) loader.getController();
 
 
 

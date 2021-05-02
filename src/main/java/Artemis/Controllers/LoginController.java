@@ -138,6 +138,8 @@ public class LoginController extends Application {
             window.setResizable(false);
             window.show();
 
+
+
         }
 
 
@@ -159,4 +161,5 @@ public class LoginController extends Application {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

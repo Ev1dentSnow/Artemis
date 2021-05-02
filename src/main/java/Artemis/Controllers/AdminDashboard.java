@@ -1,4 +1,4 @@
-package Artemis.ViewControllers;
+package Artemis.Controllers;
 
 import com.calendarfx.view.YearMonthView;
 import javafx.application.Application;
