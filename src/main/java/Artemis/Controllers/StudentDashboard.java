@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,9 +45,13 @@ import java.util.*;
 
 public class StudentDashboard extends Application implements Initializable {
 
-    private String accessToken = "";
+    private static String accessToken;
 
     private String fullName = "";
+
+    private static int userId;
+
+
 
     //StackPane config
     @FXML
@@ -63,13 +69,13 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Panel alertPanel = new Panel();
     @FXML
-    private Label dayDate = new Label();
+    Label dayDate = new Label();
     @FXML
-    private TableView<Announcement> announcementTable;
+    TableView<Announcement> announcementTable;
     @FXML
-    private TableColumn<Announcement, String> subject;
+    TableColumn<Announcement, String> subject;
     @FXML
-    private Label fullNameText = new Label();
+    Label fullNameText = new Label();
 
 
     Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
@@ -106,6 +112,14 @@ public class StudentDashboard extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) { //for announcements table
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        ObservableList<Announcement> oannouncements = null;
+        try {
+            oannouncements = prepareHomePane();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+            announcementTable.getItems().setAll(oannouncements);
     }
 
     private String performHttpGet(String url) throws IOException {
@@ -122,37 +136,31 @@ public class StudentDashboard extends Application implements Initializable {
         return null;
     }
 
-    private void prepareHomePane() throws IOException, JSONException {
+    private ObservableList<Announcement> prepareHomePane() throws IOException, JSONException {
 
 
-        String studentResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/info");
+        String studentResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/" + userId);
         JSONObject nameObj = new JSONObject(studentResponseBody);
         String firstName = (nameObj.get("FirstName")).toString();
         String lastName = (nameObj.get("LastName").toString());
         fullNameText.setText(firstName + " " + lastName);
 
 
-        String announcementsResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/announcements");
+        String announcementsResponseBody = performHttpGet("http://127.0.0.1:5000/api/announcements");
 
             Gson gson = new Gson();
 
             Type announcementListType = new TypeToken<ArrayList<Announcement>>(){}.getType();
             ArrayList<Announcement> announcements = gson.fromJson(announcementsResponseBody, announcementListType);
-            announcementTable.getItems().setAll(announcements);
 
+        //table only accepts observable list, so the arraylist needs to be converted to an observable list like so...
+        return FXCollections.observableArrayList(announcements);
     }
-
-
-
-
 
 
     private void setDateAndTime(){
 
         String day = LocalDate.now().getDayOfWeek().name();
-
-
-
         DateFormat dateFormat = new SimpleDateFormat("dd/MM");
         Date date = new Date();
         String dateString = dateFormat.format(date);
@@ -177,5 +185,22 @@ public class StudentDashboard extends Application implements Initializable {
 
     public void setDayDate(String dd) {
         dayDate.setText(dd);
+    }
+
+
+    public static int getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(int userId) {
+        StudentDashboard.userId = userId;
+    }
+
+    public static String getAccessToken() {
+        return accessToken;
+    }
+
+    public static void setAccessToken(String accessToken) {
+        StudentDashboard.accessToken = accessToken;
     }
 }

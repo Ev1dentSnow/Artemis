@@ -47,7 +47,8 @@ public class LoginController extends Application {
     ComboBox choiceBox = new ComboBox(FXCollections.observableArrayList(userTypes));
 
     private String accessToken = "";
-    private String role = "";
+    private int permissionLevel = 0;
+    private int userId = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -81,9 +82,14 @@ public class LoginController extends Application {
             String responseBody = EntityUtils.toString(response.getEntity());
             JSONObject tokenobj = new JSONObject(responseBody);
             String responseToken = (String) tokenobj.get("access_token");
-            //String responsePermissionLevel = (String) tokenobj.get("role");
+            int permissionLevel = (Integer) tokenobj.get("role");
+            int userId = (Integer) tokenobj.get("user_id");
+
+
             this.setAccessToken(responseToken);
-            //this.setRole(responsePermissionLevel);
+            this.setPermissionLevel(permissionLevel);
+            StudentDashboard.setUserId(userId);
+            StudentDashboard.setAccessToken(responseToken);
         }
         catch(ConnectException e){
 
@@ -140,12 +146,19 @@ public class LoginController extends Application {
         accessToken = responseToken;
     }
 
-    public String getRole() {
-        return role;
+    public int getPermissionLevel() {
+        return permissionLevel;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPermissionLevel(int permissionLevel) {
+        this.permissionLevel = permissionLevel;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

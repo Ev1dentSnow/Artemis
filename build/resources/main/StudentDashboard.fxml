@@ -3,7 +3,6 @@
 <?import com.calendarfx.view.YearMonthView?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -109,7 +108,7 @@
                      </padding></Button>
                </children>
             </VBox>
-            <Label fx:id="fullName" layoutX="47.0" layoutY="220.0" text="Jacob Vantalala" textFill="WHITE">
+            <Label fx:id="fullNameText" layoutX="47.0" layoutY="220.0" text="Jacob Vantalala" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font></Label>
@@ -250,7 +249,7 @@
                         <TableColumn prefWidth="225.0" text="Appeal " />
                     </columns>
                   </TableView>
-                  <Button layoutX="766.0" layoutY="26.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="112.0" styleClass="btn-danger" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Assign Dots" />
+                  <Button layoutX="766.0" layoutY="26.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="112.0" text="Assign Dots" />
                </children>
             </Pane>
             <Pane id="AssignDotsPane" prefHeight="200.0" prefWidth="802.0" styleClass="anchor-pane" stylesheets="@LightMode.css">
@@ -264,15 +263,15 @@
                         <TableColumn prefWidth="361.0" text="Dots this week" />
                     </columns>
                   </TableView>
-                  <Button id="viewReasons" layoutX="780.0" layoutY="8.0" mnemonicParsing="false" styleClass="btn-warning" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="View Reasons" />
+                  <Button id="viewReasons" layoutX="780.0" layoutY="8.0" mnemonicParsing="false" text="View Reasons" />
                   <TextField alignment="TOP_LEFT" layoutX="67.0" layoutY="15.0" prefHeight="27.0" prefWidth="262.0" promptText="Search by first name" />
                   <ImageView fitHeight="32.0" fitWidth="34.0" layoutX="27.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@fxmlAssets/icons8-search-client-48.png" />
                      </image>
                   </ImageView>
-                  <Button id="viewReasons" layoutX="687.0" layoutY="8.0" mnemonicParsing="false" styleClass="btn-danger" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Give Dot" />
-                  <Button id="viewReasons" layoutX="596.0" layoutY="8.0" mnemonicParsing="false" styleClass="btn-success" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="&lt;- Back" />
+                  <Button id="viewReasons" layoutX="687.0" layoutY="8.0" mnemonicParsing="false" text="Give Dot" />
+                  <Button id="viewReasons" layoutX="596.0" layoutY="8.0" mnemonicParsing="false" text="&lt;- Back" />
                </children>
             </Pane>
             <Pane id="StudentMarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
@@ -522,7 +521,7 @@
                         <Font size="27.0" />
                      </font>
                   </Text>
-                  <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="31.0" prefHeight="27.0" prefWidth="130.0" ripplerFill="WHITE" styleClass="btn-primary" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Export as PDF" />
+                  <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="31.0" prefHeight="27.0" prefWidth="130.0" ripplerFill="WHITE" text="Export as PDF" />
                </children>
             </Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
@@ -574,26 +573,16 @@
                               <Font name="Calibri" size="30.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="annoucementTable" layoutX="11.0" layoutY="80.0" prefHeight="382.0" prefWidth="439.0" stylesheets="@AnnouncementTableLightMode.css">
+                        <TableView fx:id="announcementTable" layoutX="11.0" layoutY="80.0" prefHeight="382.0" prefWidth="439.0" stylesheets="@AnnouncementTableLightMode.css">
                           <columns>
-                            <TableColumn fx:id="subject" prefWidth="351.0" />
-                            <TableColumn fx:id="readMore" prefWidth="87.0" />
+                            <TableColumn fx:id="subject" prefWidth="438.0" />
                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
-                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css">
-                     <styleClass>
-                        <String fx:value="alert" />
-                        <String fx:value="alert-success" />
-                     </styleClass>
+                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0">
                      <children>
-                        <Label fx:id="welcomeBack" layoutX="14.0" layoutY="17.0" style="-fx-font-family: Roboto;" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Welcome back Jacob!">
-                           <styleClass>
-                              <String fx:value="text" />
-                              <String fx:value="text-success" />
-                           </styleClass>
-                        </Label>
+                        <Label fx:id="welcomeBack" layoutX="14.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back Jacob!" />
                      </children>
                   </Pane>
                </children></Pane>
@@ -620,7 +609,7 @@
                </cursor></Button>
             <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="852.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../java/Artemis/Assets/icons8-emergency-exit-96.png" />
+                  <Image url="@fxmlAssets/icons8-emergency-exit-96.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -635,7 +624,7 @@
             <Button layoutX="784.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css" />
             <ImageView fitHeight="28.0" fitWidth="29.0" layoutX="787.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../java/Artemis/Assets/icons8-job-96.png" />
+                  <Image url="@fxmlAssets/icons8-job-96.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
