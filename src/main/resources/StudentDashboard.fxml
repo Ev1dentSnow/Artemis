@@ -31,7 +31,7 @@
          <children>
             <VBox alignment="TOP_RIGHT" layoutY="288.0" prefHeight="362.0" prefWidth="175.0">
                <children>
-                  <Button id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnHomeActionPerformed" prefHeight="72.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="HOME" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="HOME" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
@@ -48,7 +48,7 @@
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font></Button>
-                  <Button id="btnMarks" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnMarksActionPerformed" prefHeight="72.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="MARKS" textFill="WHITE">
+                  <Button id="btnMarks" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="MARKS" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -62,7 +62,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnSubjectsActionPerformed" prefHeight="72.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="SUBJECTS" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="SUBJECTS" textAlignment="RIGHT" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -76,7 +76,7 @@
                      <padding>
                         <Insets left="20.0" top="16.0" />
                      </padding></Button>
-                  <Button id="btnDiscipline" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnDisciplineActionPerformed" prefHeight="72.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="DISCIPLINE" textFill="WHITE">
+                  <Button id="btnDiscipline" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="DISCIPLINE" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -93,7 +93,7 @@
                      <padding>
                         <Insets left="20.0" top="16.0" />
                      </padding></Button>
-                  <Button id="btnWeather" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnWeatherActionPerformed" prefHeight="72.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="WEATHER" textFill="WHITE">
+                  <Button id="btnWeather" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="WEATHER" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>

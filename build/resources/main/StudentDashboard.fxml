@@ -24,15 +24,14 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.HyperlinkLabel?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1100.0" styleClass="anchor-pane" stylesheets="@LightMode.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.ViewControllers.StudentDashboard">
+<AnchorPane prefHeight="650.0" prefWidth="1100.0" styleClass="anchor-pane" stylesheets="@LightMode.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.StudentDashboard">
    <children>
       <Pane prefHeight="650.0" prefWidth="178.0" styleClass="leftside-pane" stylesheets="@LightMode.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="TOP_RIGHT" layoutY="288.0" prefHeight="362.0" prefWidth="175.0">
                <children>
-                  <Button id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnHomeActionPerformed" prefHeight="72.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="HOME" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="406.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="HOME" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
@@ -49,7 +48,7 @@
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font></Button>
-                  <Button id="btnMarks" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnMarksActionPerformed" prefHeight="72.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="MARKS" textFill="WHITE">
+                  <Button id="btnMarks" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="399.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="MARKS" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -63,7 +62,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnSubjectsActionPerformed" prefHeight="72.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="SUBJECTS" textAlignment="RIGHT" textFill="WHITE">
+                  <Button id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="408.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="SUBJECTS" textAlignment="RIGHT" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -77,7 +76,7 @@
                      <padding>
                         <Insets left="20.0" top="16.0" />
                      </padding></Button>
-                  <Button id="btnDiscipline" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnDisciplineActionPerformed" prefHeight="72.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="DISCIPLINE" textFill="WHITE">
+                  <Button id="btnDiscipline" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="287.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="DISCIPLINE" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -94,7 +93,7 @@
                      <padding>
                         <Insets left="20.0" top="16.0" />
                      </padding></Button>
-                  <Button id="btnWeather" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnWeatherActionPerformed" prefHeight="72.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="WEATHER" textFill="WHITE">
+                  <Button id="btnWeather" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="407.0" styleClass="sidebar-button" stylesheets="@LightMode.css" text="WEATHER" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Bold" size="13.0" />
                      </font>
@@ -110,110 +109,15 @@
                      </padding></Button>
                </children>
             </VBox>
-            <Label layoutX="47.0" layoutY="220.0" text="Jacob Vantalala" textFill="WHITE">
+            <Label fx:id="fullName" layoutX="47.0" layoutY="220.0" text="Jacob Vantalala" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font></Label>
-            <Label layoutX="68.0" layoutY="244.0" text="FORM 4" textFill="WHITE" />
+            <Label fx:id="form" layoutX="68.0" layoutY="244.0" text="FORM 4" textFill="WHITE" />
             <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="158.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
          </children></Pane>
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="178.0" layoutY="74.0" prefHeight="576.0" prefWidth="922.0">
          <children>
-            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
-               <children>
-                  <AnchorPane layoutX="517.0" layoutY="308.0" prefHeight="235.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="331.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="209.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
-                           <font>
-                              <Font name="Calibri Bold" size="16.0" />
-                           </font></Label>
-                        <Text layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
-                           <font>
-                              <Font name="Arial Italic" size="23.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="461.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
-                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
-                           <font>
-                              <Font name="Calibri" size="30.0" />
-                           </font>
-                        </Label>
-                        <VBox layoutX="11.0" layoutY="77.0" prefHeight="401.0" prefWidth="445.0">
-                           <children>
-                              <HyperlinkLabel text="Announcement 1">
-                                 <padding>
-                                    <Insets bottom="50.0" top="30.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement 2">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement 3">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announecment 4">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                              <HyperlinkLabel text="Announcement  5">
-                                 <padding>
-                                    <Insets bottom="50.0" />
-                                 </padding>
-                              </HyperlinkLabel>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css">
-                     <styleClass>
-                        <String fx:value="alert" />
-                        <String fx:value="alert-success" />
-                     </styleClass>
-                     <children>
-                        <Label layoutX="14.0" layoutY="17.0" style="-fx-font-family: Roboto;" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Welcome back Jacob!">
-                           <styleClass>
-                              <String fx:value="text" />
-                              <String fx:value="text-success" />
-                           </styleClass>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children></Pane>
             <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <Text layoutX="358.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This Week's Weather" wrappingWidth="234.154296875">
@@ -621,6 +525,78 @@
                   <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="31.0" prefHeight="27.0" prefWidth="130.0" ripplerFill="WHITE" styleClass="btn-primary" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Export as PDF" />
                </children>
             </Pane>
+            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <AnchorPane layoutX="517.0" layoutY="308.0" prefHeight="235.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="331.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="209.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font></Label>
+                        <Text layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
+                           <font>
+                              <Font name="Arial Italic" size="23.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="461.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
+                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
+                           <font>
+                              <Font name="Calibri" size="30.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="annoucementTable" layoutX="11.0" layoutY="80.0" prefHeight="382.0" prefWidth="439.0" stylesheets="@AnnouncementTableLightMode.css">
+                          <columns>
+                            <TableColumn fx:id="subject" prefWidth="351.0" />
+                            <TableColumn fx:id="readMore" prefWidth="87.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css">
+                     <styleClass>
+                        <String fx:value="alert" />
+                        <String fx:value="alert-success" />
+                     </styleClass>
+                     <children>
+                        <Label fx:id="welcomeBack" layoutX="14.0" layoutY="17.0" style="-fx-font-family: Roboto;" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="Welcome back Jacob!">
+                           <styleClass>
+                              <String fx:value="text" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children></Pane>
          </children></StackPane>
       <Pane layoutX="178.0" prefHeight="66.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@LightMode.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <opaqueInsets>
@@ -633,7 +609,7 @@
                </color></DropShadow>
          </effect>
          <children>
-            <Label layoutX="30.0" layoutY="18.0" prefHeight="29.0" prefWidth="165.0" text="Monday 12 February">
+            <Label fx:id="dayDate" layoutX="30.0" layoutY="18.0" prefHeight="29.0" prefWidth="165.0" text="Monday 12 February">
                <font>
                   <Font name="Calibri Bold" size="18.0" />
                </font>

@@ -23,6 +23,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -55,26 +56,6 @@ public class LoginController extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-
-
-            AnchorPane root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
-            root.getChildren().add(choiceBox);
-
-            choiceBox.setLayoutX(520);
-            choiceBox.setLayoutY(365);
-
-            Scene scene = new Scene(root, 893,556);
-            scene.getStylesheets().add("LoginViewStylesheet.css");
-
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-
-
-
-
-
-
     }
 
     @FXML
@@ -82,6 +63,8 @@ public class LoginController extends Application {
         event.consume();
         String username = txfUsername.getText();
         String password = txfPassword.getText();
+
+        int responseStatusCode = 0;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://127.0.0.1:5000/auth/login");
@@ -94,6 +77,7 @@ public class LoginController extends Application {
 
         try{
             CloseableHttpResponse response = httpClient.execute(httpPost);
+            responseStatusCode = response.getStatusLine().getStatusCode();
             String responseBody = EntityUtils.toString(response.getEntity());
             JSONObject tokenobj = new JSONObject(responseBody);
             String responseToken = (String) tokenobj.get("access_token");
@@ -108,27 +92,29 @@ public class LoginController extends Application {
             connError.showAndWait();
         }
 
+
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-        if((!this.getAccessToken().equals(""))){
+        if(responseStatusCode == 200){
             alert.setContentText("Login Successful");
             alert.showAndWait();
 
             AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(new Scene(StudentDashboard));
+            StudentDashboard.getStylesheets().setAll(BootstrapFX.bootstrapFXStylesheet());
             window.setResizable(false);
+            window.setWidth(1100);
+            window.setHeight(680);
             window.show();
 
-            Platform.exit();
+
         }
         else{
 
 
-            alert.setContentText("Login Failed");
-            alert.showAndWait();
-
-            alert.setContentText("Login Successful");
+            alert.setContentText("Login Failed, HTTP STATUS CODE: " + responseStatusCode);
             alert.showAndWait();
 
             AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));

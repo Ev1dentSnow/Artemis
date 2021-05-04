@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +27,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import org.kordamp.bootstrapfx.scene.layout.Panel;
 
@@ -60,11 +63,13 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Panel alertPanel = new Panel();
     @FXML
-    private Text dayDate = new Text();
+    private Label dayDate = new Label();
     @FXML
     private TableView<Announcement> announcementTable;
     @FXML
     private TableColumn<Announcement, String> subject;
+    @FXML
+    private Label fullNameText = new Label();
 
 
     Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
@@ -76,21 +81,9 @@ public class StudentDashboard extends Application implements Initializable {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException{
-        //Load FXML file and display window
-        Parent root = FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+    public void start(Stage primaryStage) throws IOException, JSONException {
 
 
-        //alertPanel.getStyleClass().setAll("alert","alert-success");
-
-
-
-        Scene scene = new Scene(root,1100,650);
-        //scene.getStylesheets().add("LightMode.css");
-        scene.getStylesheets().setAll(BootstrapFX.bootstrapFXStylesheet()); //for bootstrapFX compatibility
-        //hidePreviousPane(homePane);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
         this.prepareHomePane();
         //---------------------UPDATING DASHBOARD TIME EVERY 5 SECONDS ON ANOTHER THREAD-------------------------
@@ -115,31 +108,44 @@ public class StudentDashboard extends Application implements Initializable {
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
     }
 
-    private void prepareHomePane() throws IOException {
-
-
-
-
+    private String performHttpGet(String url) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet("http://127.0.0.1:5000/api/student/home");
+        HttpGet request = new HttpGet(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-
         try{
             CloseableHttpResponse response = client.execute(request);
-            String responseBody = EntityUtils.toString(response.getEntity());
-
-            Gson gson = new Gson();
-
-            Type announcementListType = new TypeToken<ArrayList<Announcement>>(){}.getType();
-            ArrayList<Announcement> announcements = gson.fromJson(responseBody, announcementListType);
-            announcementTable.getItems().setAll(announcements);
-
-
+            return EntityUtils.toString(response.getEntity());
         }
         catch(ConnectException e){
             e.printStackTrace();
         }
+        return null;
     }
+
+    private void prepareHomePane() throws IOException, JSONException {
+
+
+        String studentResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/info");
+        JSONObject nameObj = new JSONObject(studentResponseBody);
+        String firstName = (nameObj.get("FirstName")).toString();
+        String lastName = (nameObj.get("LastName").toString());
+        fullNameText.setText(firstName + " " + lastName);
+
+
+        String announcementsResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/announcements");
+
+            Gson gson = new Gson();
+
+            Type announcementListType = new TypeToken<ArrayList<Announcement>>(){}.getType();
+            ArrayList<Announcement> announcements = gson.fromJson(announcementsResponseBody, announcementListType);
+            announcementTable.getItems().setAll(announcements);
+
+    }
+
+
+
+
+
 
     private void setDateAndTime(){
 
@@ -165,7 +171,7 @@ public class StudentDashboard extends Application implements Initializable {
         this.fullName = fullName;
     }
 
-    public Text getDayDate() {
+    public Label getDayDate() {
         return dayDate;
     }
 
