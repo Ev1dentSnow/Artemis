@@ -26,7 +26,7 @@
       </Pane>
       <Pane layoutX="404.0" prefHeight="556.0" prefWidth="489.0" styleClass="rightside-pane" stylesheets="@LoginViewStylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="btnLogin" layoutX="68.0" layoutY="425.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="41.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="LOGIN">
+            <Button fx:id="btnLogin" layoutX="68.0" layoutY="408.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="58.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="LOGIN">
                <font>
                   <Font name="Segoe UI Bold" size="17.0" />
                </font>
@@ -69,11 +69,6 @@
                   </Separator>
                </children>
             </VBox>
-            <Label layoutX="68.0" layoutY="370.0" text="I am a:" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
    </children>

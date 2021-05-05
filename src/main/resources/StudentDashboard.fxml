@@ -573,9 +573,9 @@
                               <Font name="Calibri" size="30.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="announcementTable" layoutX="11.0" layoutY="80.0" prefHeight="382.0" prefWidth="439.0" stylesheets="@AnnouncementTableLightMode.css">
+                        <TableView fx:id="announcementTable" layoutX="1.0" layoutY="65.0" prefHeight="407.0" prefWidth="461.0" stylesheets="@AnnouncementTableLightMode.css">
                           <columns>
-                            <TableColumn fx:id="subject" prefWidth="438.0" />
+                            <TableColumn fx:id="subject" prefWidth="460.0" />
                           </columns>
                         </TableView>
                      </children>
