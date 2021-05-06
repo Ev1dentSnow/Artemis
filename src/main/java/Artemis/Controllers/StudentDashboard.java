@@ -1,28 +1,26 @@
 package Artemis.Controllers;
 
-import Artemis.Controllers.LoginController;
 import Artemis.Models.Announcement;
-import Artemis.Models.Student;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
+import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -31,16 +29,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.kordamp.bootstrapfx.BootstrapFX;
 import org.kordamp.bootstrapfx.scene.layout.Panel;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 public class StudentDashboard extends Application implements Initializable {
@@ -50,6 +45,9 @@ public class StudentDashboard extends Application implements Initializable {
     private String fullName = "";
 
     private static int userId;
+
+    final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+
 
 
 
@@ -69,7 +67,7 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Panel alertPanel = new Panel();
     @FXML
-    Label dayDate = new Label();
+    Label timeLabel = new Label();
     @FXML
     TableView<Announcement> announcementTable;
     @FXML
@@ -91,18 +89,7 @@ public class StudentDashboard extends Application implements Initializable {
 
 
 
-        this.prepareHomePane();
-        //---------------------UPDATING DASHBOARD TIME EVERY 5 SECONDS ON ANOTHER THREAD-------------------------
-        Timer timer = new Timer();
-        TimerTask updateTime = new TimerTask() {
-            @Override
-            public void run() {
-                setDateAndTime();
-            }
-        };
 
-        timer.schedule(updateTime, 5000, 5000);
-        //----------------------------------------------------------------------
 
 
 
@@ -120,6 +107,22 @@ public class StudentDashboard extends Application implements Initializable {
         }
 
             announcementTable.getItems().setAll(oannouncements);
+
+
+        //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler() {
+        //event.consume() is never called, so the event keeps looping over and over every second
+            @Override
+            public void handle(Event event) {
+                Calendar cal = Calendar.getInstance();
+                timeLabel.setText(timeFormat.format(cal.getTime()));
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+        //-------------------------------------------------------------------------------------------
     }
 
     private String performHttpGet(String url) throws IOException {
@@ -158,17 +161,6 @@ public class StudentDashboard extends Application implements Initializable {
     }
 
 
-    private void setDateAndTime(){
-
-        String day = LocalDate.now().getDayOfWeek().name();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
-        Date date = new Date();
-        String dateString = dateFormat.format(date);
-
-
-        this.setDayDate(day);
-
-    }
 
 
     public String getFullName() {
@@ -179,12 +171,12 @@ public class StudentDashboard extends Application implements Initializable {
         this.fullName = fullName;
     }
 
-    public Label getDayDate() {
-        return dayDate;
+    public Label getTimeLabel() {
+        return timeLabel;
     }
 
-    public void setDayDate(String dd) {
-        dayDate.setText(dd);
+    public void setTimeLabel(String dd) {
+        timeLabel.setText(dd);
     }
 
 
