@@ -13,6 +13,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +37,9 @@ import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.*;
 
 public class StudentDashboard extends Application implements Initializable {
@@ -67,6 +71,8 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Panel alertPanel = new Panel();
     @FXML
+    Label dateLabel = new Label();
+    @FXML
     Label timeLabel = new Label();
     @FXML
     TableView<Announcement> announcementTable;
@@ -74,6 +80,8 @@ public class StudentDashboard extends Application implements Initializable {
     TableColumn<Announcement, String> subject;
     @FXML
     Label fullNameText = new Label();
+    @FXML
+    Label welcomeBack = new Label();
 
 
     Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
@@ -87,13 +95,6 @@ public class StudentDashboard extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws IOException, JSONException {
 
-
-
-
-
-
-
-
     }
 
     @Override
@@ -105,9 +106,7 @@ public class StudentDashboard extends Application implements Initializable {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
-            announcementTable.getItems().setAll(oannouncements);
-
+        announcementTable.getItems().setAll(oannouncements);
 
         //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
 
@@ -115,8 +114,14 @@ public class StudentDashboard extends Application implements Initializable {
         //event.consume() is never called, so the event keeps looping over and over every second
             @Override
             public void handle(Event event) {
+                //set timeLabel
                 Calendar cal = Calendar.getInstance();
                 timeLabel.setText(timeFormat.format(cal.getTime()));
+                LocalDate date = LocalDate.now();
+                //set dateLabel
+                int day = fetchDayOfWeek(date);
+                String dayString = fetchDayOfWeekString(date);
+                dateLabel.setText(dayString + " " + day + " " + date.getMonth());
             }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -129,27 +134,33 @@ public class StudentDashboard extends Application implements Initializable {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         try{
             CloseableHttpResponse response = client.execute(request);
             return EntityUtils.toString(response.getEntity());
         }
         catch(ConnectException e){
-            e.printStackTrace();
+            alert.setContentText("Error connecting to server");
+            alert.showAndWait();
         }
+        catch (Exception f){
+            f.printStackTrace();
+        }
+
         return null;
     }
 
     private ObservableList<Announcement> prepareHomePane() throws IOException, JSONException {
 
 
-        String studentResponseBody = performHttpGet("http://127.0.0.1:5000/api/student/home/" + userId);
+        String studentResponseBody = performHttpGet("https://artemisapi.herokuapp.com/api/student/home/" + userId);
         JSONObject nameObj = new JSONObject(studentResponseBody);
         String firstName = (nameObj.get("FirstName")).toString();
         String lastName = (nameObj.get("LastName").toString());
         fullNameText.setText(firstName + " " + lastName);
+        welcomeBack.setText("Welcome back " + firstName);
 
-
-        String announcementsResponseBody = performHttpGet("http://127.0.0.1:5000/api/announcements");
+        String announcementsResponseBody = performHttpGet("https://artemisapi.herokuapp.com/api/announcements");
 
             Gson gson = new Gson();
 
@@ -160,7 +171,15 @@ public class StudentDashboard extends Application implements Initializable {
         return FXCollections.observableArrayList(announcements);
     }
 
+    private int fetchDayOfWeek(LocalDate date){
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return dayOfWeek.getValue();
+    }
 
+    private String fetchDayOfWeekString(LocalDate date){
+        DayOfWeek day = date.getDayOfWeek();
+        return day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    }
 
 
     public String getFullName() {
@@ -171,12 +190,12 @@ public class StudentDashboard extends Application implements Initializable {
         this.fullName = fullName;
     }
 
-    public Label getTimeLabel() {
-        return timeLabel;
+    public Label getDateLabel() {
+        return dateLabel;
     }
 
-    public void setTimeLabel(String dd) {
-        timeLabel.setText(dd);
+    public void setDateLabel(String dd) {
+        dateLabel.setText(dd);
     }
 
 

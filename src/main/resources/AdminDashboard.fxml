@@ -108,26 +108,26 @@
             <ImageView id="avatarr" fx:id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="10.0" layoutY="506.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@AdminDashboard.css" text="Sign Out" textFill="WHITE" />
             <Circle fx:id="avatarCircle" fill="DODGERBLUE" layoutX="34.0" layoutY="635.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <ImageView fitHeight="101.0" fitWidth="104.0" layoutX="23.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="91.0" fitWidth="150.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxmlAssets/1200px-Artemis_program_(solid_with_wordmark).png" />
+                  <Image url="@fxmlAssets/ArtemisCropped.PNG" />
                </image>
             </ImageView>
          </children>
       </Pane>
       <Pane layoutX="148.0" prefHeight="68.0" prefWidth="1052.0" styleClass="leftside-panel">
          <children>
-            <Text fill="WHITE" layoutX="24.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday 12 February">
+            <Separator layoutX="199.0" layoutY="5.0" orientation="VERTICAL" prefHeight="54.0" prefWidth="0.0" style="-fx-border-width: 0.5;" />
+            <Label fx:id="dateLabel" layoutX="22.0" layoutY="20.0" prefHeight="28.0" prefWidth="141.0" text="Monday 8 May" textFill="WHITE">
                <font>
                   <Font size="19.0" />
                </font>
-            </Text>
-            <Separator layoutX="199.0" layoutY="5.0" orientation="VERTICAL" prefHeight="54.0" prefWidth="0.0" />
-            <Text fill="WHITE" layoutX="214.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9:21 AM">
+            </Label>
+            <Label fx:id="timeLabel" layoutX="231.0" layoutY="20.0" prefHeight="28.0" prefWidth="80.0" text="9:41 AM" textFill="WHITE">
                <font>
                   <Font size="19.0" />
                </font>
-            </Text>
+            </Label>
          </children></Pane>
       <StackPane layoutX="150.0" layoutY="68.0" prefHeight="668.0" prefWidth="1042.0">
          <children>
@@ -281,7 +281,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
                                  <children>
-                                    <TableView layoutX="8.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0">
+                                    <TableView layoutX="8.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
                                       <columns>
                                         <TableColumn prefWidth="128.0" text="First Name" />
                                         <TableColumn prefWidth="157.0" text="Second Name(s)" />

@@ -96,4 +96,10 @@ cursor:grab
 -fx-font-smoothing-type: gray;
 }
 
+.alert-success {
+  -fx-background-color: #dff0d8;
+  -fx-border-color: #d6e9c6;
+  -fx-foreground-color: #3c763d;
+}
+
 

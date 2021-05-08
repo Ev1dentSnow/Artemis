@@ -2,21 +2,21 @@ Artemis/Models/Person.java
  Artemis.Models.Person
 Artemis/Models/Teacher.java
  Artemis.Models.Teacher
-Artemis/Models/Student.java
- Artemis.Models.Student
+Artemis/App.java
+ Artemis.App
 Artemis/Models/Announcement.java
  Artemis.Models.Announcement
 Artemis/Controllers/AdminDashboard.java
  Artemis.Controllers.AdminDashboard
+Artemis/Models/Student.java
+ Artemis.Models.Student
 Artemis/Models/Admin.java
  Artemis.Models.Admin
-Artemis/App.java
- Artemis.App
 Artemis/Models/House.java
  Artemis.Models.House
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController

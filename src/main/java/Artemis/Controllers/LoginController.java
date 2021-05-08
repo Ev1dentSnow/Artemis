@@ -1,5 +1,6 @@
 package Artemis.Controllers;
 
+import Artemis.App;
 import Artemis.Models.Student;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.http.NameValuePair;
@@ -33,6 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginController extends Application {
+
+    private static final String LOCAL_LOGIN_URL = "http://127.0.0.1:5000/auth/login";
+    private static final String ONLINE_LOGIN_URL = "https://artemisapi.herokuapp.com/auth/login";
 
     @FXML
     TextField txfUsername = new TextField();
@@ -65,7 +70,7 @@ public class LoginController extends Application {
             int responseStatusCode = 0;
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("http://127.0.0.1:5000/auth/login");
+            HttpPost httpPost = new HttpPost(ONLINE_LOGIN_URL);
 
             List<NameValuePair> body = new ArrayList<NameValuePair>();
             body.add(new BasicNameValuePair("username", username));
@@ -95,19 +100,25 @@ public class LoginController extends Application {
                     StudentDashboard.setUserId(userId);
                     StudentDashboard.setAccessToken(responseToken);
 
-                    AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(new Scene(StudentDashboard));
-                    StudentDashboard.getStylesheets().add("TabbedPanes.css");
-                    window.setResizable(false);
-                    window.setWidth(1100);
-                    window.setHeight(680);
-                    window.show();
+                    if(permissionLevel == 1){
+                       loadStudentDashboard();
+                    }
+                    else if(permissionLevel == 2){
+                        loadTeacherDashboard();
+                    }
+                    else if(permissionLevel == 3){
+                        loadAdminDashboard();
+                    }
+
                 } else {
-
-                    alert.setContentText("Login Failed, HTTP STATUS CODE: " + responseStatusCode);
-                    alert.showAndWait();
-
+                    if(responseStatusCode == 401){
+                        alert.setContentText("Invalid Credentials");
+                        alert.showAndWait();
+                    }
+                    else{
+                        alert.setContentText("Login Failed, HTTP STATUS CODE: " + responseStatusCode);
+                        alert.showAndWait();
+                    }
                 }
 
             } catch (ConnectException e) {
@@ -124,6 +135,42 @@ public class LoginController extends Application {
         }
 
     }
+
+    @FXML
+    private void forgotPassword(ActionEvent event){
+        event.consume();
+        Alert forgotAlert = new Alert(Alert.AlertType.INFORMATION);
+        forgotAlert.setContentText("Please contact a system administrator to reset your password for you");
+        forgotAlert.showAndWait();
+    }
+
+    private void loadStudentDashboard() throws IOException {
+        AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+        Stage window = new Stage();
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.setTitle("Artemis");
+        window.setScene(new Scene(StudentDashboard));
+        StudentDashboard.getStylesheets().add("TabbedPanes.css");
+        window.setResizable(false);
+        window.setWidth(1100);
+        window.setHeight(680);
+        window.show();
+    }
+
+    private void loadTeacherDashboard(){
+
+    }
+
+    private void loadAdminDashboard() throws IOException {
+        AnchorPane AdminDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/AdminDashboard.fxml"));
+        Stage window = new Stage();
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.setTitle("Artemis");
+        window.setScene(new Scene(AdminDashboard));
+        window.setResizable(false);
+        window.show();
+    }
+
 
 
     public String getAccessToken() {
