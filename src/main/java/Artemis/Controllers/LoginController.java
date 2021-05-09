@@ -47,7 +47,7 @@ public class LoginController extends Application {
 
 
     private String accessToken = "";
-    private int permissionLevel = 0;
+    private String permissionLevel = "";
     private int userId = 0;
 
     public static void main(String[] args) {
@@ -92,7 +92,7 @@ public class LoginController extends Application {
 
                     JSONObject tokenobj = new JSONObject(responseBody);
                     String responseToken = (String) tokenobj.get("access_token");
-                    int permissionLevel = (Integer) tokenobj.get("role");
+                    String permissionLevel = (String) tokenobj.get("role");
                     int userId = (Integer) tokenobj.get("user_id");
 
                     this.setAccessToken(responseToken);
@@ -100,14 +100,14 @@ public class LoginController extends Application {
                     StudentDashboard.setUserId(userId);
                     StudentDashboard.setAccessToken(responseToken);
 
-                    if(permissionLevel == 1){
-                       loadStudentDashboard();
+                    if(permissionLevel.equals("student")){
+                       loadStudentDashboard(event);
                     }
-                    else if(permissionLevel == 2){
-                        loadTeacherDashboard();
+                    else if(permissionLevel.equals("teacher")){
+                        loadTeacherDashboard(event);
                     }
-                    else if(permissionLevel == 3){
-                        loadAdminDashboard();
+                    else if(permissionLevel.equals("admin")){
+                        loadAdminDashboard(event);
                     }
 
                 } else {
@@ -144,9 +144,9 @@ public class LoginController extends Application {
         forgotAlert.showAndWait();
     }
 
-    private void loadStudentDashboard() throws IOException {
+    private void loadStudentDashboard(ActionEvent event) throws IOException {
         AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
-        Stage window = new Stage();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(StudentDashboard));
@@ -157,11 +157,11 @@ public class LoginController extends Application {
         window.show();
     }
 
-    private void loadTeacherDashboard(){
+    private void loadTeacherDashboard(ActionEvent event){
 
     }
 
-    private void loadAdminDashboard() throws IOException {
+    private void loadAdminDashboard(ActionEvent event) throws IOException {
         AnchorPane AdminDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/AdminDashboard.fxml"));
         Stage window = new Stage();
         window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
@@ -181,11 +181,11 @@ public class LoginController extends Application {
         accessToken = responseToken;
     }
 
-    public int getPermissionLevel() {
+    public String getPermissionLevel() {
         return permissionLevel;
     }
 
-    public void setPermissionLevel(int permissionLevel) {
+    public void setPermissionLevel(String permissionLevel) {
         this.permissionLevel = permissionLevel;
     }
 

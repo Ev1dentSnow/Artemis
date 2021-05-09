@@ -23,7 +23,7 @@ import javafx.util.Duration;
 import org.checkerframework.checker.units.qual.C;
 import org.w3c.dom.Text;
 
-import java.awt.*;
+import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;

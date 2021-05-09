@@ -105,9 +105,9 @@
                <font>
                   <Font name="Roboto Medium" size="13.0" />
                </font></Label>
-            <ImageView id="avatarr" fx:id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="10.0" layoutY="506.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@AdminDashboard.css" text="Sign Out" textFill="WHITE" />
-            <Circle fx:id="avatarCircle" fill="DODGERBLUE" layoutX="34.0" layoutY="635.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="635.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <ImageView fitHeight="91.0" fitWidth="150.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@fxmlAssets/ArtemisCropped.PNG" />
@@ -188,41 +188,13 @@
                                        </HBox.margin>
                                     </Text>
                                  </children></HBox>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-sun-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-partly-cloudy-day-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-storm-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/icons8-rain-48.png" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="540.0" layoutY="19.0" prefHeight="262.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
@@ -292,7 +264,7 @@
                                       </columns>
                                     </TableView>
                                     <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
-                                    <JFXButton layoutX="917.0" layoutY="22.0" styleClass="btn-info" stylesheets="@bootstrapbootleg/Fextile-master/src/main/resources/fextile.css" text="View Full Info" />
+                                    <JFXButton layoutX="917.0" layoutY="22.0" styleClass="btn-info" text="View Full Info" />
                                     <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
