@@ -3,6 +3,7 @@ package Artemis.Controllers;
 import Artemis.Models.Announcement;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jfoenix.controls.JFXTabPane;
 import javafx.animation.Animation;
 import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
@@ -10,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -63,7 +65,7 @@ public class StudentDashboard extends Application implements Initializable {
 
     //StackPane config
     @FXML
-    Pane stackPane = new StackPane();
+    StackPane stackPane = new StackPane();
     @FXML
     Pane homePane = new Pane();
     @FXML
@@ -88,11 +90,9 @@ public class StudentDashboard extends Application implements Initializable {
     Label fullNameText = new Label();
     @FXML
     Label welcomeBack = new Label();
+    @FXML
+    JFXTabPane marksTabPane = new JFXTabPane();
 
-
-
-    Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
-    
 
     public static void main(String[] args) {
         launch(args);
@@ -114,7 +114,7 @@ public class StudentDashboard extends Application implements Initializable {
             e.printStackTrace();
         }
         announcementTable.getItems().setAll(oannouncements);
-
+        initStackPane();
         //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -153,7 +153,6 @@ public class StudentDashboard extends Application implements Initializable {
         catch (Exception f){
             f.printStackTrace();
         }
-
         return null;
     }
 
@@ -186,6 +185,42 @@ public class StudentDashboard extends Application implements Initializable {
     private String fetchDayOfWeekString(LocalDate date){
         DayOfWeek day = date.getDayOfWeek();
         return day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    }
+
+    private void initStackPane(){
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(homePane);
+    }
+
+    @FXML
+    private void homeActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(homePane);
+    }
+    @FXML
+    private void marksActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(marksPane);
+    }
+    @FXML
+    private void subjectsActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(subjectsPane);
+    }
+    @FXML
+    private void disciplineActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(disciplinePane);
+    }
+    @FXML
+    private void weatherActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(weatherPane);
     }
 
 
