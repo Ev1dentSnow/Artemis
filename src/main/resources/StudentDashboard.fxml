@@ -108,12 +108,13 @@
                      </padding></Button>
                </children>
             </VBox>
-            <Label fx:id="fullNameText" layoutX="32.0" layoutY="220.0" text="Jacob Vantalala" textFill="WHITE">
+            <Label fx:id="fullNameText" layoutX="66.0" layoutY="219.0" text="Joe Mo" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font></Label>
-            <Label fx:id="form" layoutX="56.0" layoutY="244.0" text="FORM 4" textFill="WHITE" />
+            <Label fx:id="form" layoutX="65.0" layoutY="244.0" text="FORM 4" textAlignment="CENTER" textFill="WHITE" />
             <Circle fill="DODGERBLUE" layoutX="88.0" layoutY="158.0" radius="49.0" stroke="BLACK" strokeType="INSIDE" />
+            <Separator layoutX="30.0" layoutY="272.0" prefHeight="3.0" prefWidth="119.0" styleClass="separatorr2" stylesheets="@LoginViewStylesheet.css" />
          </children></Pane>
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="178.0" layoutY="74.0" prefHeight="576.0" prefWidth="922.0">
          <children>
@@ -526,7 +527,7 @@
             </Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
-                  <AnchorPane layoutX="517.0" layoutY="308.0" prefHeight="235.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                  <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
                      <effect>
                         <DropShadow>
                            <color>
@@ -535,10 +536,10 @@
                         </DropShadow>
                      </effect>
                      <children>
-                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="331.0" />
+                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="337.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="209.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="200.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
                      <effect>
                         <DropShadow>
                            <color>
@@ -558,7 +559,7 @@
                         </Text>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="461.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="462.0" styleClass="widget-header" stylesheets="@LightMode.css">
                      <effect>
                         <DropShadow>
                            <color>
@@ -582,7 +583,7 @@
                   </AnchorPane>
                   <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" styleClass="alert-success" stylesheets="@LightMode.css">
                      <children>
-                        <Label fx:id="welcomeBack" layoutX="14.0" layoutY="11.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
+                        <Label fx:id="welcomeBack" layoutX="21.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
                            <font>
                               <Font name="Calibri" size="16.0" />
                            </font></Label>
@@ -601,7 +602,7 @@
                </color></DropShadow>
          </effect>
          <children>
-            <Label fx:id="dateLabel" layoutX="30.0" layoutY="18.0" prefHeight="29.0" prefWidth="165.0" text="Monday 12 February">
+            <Label fx:id="dateLabel" layoutX="30.0" layoutY="18.0" prefHeight="29.0" prefWidth="165.0" text="Monday 12 February" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="18.0" />
                </font>
@@ -619,7 +620,7 @@
                </cursor>
             </ImageView>
             <Separator layoutX="200.0" layoutY="12.0" orientation="VERTICAL" prefHeight="41.0" prefWidth="5.0" />
-            <Label fx:id="timeLabel" layoutX="219.0" layoutY="18.0" prefHeight="30.0" prefWidth="76.0" text="9:21 AM">
+            <Label fx:id="timeLabel" layoutX="219.0" layoutY="18.0" prefHeight="30.0" prefWidth="76.0" text="9:21 AM" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="18.0" />
                </font>

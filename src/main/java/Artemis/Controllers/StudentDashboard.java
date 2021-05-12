@@ -4,6 +4,7 @@ import Artemis.Models.Announcement;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.animation.Animation;
+import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -20,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
@@ -40,7 +43,10 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class StudentDashboard extends Application implements Initializable {
 
@@ -82,6 +88,7 @@ public class StudentDashboard extends Application implements Initializable {
     Label fullNameText = new Label();
     @FXML
     Label welcomeBack = new Label();
+
 
 
     Pane[] paneArr = {homePane,marksPane,subjectsPane,disciplinePane,weatherPane};
@@ -180,6 +187,8 @@ public class StudentDashboard extends Application implements Initializable {
         DayOfWeek day = date.getDayOfWeek();
         return day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }
+
+
 
 
     public String getFullName() {

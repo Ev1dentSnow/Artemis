@@ -1,50 +1,60 @@
 package Artemis.Controllers;
 
 import Artemis.App;
-import Artemis.Models.Student;
+import javafx.animation.FillTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LoginController extends Application {
 
     private static final String LOCAL_LOGIN_URL = "http://127.0.0.1:5000/auth/login";
     private static final String ONLINE_LOGIN_URL = "https://artemisapi.herokuapp.com/auth/login";
-
+    private boolean keyTyped = true;
     @FXML
     TextField txfUsername = new TextField();
-
     @FXML
     PasswordField txfPassword = new PasswordField();
-
+    @FXML
+    Rectangle loginRectangle = new Rectangle();
+    @FXML
+    Rectangle passwordRectangle = new Rectangle();
+    @FXML
+    Label notificationLabel = new Label();
 
     private String accessToken = "";
     private String permissionLevel = "";
@@ -60,8 +70,9 @@ public class LoginController extends Application {
     }
 
     @FXML
-    private void submitLoginDetails(ActionEvent event) throws UnsupportedEncodingException, IOException, JSONException {
+    private void submitLoginDetails(ActionEvent event) throws IOException, JSONException {
         event.consume();
+        keyTyped = false;
         String username = txfUsername.getText();
         String password = txfPassword.getText();
 
@@ -112,8 +123,7 @@ public class LoginController extends Application {
 
                 } else {
                     if(responseStatusCode == 401){
-                        alert.setContentText("Invalid Credentials");
-                        alert.showAndWait();
+                        displayInvalidCredentialsNotification();
                     }
                     else{
                         alert.setContentText("Login Failed, HTTP STATUS CODE: " + responseStatusCode);
@@ -121,7 +131,7 @@ public class LoginController extends Application {
                     }
                 }
 
-            } catch (ConnectException e) {
+            } catch (ConnectException | InterruptedException e) {
 
                 Alert connError = new Alert(Alert.AlertType.ERROR);
                 connError.setContentText("Error connecting to server");
@@ -171,6 +181,53 @@ public class LoginController extends Application {
         window.show();
     }
 
+    private void displayInvalidCredentialsNotification() throws InterruptedException {
+        FillTransition usernameTransition = new FillTransition(Duration.millis(500), loginRectangle, Color.WHITE, Color.RED);
+        usernameTransition.setAutoReverse(true);
+        usernameTransition.setCycleCount(1);
+        FillTransition passwordTransition = new FillTransition(Duration.millis(500), passwordRectangle, Color.WHITE, Color.RED);
+        passwordTransition.setAutoReverse(true);
+        passwordTransition.setCycleCount(1); //once cycle to go red, one cycle to go back to white
+
+        usernameTransition.play();
+        passwordTransition.play();
+        notificationLabel.setTextFill(Color.RED);
+
+    }
+
+    @FXML
+    private void usernameKeyTyped(KeyEvent event){
+        event.consume();
+        if(!keyTyped) {
+            FillTransition usernameTransition = new FillTransition(Duration.millis(500), loginRectangle, Color.RED, Color.WHITE);
+            usernameTransition.setAutoReverse(true);
+            usernameTransition.setCycleCount(1);
+            FillTransition passwordTransition = new FillTransition(Duration.millis(500), passwordRectangle, Color.RED, Color.WHITE);
+            passwordTransition.setAutoReverse(true);
+            passwordTransition.setCycleCount(1);
+            usernameTransition.play();
+            passwordTransition.play();
+            keyTyped = true;
+            notificationLabel.setTextFill(Color.BLACK);
+        }
+    }
+
+    @FXML
+    private void passwordKeyTyped(KeyEvent event){
+        event.consume();
+        if(!keyTyped) {
+            FillTransition usernameTransition = new FillTransition(Duration.millis(500), loginRectangle, Color.RED, Color.WHITE);
+            usernameTransition.setAutoReverse(true);
+            usernameTransition.setCycleCount(1);
+            FillTransition passwordTransition = new FillTransition(Duration.millis(500), passwordRectangle, Color.RED, Color.WHITE);
+            passwordTransition.setAutoReverse(true);
+            passwordTransition.setCycleCount(1);
+            usernameTransition.play();
+            passwordTransition.play();
+            keyTyped = true;
+            notificationLabel.setTextFill(Color.BLACK);
+        }
+    }
 
 
     public String getAccessToken() {

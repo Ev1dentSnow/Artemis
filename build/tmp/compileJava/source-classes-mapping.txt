@@ -6,18 +6,18 @@ Artemis/App.java
  Artemis.App
 Artemis/Models/Announcement.java
  Artemis.Models.Announcement
-Artemis/Models/House.java
- Artemis.Models.House
+Artemis/Controllers/AdminDashboard.java
+ Artemis.Controllers.AdminDashboard
+ Artemis.Controllers.AdminDashboard$1
 Artemis/Models/Student.java
  Artemis.Models.Student
 Artemis/Models/Admin.java
  Artemis.Models.Admin
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
+Artemis/Models/House.java
+ Artemis.Models.House
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
-Artemis/Controllers/AdminDashboard.java
- Artemis.Controllers.AdminDashboard
- Artemis.Controllers.AdminDashboard$1
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController

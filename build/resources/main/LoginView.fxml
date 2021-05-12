@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -36,7 +37,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <VBox fx:id="VBox" layoutX="68.0" layoutY="152.0" prefHeight="209.0" prefWidth="354.0">
+            <VBox fx:id="VBox" layoutX="68.0" layoutY="152.0" prefHeight="181.0" prefWidth="355.0">
                <children>
                   <Label prefHeight="20.0" prefWidth="67.0" text="Username" textFill="WHITE">
                      <font>
@@ -46,12 +47,8 @@
                         <Insets bottom="15.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="txfUsername" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
-                  <Separator prefWidth="200.0">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Separator>
+                  <TextField fx:id="txfUsername" onKeyTyped="#usernameKeyTyped" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <Rectangle fx:id="loginRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="4.0" stroke="BLACK" strokeType="INSIDE" width="355.0" />
                   <Label text="Password" textFill="WHITE">
                      <VBox.margin>
                         <Insets />
@@ -63,18 +60,11 @@
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txfPassword" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
-                  <Separator prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Separator>
+                  <PasswordField fx:id="txfPassword" onKeyTyped="#passwordKeyTyped" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <Rectangle fx:id="passwordRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="4.0" layoutX="10.0" layoutY="68.0" stroke="BLACK" strokeType="INSIDE" width="355.0" />
                </children>
             </VBox>
-            <Separator layoutX="68.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="separatorr" stylesheets="@LoginViewStylesheet.css" />
+            <Separator layoutX="68.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@LoginViewStylesheet.css" />
             <Button fx:id="btnForgot" layoutX="68.0" layoutY="475.0" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="I forgot my password">
                <font>
                   <Font name="Roboto Medium" size="12.0" />
@@ -83,13 +73,14 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Separator layoutX="263.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="separatorr" stylesheets="@LoginViewStylesheet.css" />
+            <Separator layoutX="263.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@LoginViewStylesheet.css" />
             <Text fill="WHITE" layoutX="238.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or" />
             <ImageView fitHeight="116.0" fitWidth="149.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@fxmlAssets/ArtemisAlpha.png" />
                </image>
             </ImageView>
+            <Label fx:id="notificationLabel" layoutX="72.0" layoutY="343.0" style="-fx-text-fill: #080808#080808;" text="Incorrect username and/or password" />
          </children>
       </Pane>
    </children>

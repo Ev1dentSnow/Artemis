@@ -26,8 +26,15 @@
 -fx-background-color: #c2c2c2;
 }
 
-.separatorr *.line {
+.loginseparatorr *.line {
 -fx-border-style: solid;
 -fx-border-width: 0.5px;
 -fx-border-color:#686868;
 }
+
+.dashboardseparator *.line {
+-fx-border-style: solid;
+-fx-border-width: 0.5px;
+-fx-border-color: white;
+}
+
