@@ -118,122 +118,6 @@
          </children></Pane>
       <StackPane id="stackPanee" fx:id="stackPane" layoutX="178.0" layoutY="74.0" prefHeight="576.0" prefWidth="922.0">
          <children>
-            <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
-               <children>
-                  <Text layoutX="358.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This Week's Weather" wrappingWidth="234.154296875">
-                     <font>
-                        <Font name="Roboto Medium" size="19.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="88.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today's Weather">
-                     <font>
-                        <Font name="Roboto Medium" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="98.0" fitWidth="108.0" layoutX="87.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-storm-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="88.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C  Thunderstorm" />
-                  <Text layoutX="226.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Winds">
-                     <font>
-                        <Font name="Roboto Medium" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
-                  <Separator layoutX="305.0" layoutY="168.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="6.0" />
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="344.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-rain-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="355.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="430.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-windy-weather-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="442.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tue">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="516.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-clouds-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="528.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="602.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-partly-cloudy-day-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="613.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="670.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-sun-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="682.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fri">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="738.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@fxmlAssets/Weather/icons8-rain-96.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="754.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sat">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="352.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="438.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="524.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="610.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="678.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="746.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
-                     <font>
-                        <Font name="Roboto Black" size="13.0" />
-                     </font>
-                  </Text>
-               </children></Pane>
             <Pane id="DisciplinePane" fx:id="disciplinePane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <Label layoutX="378.0" layoutY="25.0" text="Your dots for this week">
@@ -362,6 +246,77 @@
                   </JFXTabPane>
                </children>
             </Pane>
+            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="337.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="200.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font></Label>
+                        <Text layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
+                           <font>
+                              <Font name="Arial Italic" size="23.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="462.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
+                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
+                           <font>
+                              <Font name="Calibri" size="30.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="announcementTable" layoutX="1.0" layoutY="65.0" prefHeight="407.0" prefWidth="461.0" stylesheets="@AnnouncementTableLightMode.css">
+                          <columns>
+                            <TableColumn fx:id="subject" prefWidth="460.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" styleClass="alert-success" stylesheets="@LightMode.css">
+                     <children>
+                        <Label fx:id="welcomeBack" layoutX="21.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
+                           <font>
+                              <Font name="Calibri" size="16.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children></Pane>
+            <VBox prefHeight="48.0" prefWidth="32.0" spacing="15.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
+               </children>
+            </VBox>
             <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
                   <JFXTabPane layoutX="96.0" layoutY="77.0" prefHeight="455.0" prefWidth="609.0" stylesheets="@TabbedPanes.css">
@@ -525,71 +480,159 @@
                   <JFXButton buttonType="RAISED" layoutX="575.0" layoutY="31.0" prefHeight="27.0" prefWidth="130.0" ripplerFill="WHITE" text="Export as PDF" />
                </children>
             </Pane>
-            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+            <Pane id="weatherPane" fx:id="weatherPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
                <children>
-                  <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                  <Text layoutX="358.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This Week's Weather" wrappingWidth="234.154296875">
+                     <font>
+                        <Font name="Roboto Medium" size="19.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="88.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today's Weather">
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="98.0" fitWidth="108.0" layoutX="87.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-storm-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="88.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C  Thunderstorm" />
+                  <Text layoutX="226.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Winds">
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
+                  <Separator layoutX="305.0" layoutY="168.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="6.0" />
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="344.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-rain-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="355.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="430.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-windy-weather-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="442.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tue">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="516.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-clouds-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="528.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="602.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-partly-cloudy-day-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="613.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="670.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-sun-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="682.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fri">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="738.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/icons8-rain-96.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="754.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sat">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="352.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="438.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="524.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="610.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="678.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="746.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="311.0" layoutY="252.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
-                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="337.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
                      </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="200.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                  </VBox>
+                  <VBox layoutX="398.0" layoutY="250.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
-                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
-                           <font>
-                              <Font name="Calibri Bold" size="16.0" />
-                           </font></Label>
-                        <Text layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
-                           <font>
-                              <Font name="Arial Italic" size="23.0" />
-                           </font>
-                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
                      </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="462.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
+                  </VBox>
+                  <VBox layoutX="484.0" layoutY="250.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
-                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
-                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
-                           <font>
-                              <Font name="Calibri" size="30.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="announcementTable" layoutX="1.0" layoutY="65.0" prefHeight="407.0" prefWidth="461.0" stylesheets="@AnnouncementTableLightMode.css">
-                          <columns>
-                            <TableColumn fx:id="subject" prefWidth="460.0" />
-                          </columns>
-                        </TableView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
                      </children>
-                  </AnchorPane>
-                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" styleClass="alert-success" stylesheets="@LightMode.css">
+                  </VBox>
+                  <VBox layoutX="570.0" layoutY="250.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
-                        <Label fx:id="welcomeBack" layoutX="21.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
-                           <font>
-                              <Font name="Calibri" size="16.0" />
-                           </font></Label>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
                      </children>
-                  </Pane>
-               </children></Pane>
+                  </VBox>
+                  <VBox layoutX="642.0" layoutY="250.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="710.0" layoutY="244.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
          </children></StackPane>
       <Pane layoutX="178.0" prefHeight="66.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@LightMode.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <opaqueInsets>

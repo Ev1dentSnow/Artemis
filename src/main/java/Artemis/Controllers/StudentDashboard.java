@@ -1,11 +1,11 @@
 package Artemis.Controllers;
 
 import Artemis.Models.Announcement;
+import Artemis.Models.Weather;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
 import javafx.animation.Animation;
-import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -23,8 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
@@ -93,6 +91,8 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     JFXTabPane marksTabPane = new JFXTabPane();
 
+    Weather weather = null;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -115,6 +115,13 @@ public class StudentDashboard extends Application implements Initializable {
         }
         announcementTable.getItems().setAll(oannouncements);
         initStackPane();
+        try {
+            weather = new Weather(fetchWeatherData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -136,7 +143,6 @@ public class StudentDashboard extends Application implements Initializable {
 
         //-------------------------------------------------------------------------------------------
     }
-
     private String performHttpGet(String url) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
@@ -223,7 +229,15 @@ public class StudentDashboard extends Application implements Initializable {
         stackPane.getChildren().add(weatherPane);
     }
 
+    private JSONObject[] fetchWeatherData() throws IOException, JSONException {
+        JSONObject currentWeatherData = new JSONObject(performHttpGet("https://artemisapi.herokuapp.com/api/currentweather"));
+        JSONObject forecastWeatherData = new JSONObject(performHttpGet("https://artemisapi.herokuapp.com/api/forecastweather"));
+    return new JSONObject[]{currentWeatherData, forecastWeatherData};
+    }
 
+    private void prepareWeatherPane(){
+        weather.getCurrentWeatherData();
+    }
 
 
     public String getFullName() {
