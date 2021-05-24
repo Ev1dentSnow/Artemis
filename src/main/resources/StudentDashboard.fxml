@@ -503,7 +503,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="todayWind" layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
+                  <Text fx:id="todayWind" layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" textAlignment="CENTER" />
                   <Separator layoutX="305.0" layoutY="168.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="6.0" />
                   <Text fx:id="secondDayHigh" layoutX="352.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
@@ -693,7 +693,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="todayConditions" layoutX="205.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
+                  <Text fx:id="todayConditions" layoutX="205.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" textAlignment="CENTER" />
                </children>
             </Pane>
          </children></StackPane>
