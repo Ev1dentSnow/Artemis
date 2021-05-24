@@ -4,3 +4,5 @@ Artemis/ViewTests/StudentDashboardTest.java
  Artemis.ViewTests.StudentDashboardTest
 Artemis/ViewTests/AdminDashboardTest.java
  Artemis.ViewTests.AdminDashboardTest
+Artemis/ViewTests/test.java
+ Artemis.ViewTests.test

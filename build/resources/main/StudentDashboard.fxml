@@ -488,50 +488,49 @@
                         <Font name="Roboto Medium" size="19.0" />
                      </font>
                   </Text>
-                  <Text layoutX="93.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Weather">
+                  <Text layoutX="93.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today's Weather">
                      <font>
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="98.0" fitWidth="108.0" layoutX="87.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="todayImage" fitHeight="98.0" fitWidth="108.0" layoutX="87.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@fxmlAssets/Weather/11d@2x.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="88.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C  Thunderstorm" />
                   <Text layoutX="226.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Winds">
                      <font>
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
+                  <Text fx:id="todayWind" layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
                   <Separator layoutX="305.0" layoutY="168.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="6.0" />
-                  <Text layoutX="352.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="secondDayHigh" layoutX="352.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="438.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="thirdDayHigh" layoutX="438.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="527.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="fourthDayHigh" layoutX="527.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="615.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="fifthDayHigh" layoutX="615.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="700.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="sixthDayHigh" layoutX="700.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="787.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="seventhDayHigh" layoutX="787.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
@@ -613,32 +612,32 @@
                      </children>
                   </HBox>
                   <Text layoutX="347.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text layoutX="352.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="secondDayLow" layoutX="352.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="438.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="thirdDayLow" layoutX="438.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="527.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="fourthDayLow" layoutX="527.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="615.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="fifthDayLow" layoutX="615.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="700.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="sixthDayLow" layoutX="700.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="787.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
+                  <Text fx:id="seventhDayLow" layoutX="787.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
                         <Font name="Roboto Black" size="13.0" />
                      </font>
@@ -656,12 +655,45 @@
                      </children>
                   </HBox>
                   <Text layoutX="332.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text layoutX="323.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" />
-                  <Text layoutX="414.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" />
-                  <Text layoutX="490.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
-                  <Text layoutX="604.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" />
-                  <Text layoutX="689.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" />
-                  <Text layoutX="754.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" />
+                  <Text fx:id="secondDayConditions" layoutX="323.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" />
+                  <Text fx:id="thirdDayConditions" layoutX="414.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" />
+                  <Text fx:id="fourthDayConditions" layoutX="490.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
+                  <Text fx:id="fifthDayConditions" layoutX="604.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" />
+                  <Text fx:id="sixthDayConditions" layoutX="689.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" />
+                  <Text fx:id="seventhDayConditions" layoutX="754.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" />
+                  <VBox layoutX="61.0" layoutY="300.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low:" />
+                     </children>
+                  </VBox>
+                  <Text fx:id="todayHigh" layoutX="120.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="50.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="todayLow" layoutX="120.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="50.0">
+                     <font>
+                        <Font name="Roboto Black" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="77.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weather data provider:">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="53.0" fitWidth="141.0" layoutX="233.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/Weather/logo_white_cropped.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="233.0" layoutY="479.0" text="openweathermap.org" />
+                  <Text layoutX="213.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conditions">
+                     <font>
+                        <Font name="Roboto Medium" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="todayConditions" layoutX="205.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
                </children>
             </Pane>
          </children></StackPane>

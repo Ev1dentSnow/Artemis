@@ -1,31 +1,31 @@
 Artemis/Models/Person.java
  Artemis.Models.Person
-Artemis/Models/Teacher.java
- Artemis.Models.Teacher
 Artemis/App.java
  Artemis.App
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController
+Artemis/Models/Weather/ForecastWeather.java
+ Artemis.Models.Weather.ForecastWeather
+Artemis/Models/Weather/Daily.java
+ Artemis.Models.Weather.Daily
+Artemis/Models/Admin.java
+ Artemis.Models.Admin
+Artemis/Models/Teacher.java
+ Artemis.Models.Teacher
+Artemis/Models/Weather/Weather.java
+ Artemis.Models.Weather.Weather
 Artemis/Models/Announcement.java
  Artemis.Models.Announcement
 Artemis/Controllers/AdminDashboard.java
  Artemis.Controllers.AdminDashboard
  Artemis.Controllers.AdminDashboard$1
-Artemis/Models/Student.java
- Artemis.Models.Student
-Artemis/Models/Admin.java
- Artemis.Models.Admin
-Artemis/Models/House.java
- Artemis.Models.House
-Artemis/Models/Weather/Weather.java
- Artemis.Models.Weather.Weather
-Artemis/Models/Weather/Daily.java
- Artemis.Models.Weather.Daily
-Artemis/Models/Weather/Temp.java
- Artemis.Models.Weather.Temp
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
-Artemis/Models/Weather/ForecastWeather.java
- Artemis.Models.Weather.ForecastWeather
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
+Artemis/Models/House.java
+ Artemis.Models.House
+Artemis/Models/Weather/Temp.java
+ Artemis.Models.Weather.Temp
+Artemis/Models/Student.java
+ Artemis.Models.Student

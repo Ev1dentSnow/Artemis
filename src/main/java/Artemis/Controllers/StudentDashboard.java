@@ -3,6 +3,7 @@ package Artemis.Controllers;
 import Artemis.Models.Announcement;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
+import Artemis.Models.Weather.Weather;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
@@ -24,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
@@ -60,8 +62,6 @@ public class StudentDashboard extends Application implements Initializable {
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
 
-
-
     //StackPane config
     @FXML
     StackPane stackPane = new StackPane();
@@ -91,6 +91,64 @@ public class StudentDashboard extends Application implements Initializable {
     Label welcomeBack = new Label();
     @FXML
     JFXTabPane marksTabPane = new JFXTabPane();
+
+    //Weather Pane Labels - Today
+    @FXML
+    Text todayHigh = new Text();
+    @FXML
+    Text todayLow = new Text();
+    @FXML
+    Text todayWind = new Text();
+    @FXML
+    Text todayConditions = new Text();
+
+    //Weather Pane Labels - Second Day
+    @FXML
+    Text secondDayHigh = new Text();
+    @FXML
+    Text secondDayLow = new Text();
+    @FXML
+    Text secondDayConditions = new Text();
+
+    //Weather Pane Labels - Third Day
+    @FXML
+    Text thirdDayHigh = new Text();
+    @FXML
+    Text thirdDayLow = new Text();
+    @FXML
+    Text thirdDayConditions = new Text();
+
+    //Weather Pane Labels - Fourth Day
+    @FXML
+    Text fourthDayHigh = new Text();
+    @FXML
+    Text fourthDayLow = new Text();
+    @FXML
+    Text fourthDayConditions = new Text();
+
+    //Weather Pane Labels - Fifth Day
+    @FXML
+    Text fifthDayHigh = new Text();
+    @FXML
+    Text fifthDayLow = new Text();
+    @FXML
+    Text fifthDayConditions = new Text();
+
+    //Weather Pane Labels - Six Day
+    @FXML
+    Text sixthDayHigh = new Text();
+    @FXML
+    Text sixthDayLow = new Text();
+    @FXML
+    Text sixthDayConditions = new Text();
+
+    //Weather Pane Labels - Seventh Day
+    @FXML
+    Text seventhDayHigh = new Text();
+    @FXML
+    Text seventhDayLow = new Text();
+    @FXML
+    Text seventhDayConditions = new Text();
 
     ForecastWeather forecastWeather = null;
 
@@ -222,6 +280,7 @@ public class StudentDashboard extends Application implements Initializable {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(weatherPane);
+        prepareWeatherPane();
     }
 
     private String fetchWeatherData() throws IOException, JSONException {
@@ -233,7 +292,70 @@ public class StudentDashboard extends Application implements Initializable {
         String latitude = forecastWeather.getLatitude();
         String longitude = forecastWeather.getLongitude();
         Daily[] dailyWeather = forecastWeather.getDaily();
+        LocalDate date = LocalDate.now();
+        String today = fetchDayOfWeekString(date);
+
+        //Wind data is only needed for the current day
+        long windDegrees = Math.round(dailyWeather[0].getWind_deg());
+        long windSpeed= Math.round(dailyWeather[0].getWind_speed());
+
+        setTodayWeather(dailyWeather);
+
+
+
+
+
+
     }
+
+    //Sets the text labels of temperatures, days etc on the weatherPane
+    private void setTodayWeather(Daily[] dailyWeather){
+        todayLow.setText(Math.round(dailyWeather[0].getTemp().getMin()) + "\u00B0" + "C"); // \u00B0 is the unicode degree symbol
+        todayHigh.setText(Math.round(dailyWeather[0].getTemp().getMax()) + "\u00B0" + "C");
+
+        Weather[] weather = dailyWeather[0].getWeather();
+        todayConditions.setText(weather[0].getDescription());
+
+        String windDirection = determineWindDirection(Math.round(dailyWeather[0].getWind_deg()));
+        todayWind.setText(dailyWeather[0].getWind_speed() + " Km/h " + windDirection);
+    }
+
+    private String determineWindDirection(long windDegrees){
+
+        if((windDegrees > 0) || (windDegrees > 360) && windDegrees < 45){
+            return "North";
+        }
+        else if(windDegrees >= 45 && windDegrees < 90){
+            return "North East";
+        }
+        else if(windDegrees >= 90 && windDegrees < 135){
+            return "East";
+        }
+        else if(windDegrees >= 135 && windDegrees < 180){
+            return "South East";
+        }
+        else if(windDegrees >= 180 & windDegrees < 225){
+            return "South";
+        }
+        else if(windDegrees >= 225 && windDegrees < 270){
+            return "South West";
+        }
+        else if(windDegrees >= 270 && windDegrees < 315){
+            return "West";
+        }
+        else if(windDegrees >= 315 && (windDegrees < 0) || (windDegrees < 360)){
+            return "North West";
+        }
+        return null;
+    }
+
+
+    private int determineNextDay(int additionalDays){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, additionalDays);
+        return calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
 
 
     public String getFullName() {
