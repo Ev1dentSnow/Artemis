@@ -43,7 +43,7 @@ import java.util.TimerTask;
 public class LoginController extends Application {
 
     private static final String LOCAL_LOGIN_URL = "http://127.0.0.1:5000/auth/login";
-    private static final String ONLINE_LOGIN_URL = "https://artemisapi.herokuapp.com/api/auth/login";
+    private static final String ONLINE_LOGIN_URL = "https://artemisystem.xyz/api/auth/login";
     private boolean keyTyped = true;
     @FXML
     TextField txfUsername = new TextField();

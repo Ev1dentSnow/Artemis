@@ -1,7 +1,8 @@
 package Artemis.Controllers;
 
 import Artemis.Models.Announcement;
-import Artemis.Models.Weather;
+import Artemis.Models.Weather.Daily;
+import Artemis.Models.Weather.ForecastWeather;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
@@ -91,7 +92,7 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     JFXTabPane marksTabPane = new JFXTabPane();
 
-    Weather weather = null;
+    ForecastWeather forecastWeather = null;
 
 
     public static void main(String[] args) {
@@ -107,23 +108,18 @@ public class StudentDashboard extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) { //for announcements table
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        ObservableList<Announcement> oannouncements = null;
+        ObservableList<Announcement> obsListAnnouncements = null;
         try {
-            oannouncements = prepareHomePane();
+            obsListAnnouncements = prepareHomePane();
+            Gson gson = new Gson();
+            forecastWeather = gson.fromJson(fetchWeatherData(), ForecastWeather.class);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        announcementTable.getItems().setAll(oannouncements);
+        announcementTable.getItems().setAll(obsListAnnouncements);//TODO Add handler for if announcements = null
         initStackPane();
-        try {
-            weather = new Weather(fetchWeatherData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
 
+        //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler() {
         //event.consume() is never called, so the event keeps looping over and over every second
             @Override
@@ -140,7 +136,6 @@ public class StudentDashboard extends Application implements Initializable {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
         //-------------------------------------------------------------------------------------------
     }
     private String performHttpGet(String url) throws IOException {
@@ -165,14 +160,14 @@ public class StudentDashboard extends Application implements Initializable {
     private ObservableList<Announcement> prepareHomePane() throws IOException, JSONException {
 
 
-        String studentResponseBody = performHttpGet("https://artemisapi.herokuapp.com/api/student/home/" + userId);
+        String studentResponseBody = performHttpGet("https://artemisystem.xyz/api/student/home/" + userId);
         JSONObject nameObj = new JSONObject(studentResponseBody);
-        String firstName = (nameObj.get("FirstName")).toString();
-        String lastName = (nameObj.get("LastName").toString());
+        String firstName = (nameObj.get("firstName")).toString();
+        String lastName = (nameObj.get("lastName").toString());
         fullNameText.setText(firstName + " " + lastName);
         welcomeBack.setText("Welcome back " + firstName);
 
-        String announcementsResponseBody = performHttpGet("https://artemisapi.herokuapp.com/api/announcements");
+        String announcementsResponseBody = performHttpGet("https://artemisystem.xyz/api/announcements");
 
             Gson gson = new Gson();
 
@@ -229,14 +224,15 @@ public class StudentDashboard extends Application implements Initializable {
         stackPane.getChildren().add(weatherPane);
     }
 
-    private JSONObject[] fetchWeatherData() throws IOException, JSONException {
-        JSONObject currentWeatherData = new JSONObject(performHttpGet("https://artemisapi.herokuapp.com/api/currentweather"));
-        JSONObject forecastWeatherData = new JSONObject(performHttpGet("https://artemisapi.herokuapp.com/api/forecastweather"));
-    return new JSONObject[]{currentWeatherData, forecastWeatherData};
+    private String fetchWeatherData() throws IOException, JSONException {
+        String forecastWeatherData = performHttpGet("https://artemisystem.xyz/api/forecastweather");
+    return forecastWeatherData;
     }
 
     private void prepareWeatherPane(){
-        weather.getCurrentWeatherData();
+        String latitude = forecastWeather.getLatitude();
+        String longitude = forecastWeather.getLongitude();
+        Daily[] dailyWeather = forecastWeather.getDaily();
     }
 
 

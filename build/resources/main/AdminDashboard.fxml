@@ -138,7 +138,7 @@
                <children>
                   <Pane id="Dashboard" layoutX="29.0" layoutY="24.0" prefHeight="606.0" prefWidth="1012.0" styleClass="dashboard" stylesheets="@AdminDashboard.css">
                      <children>
-                        <Pane id="WeatherCard" layoutX="540.0" layoutY="303.0" prefHeight="283.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                        <Pane id="WeatherCard" layoutX="540.0" layoutY="303.0" prefHeight="283.0" prefWidth="436.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
                            <children>
                               <Text fill="WHITE" layoutX="34.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-black" text="Weather">
                                  <font>
@@ -197,12 +197,12 @@
                               <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
-                        <Pane layoutX="540.0" layoutY="19.0" prefHeight="262.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                        <Pane layoutX="540.0" layoutY="19.0" prefHeight="262.0" prefWidth="436.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
                            <children>
                               <YearMonthView layoutX="19.0" layoutY="4.0" prefHeight="254.0" prefWidth="398.0" showUsageColors="true" />
                            </children>
                         </Pane>
-                        <Pane layoutX="38.0" layoutY="19.0" prefHeight="564.0" prefWidth="476.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                        <Pane layoutX="38.0" layoutY="19.0" prefHeight="564.0" prefWidth="476.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
                            <children>
                               <Text fill="WHITE" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
                                  <font>
