@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Moagi Moja
  */
-public class Student extends Person{
+public class Student extends User {
 
     private String house;
     private int form;

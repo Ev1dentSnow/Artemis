@@ -1,5 +1,6 @@
 package Artemis.Controllers;
 
+import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
@@ -23,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.*;
@@ -60,6 +63,8 @@ public class StudentDashboard extends Application implements Initializable {
     private static int userId;
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+
+    private boolean weatherPanePrepared = false;
 
 
     //StackPane config
@@ -149,6 +154,22 @@ public class StudentDashboard extends Application implements Initializable {
     Text seventhDayLow = new Text();
     @FXML
     Text seventhDayConditions = new Text();
+
+    //Weather Pane Images
+    @FXML
+    ImageView todayImage = new ImageView();
+    @FXML
+    ImageView secondDayImage = new ImageView();
+    @FXML
+    ImageView thirdDayImage = new ImageView();
+    @FXML
+    ImageView fourthDayImage = new ImageView();
+    @FXML
+    ImageView fifthDayImage = new ImageView();
+    @FXML
+    ImageView sixthDayImage = new ImageView();
+    @FXML
+    ImageView seventhDayImage = new ImageView();
 
     ForecastWeather forecastWeather = null;
 
@@ -284,45 +305,137 @@ public class StudentDashboard extends Application implements Initializable {
     }
 
     private String fetchWeatherData() throws IOException, JSONException {
-        String forecastWeatherData = performHttpGet("https://artemisystem.xyz/api/forecastweather");
+        String forecastWeatherData = performHttpGet("https://artemisystem.xyz/api/weather");
     return forecastWeatherData;
     }
 
     private void prepareWeatherPane(){
-        String latitude = forecastWeather.getLatitude();
-        String longitude = forecastWeather.getLongitude();
-        Daily[] dailyWeather = forecastWeather.getDaily();
-        LocalDate date = LocalDate.now();
-        String today = fetchDayOfWeekString(date);
 
-        //Wind data is only needed for the current day
-        long windDegrees = Math.round(dailyWeather[0].getWind_deg());
-        long windSpeed= Math.round(dailyWeather[0].getWind_speed());
+        if(!weatherPanePrepared) { //Saves us from wasting CPU time by not re-preparing the weather pane
+            String latitude = forecastWeather.getLatitude();
+            String longitude = forecastWeather.getLongitude();
+            Daily[] dailyWeather = forecastWeather.getDaily();
+            LocalDate date = LocalDate.now();
+            String today = fetchDayOfWeekString(date);
 
-        setTodayWeather(dailyWeather);
+            //Wind data is only needed for the current day
+            long windDegrees = Math.round(dailyWeather[0].getWind_deg());
+            long windSpeed = Math.round(dailyWeather[0].getWind_speed());
 
-
-
-
-
+            setWeatherLabels(dailyWeather);
+            setWeatherImages(dailyWeather);
+            weatherPanePrepared = true;
+        }
 
     }
 
     //Sets the text labels of temperatures, days etc on the weatherPane
-    private void setTodayWeather(Daily[] dailyWeather){
-        todayLow.setText(Math.round(dailyWeather[0].getTemp().getMin()) + "\u00B0" + "C"); // \u00B0 is the unicode degree symbol
-        todayHigh.setText(Math.round(dailyWeather[0].getTemp().getMax()) + "\u00B0" + "C");
-
+    private void setWeatherLabels(Daily[] dailyWeather){
+        todayLow.setText(Math.round(dailyWeather[0].getTemp().getMin()) + "\u00B0C"); // \u00B0 is the unicode degree symbol
+        todayHigh.setText(Math.round(dailyWeather[0].getTemp().getMax()) + "\u00B0C");
         Weather[] weather = dailyWeather[0].getWeather();
         todayConditions.setText(weather[0].getDescription());
 
         String windDirection = determineWindDirection(Math.round(dailyWeather[0].getWind_deg()));
         todayWind.setText(dailyWeather[0].getWind_speed() + " Km/h " + windDirection);
+
+        secondDayLow.setText(Math.round(dailyWeather[1].getTemp().getMax()) + "\u00B0C");
+        secondDayHigh.setText(Math.round(dailyWeather[1].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather2 = dailyWeather[1].getWeather();
+        secondDayConditions.setText(weather2[0].getDescription());
+
+        thirdDayLow.setText(Math.round(dailyWeather[2].getTemp().getMin()) + "\u00B0C");
+        thirdDayHigh.setText(Math.round(dailyWeather[2].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather3 = dailyWeather[2].getWeather();
+        thirdDayConditions.setText(weather3[0].getDescription());
+
+        fourthDayLow.setText(Math.round(dailyWeather[3].getTemp().getMin()) + "\u00B0C");
+        fourthDayHigh.setText(Math.round(dailyWeather[3].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather4 = dailyWeather[3].getWeather();
+        fourthDayConditions.setText(weather4[0].getDescription());
+
+        fifthDayLow.setText(Math.round(dailyWeather[4].getTemp().getMin()) + "\u00B0C");
+        fifthDayHigh.setText(Math.round(dailyWeather[4].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather5 = dailyWeather[4].getWeather();
+        fifthDayConditions.setText(weather5[0].getDescription());
+
+        sixthDayLow.setText(Math.round(dailyWeather[5].getTemp().getMin()) + "\u00B0C");
+        sixthDayHigh.setText(Math.round(dailyWeather[5].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather6 = dailyWeather[5].getWeather();
+        sixthDayConditions.setText(weather6[0].getDescription());
+
+        seventhDayLow.setText(Math.round(dailyWeather[6].getTemp().getMin()) + "\u00B0C");
+        seventhDayHigh.setText(Math.round(dailyWeather[6].getTemp().getMax()) + "\u00B0C");
+        Weather[] weather7 = dailyWeather[6].getWeather();
+        seventhDayConditions.setText(weather7[0].getDescription());
+
     }
 
-    private String determineWindDirection(long windDegrees){
+    private void setWeatherImages(Daily[] dailyWeather){
 
-        if((windDegrees > 0) || (windDegrees > 360) && windDegrees < 45){
+        Weather[] weather1 = dailyWeather[0].getWeather();
+        todayImage.setImage(determineWeatherImages(weather1[0].getId()));
+
+        Weather[] weather2 = dailyWeather[1].getWeather();
+        secondDayImage.setImage(determineWeatherImages(weather2[0].getId()));
+
+        Weather[] weather3 = dailyWeather[2].getWeather();
+        thirdDayImage.setImage(determineWeatherImages(weather3[0].getId()));
+
+        Weather[] weather4 = dailyWeather[3].getWeather();
+        fourthDayImage.setImage(determineWeatherImages(weather4[0].getId()));
+
+        Weather[] weather5 = dailyWeather[4].getWeather();
+        fifthDayImage.setImage(determineWeatherImages(weather5[0].getId()));
+
+        Weather[] weather6 = dailyWeather[5].getWeather();
+        sixthDayImage.setImage(determineWeatherImages(weather6[0].getId()));
+
+        Weather[] weather7 = dailyWeather[6].getWeather();
+        seventhDayImage.setImage(determineWeatherImages(weather7[0].getId()));
+    }
+    //See https://openweathermap.org/weather-conditions for more information
+    private Image determineWeatherImages(int id){
+
+        if(id >= 200 && id <= 232){ // id  200 - 232 = Thunderstorm
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/11d@2x.png"));
+        }
+        else if(id >= 300 && id <= 321){ //id 300 - 321 = Drizzle
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+        }
+        else if(id >= 500 && id <= 504){ //id 500 - 504 = Normal rain
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/10d@2x.png"));
+        }
+        else if(id == 511){ //id 511 = Freezing rain (Rare  "corner case")
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+        }
+        else if(id >= 520 && id <= 531){ //id 520 - 531 = Shower rain
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+        }
+        else if(id >= 600 && id <= 622){ //id 600 - 622 = Snow
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+        }
+        else if(id >= 701 && id <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/50d@2x.png"));
+        }
+        else if(id == 800){ //id 800 = Clear sky
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/01d@2x.png"));
+        }
+        else if(id == 801){ //id 801 = Few clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/02d@2x.png"));
+        }
+        else if(id == 802){ //id 802 = Scattered clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/03d@2x.png"));
+        }
+        else if(id == 803 || id == 804){ //id 803 - 804 = Broken and Overcast clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/04d@2x.png"));
+        }
+        return null;
+    }
+
+    private String determineWindDirection(long windDegrees){ //For "today's" weather only
+
+        if(windDegrees >= 0  && windDegrees < 45){ //Not sure if the weatherAPI returns 0 deg or 360 deg
             return "North";
         }
         else if(windDegrees >= 45 && windDegrees < 90){
@@ -343,7 +456,7 @@ public class StudentDashboard extends Application implements Initializable {
         else if(windDegrees >= 270 && windDegrees < 315){
             return "West";
         }
-        else if(windDegrees >= 315 && (windDegrees < 0) || (windDegrees < 360)){
+        else if(windDegrees >= 315 && windDegrees < 359) {
             return "North West";
         }
         return null;

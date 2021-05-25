@@ -503,7 +503,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="todayWind" layoutX="211.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" />
+                  <Text fx:id="todayWind" layoutX="209.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14.4 Km/h East" textAlignment="CENTER" wrappingWidth="70.0" />
                   <Separator layoutX="305.0" layoutY="168.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="6.0" />
                   <Text fx:id="secondDayHigh" layoutX="352.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12°C " wrappingWidth="32.0">
                      <font>
@@ -573,32 +573,32 @@
                   </VBox>
                   <HBox layoutX="339.0" layoutY="199.0" prefHeight="53.0" prefWidth="481.0" spacing="38.0">
                      <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="secondDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/01d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="thirdDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/02d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fourthDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/11d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fifthDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/50d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="sixthDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/10d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="seventhDayImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/09d@2x.png" />
                            </image>
@@ -655,12 +655,12 @@
                      </children>
                   </HBox>
                   <Text layoutX="332.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text fx:id="secondDayConditions" layoutX="323.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" />
-                  <Text fx:id="thirdDayConditions" layoutX="414.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" />
-                  <Text fx:id="fourthDayConditions" layoutX="490.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
-                  <Text fx:id="fifthDayConditions" layoutX="604.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" />
-                  <Text fx:id="sixthDayConditions" layoutX="689.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" />
-                  <Text fx:id="seventhDayConditions" layoutX="754.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" />
+                  <Text fx:id="secondDayConditions" layoutX="323.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" textAlignment="CENTER" />
+                  <Text fx:id="thirdDayConditions" layoutX="408.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" textAlignment="CENTER" />
+                  <Text fx:id="fourthDayConditions" layoutX="490.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" textAlignment="CENTER" />
+                  <Text fx:id="fifthDayConditions" layoutX="604.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" textAlignment="CENTER" />
+                  <Text fx:id="sixthDayConditions" layoutX="689.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" textAlignment="CENTER" />
+                  <Text fx:id="seventhDayConditions" layoutX="754.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" textAlignment="CENTER" />
                   <VBox layoutX="61.0" layoutY="300.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
@@ -693,7 +693,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="todayConditions" layoutX="205.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" />
+                  <Text fx:id="todayConditions" layoutX="205.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" textAlignment="CENTER" />
                </children>
             </Pane>
          </children></StackPane>
