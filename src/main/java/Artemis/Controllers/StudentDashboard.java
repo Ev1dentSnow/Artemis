@@ -18,25 +18,24 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.controlsfx.control.PopOver;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kordamp.bootstrapfx.scene.layout.Panel;
@@ -65,7 +64,6 @@ public class StudentDashboard extends Application implements Initializable {
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
     private boolean weatherPanePrepared = false;
-
 
     //StackPane config
     @FXML
@@ -96,6 +94,18 @@ public class StudentDashboard extends Application implements Initializable {
     Label welcomeBack = new Label();
     @FXML
     JFXTabPane marksTabPane = new JFXTabPane();
+    @FXML
+    Button signOut = new Button();
+    @FXML
+    Button settings = new Button();
+
+    //Settings Popover components
+
+    PopOver popOver;
+
+    @FXML
+    Button settingsClose = new Button();
+
 
     //Weather Pane Labels - Today
     @FXML
@@ -195,6 +205,21 @@ public class StudentDashboard extends Application implements Initializable {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
+
+        popOver = new PopOver();
+
+        AnchorPane ap = null;
+        try {
+            ap = FXMLLoader.load(getClass().getResource("/SettingsPopover.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        popOver.setContentNode(ap);
+        popOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
+
+
+
+
         announcementTable.getItems().setAll(obsListAnnouncements);//TODO Add handler for if announcements = null
         initStackPane();
 
@@ -217,11 +242,12 @@ public class StudentDashboard extends Application implements Initializable {
         timeline.play();
         //-------------------------------------------------------------------------------------------
     }
+
     private String performHttpGet(String url) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         try{
             CloseableHttpResponse response = client.execute(request);
             return EntityUtils.toString(response.getEntity());
@@ -230,8 +256,22 @@ public class StudentDashboard extends Application implements Initializable {
             alert.setContentText("Error connecting to server");
             alert.showAndWait();
         }
-        catch (Exception f){
-            f.printStackTrace();
+        return null;
+    }
+
+    private String performHttpPost(String url) throws  IOException{
+
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost request = new HttpPost(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        try{
+            CloseableHttpResponse response = client.execute(request);
+            return EntityUtils.toString(response.getEntity());
+        }
+        catch (ConnectException e){
+            alert.setContentText("Error connecting to server");
+            alert.showAndWait();
         }
         return null;
     }
@@ -270,6 +310,19 @@ public class StudentDashboard extends Application implements Initializable {
     private void initStackPane(){
         stackPane.getChildren().clear();
         stackPane.getChildren().add(homePane);
+    }
+
+    @FXML
+    private void signOutActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        String response = performHttpPost("https://artemisystem.xyz/api/aut/logoutt");
+
+    }
+
+    @FXML
+    private void settingsActionPerformed(ActionEvent event){
+        event.consume();
+        popOver.show(settings);
     }
 
     @FXML

@@ -713,7 +713,7 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="849.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
+            <Button fx:id="signOut" layoutX="849.0" layoutY="10.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="30.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -731,18 +731,20 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="784.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <ImageView fitHeight="28.0" fitWidth="29.0" layoutX="787.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@fxmlAssets/icons8-job-48.png" />
-               </image>
+            <Button fx:id="settings" layoutX="781.0" layoutY="7.0" mnemonicParsing="false" onAction="#settingsActionPerformed" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </ImageView>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/icons8-job-48.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic></Button>
             <Label layoutX="782.0" layoutY="39.0" text="Settings">
                <cursor>
                   <Cursor fx:constant="HAND" />

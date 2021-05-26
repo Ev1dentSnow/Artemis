@@ -83,7 +83,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" x="100.0">
                            <image>
-                              <Image url="@../java/Artemis/Assets/icons8-handcuffs-96.png" />
+                              <Image url="@fxmlAssets/icons8-handcuffs-96.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -655,12 +655,12 @@
                      </children>
                   </HBox>
                   <Text layoutX="332.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text fx:id="secondDayConditions" layoutX="323.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" textAlignment="CENTER" />
-                  <Text fx:id="thirdDayConditions" layoutX="408.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" textAlignment="CENTER" />
-                  <Text fx:id="fourthDayConditions" layoutX="490.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" textAlignment="CENTER" />
-                  <Text fx:id="fifthDayConditions" layoutX="604.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" textAlignment="CENTER" />
-                  <Text fx:id="sixthDayConditions" layoutX="689.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" textAlignment="CENTER" />
-                  <Text fx:id="seventhDayConditions" layoutX="754.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" textAlignment="CENTER" />
+                  <Text fx:id="secondDayConditions" layoutX="308.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clear Sky" textAlignment="CENTER" wrappingWidth="78.0" />
+                  <Text fx:id="thirdDayConditions" layoutX="391.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Few Clouds" textAlignment="CENTER" wrappingWidth="78.0" />
+                  <Text fx:id="fourthDayConditions" layoutX="483.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thunderstorm" textAlignment="CENTER" wrappingWidth="78.0" />
+                  <Text fx:id="fifthDayConditions" layoutX="571.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mist" textAlignment="CENTER" wrappingWidth="78.0" />
+                  <Text fx:id="sixthDayConditions" layoutX="661.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rain" textAlignment="CENTER" wrappingWidth="78.0" />
+                  <Text fx:id="seventhDayConditions" layoutX="748.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shower Rain" textAlignment="CENTER" wrappingWidth="78.0" />
                   <VBox layoutX="61.0" layoutY="300.0" prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
@@ -713,13 +713,13 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="818.0" layoutY="23.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
+            <Button fx:id="signOut" layoutX="849.0" layoutY="10.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="30.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="HAND" />
                </cursor></Button>
             <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="852.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxmlAssets/icons8-emergency-exit-96.png" />
+                  <Image url="@fxmlAssets/icons8-emergency-exit-48.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -731,17 +731,28 @@
                   <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="784.0" layoutY="18.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css" />
-            <ImageView fitHeight="28.0" fitWidth="29.0" layoutX="787.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@fxmlAssets/icons8-job-96.png" />
-               </image>
+            <Button fx:id="settings" layoutX="781.0" layoutY="7.0" mnemonicParsing="false" onAction="#settingsActionPerformed" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </ImageView>
-            <Label layoutX="782.0" layoutY="39.0" text="Settings" />
-            <Label layoutX="843.0" layoutY="39.0" text="Sign Out" />
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@fxmlAssets/icons8-job-48.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic></Button>
+            <Label layoutX="782.0" layoutY="39.0" text="Settings">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Label>
+            <Label layoutX="843.0" layoutY="39.0" text="Sign Out">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Label>
             <Button layoutX="728.0" layoutY="10.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@LightMode.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -751,8 +762,14 @@
                <image>
                   <Image url="@fxmlAssets/icons8-help-48.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <Label layoutX="723.0" layoutY="39.0" text="Help" />
+            <Label layoutX="723.0" layoutY="39.0" text="Help">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Label>
          </children>
       </Pane>
    </children>
