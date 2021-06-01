@@ -28,7 +28,7 @@
          <children>
             <VBox layoutY="144.0" prefHeight="302.0" prefWidth="150.0" stylesheets="@AdminDashboard.css">
                <children>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" stylesheets="@AdminDashboard.css" text="Home" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#homeActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" stylesheets="@AdminDashboard.css" text="Home" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -42,7 +42,7 @@
                         <Insets right="20.0" />
                      </padding>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Students" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#studentsActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Students" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -53,7 +53,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Teachers" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#teachersActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Teachers" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -64,7 +64,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Timetables" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#timetablesActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Timetables" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -106,7 +106,7 @@
                   <Font name="Roboto Medium" size="13.0" />
                </font></Label>
             <ImageView id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="10.0" layoutY="506.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@AdminDashboard.css" text="Sign Out" textFill="WHITE" />
+            <Button fx:id="signOut" layoutX="10.0" layoutY="506.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@AdminDashboard.css" text="Sign Out" textFill="WHITE" />
             <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="635.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <ImageView fitHeight="91.0" fitWidth="150.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -129,123 +129,9 @@
                </font>
             </Label>
          </children></Pane>
-      <StackPane layoutX="150.0" layoutY="68.0" prefHeight="668.0" prefWidth="1042.0">
+      <StackPane fx:id="stackPane" layoutX="150.0" layoutY="68.0" prefHeight="668.0" prefWidth="1042.0">
          <children>
-            <Pane id="HomePane" prefHeight="200.0" prefWidth="200.0" />
-            <Pane id="TeachersPane" prefHeight="200.0" prefWidth="200.0" />
-            <Pane id="TimetablesPane" prefHeight="200.0" prefWidth="200.0" />
-            <Pane id="AdminPane" prefHeight="636.0" prefWidth="891.0">
-               <children>
-                  <Pane id="Dashboard" layoutX="29.0" layoutY="24.0" prefHeight="606.0" prefWidth="1012.0" styleClass="dashboard" stylesheets="@AdminDashboard.css">
-                     <children>
-                        <Pane id="WeatherCard" layoutX="540.0" layoutY="303.0" prefHeight="283.0" prefWidth="436.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
-                           <children>
-                              <Text fill="WHITE" layoutX="34.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-black" text="Weather">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="WHITE" layoutX="150.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-medium" text="7 Day Forecast">
-                                 <font>
-                                    <Font size="17.0" />
-                                 </font>
-                              </Text>
-                              <HBox layoutX="38.0" layoutY="193.0" prefHeight="54.0" prefWidth="360.0">
-                                 <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon">
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tue">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Fri">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sat">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sun">
-                                       <HBox.margin>
-                                          <Insets left="35.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Text>
-                                 </children></HBox>
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </Pane>
-                        <Pane layoutX="540.0" layoutY="19.0" prefHeight="262.0" prefWidth="436.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
-                           <children>
-                              <YearMonthView layoutX="19.0" layoutY="4.0" prefHeight="254.0" prefWidth="398.0" showUsageColors="true" />
-                           </children>
-                        </Pane>
-                        <Pane layoutX="38.0" layoutY="19.0" prefHeight="564.0" prefWidth="476.0" styleClass="forecastWeather-panel" stylesheets="@AdminDashboard.css">
-                           <children>
-                              <Text fill="WHITE" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
-                                 <font>
-                                    <Font name="Roboto Black" size="30.0" />
-                                 </font>
-                              </Text>
-                              <VBox layoutY="96.0" prefHeight="470.0" prefWidth="476.0">
-                                 <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 1" />
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 2">
-                                       <VBox.margin>
-                                          <Insets top="60.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 3">
-                                       <VBox.margin>
-                                          <Insets top="60.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 4">
-                                       <VBox.margin>
-                                          <Insets top="60.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 5">
-                                       <VBox.margin>
-                                          <Insets top="60.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcement 6">
-                                       <VBox.margin>
-                                          <Insets top="60.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
-            <Pane id="StudentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
+            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
                <children>
                   <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
                      <tabs>
@@ -287,6 +173,119 @@
                      </tabs>
                   </JFXTabPane>
                </children></Pane>
+            <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="TeachersPane" fx:id="teachersPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
+               <children>
+                  <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                     <children>
+                        <Text fill="WHITE" layoutX="34.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-black" text="Weather">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="150.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-medium" text="7 Day Forecast">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Text>
+                        <HBox layoutX="38.0" layoutY="204.0" prefHeight="54.0" prefWidth="360.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tue">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thu">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Fri">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sat">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sun">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="10.0" />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/01d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/02d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/03d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/04d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/09d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/10d@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxmlAssets/Weather/11d@2x.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane id="calendarCard" layoutX="540.0" layoutY="41.0" prefHeight="289.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                     <children>
+                        <YearMonthView layoutX="19.0" layoutY="4.0" prefHeight="254.0" prefWidth="398.0" showUsageColors="true" />
+                     </children>
+                  </Pane>
+                  <Pane id="announcementsCard" layoutX="32.0" layoutY="41.0" prefHeight="587.0" prefWidth="476.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
+                     <children>
+                        <Text fill="WHITE" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
+                           <font>
+                              <Font name="Roboto Black" size="30.0" />
+                           </font>
+                        </Text>
+                        <TableView layoutY="100.0" prefHeight="487.0" prefWidth="476.0" stylesheets="@AnnouncementTableDarkMode.css">
+                          <columns>
+                            <TableColumn prefWidth="475.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </children>

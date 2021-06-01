@@ -8,12 +8,16 @@ Artemis/Models/Weather/Daily.java
  Artemis.Models.Weather.Daily
 Artemis/Models/Admin.java
  Artemis.Models.Admin
+Artemis/Controllers/SettingsPopover.java
+ Artemis.Controllers.SettingsPopover
 Artemis/Models/User.java
  Artemis.Models.User
 Artemis/Models/Teacher.java
  Artemis.Models.Teacher
 Artemis/Models/Weather/Weather.java
  Artemis.Models.Weather.Weather
+Artemis/Models/Marks.java
+ Artemis.Models.Marks
 Artemis/Models/Announcement.java
  Artemis.Models.Announcement
 Artemis/Controllers/AdminDashboard.java
@@ -23,9 +27,9 @@ Artemis/Models/Weather/Temp.java
  Artemis.Models.Weather.Temp
 Artemis/Models/House.java
  Artemis.Models.House
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController

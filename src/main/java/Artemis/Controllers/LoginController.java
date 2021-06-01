@@ -1,6 +1,7 @@
 package Artemis.Controllers;
 
 import Artemis.App;
+import Artemis.Models.Student;
 import javafx.animation.FillTransition;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -101,15 +102,15 @@ public class LoginController extends Application {
                     alert.setContentText("Login Successful");
                     alert.showAndWait();
 
-                    JSONObject tokenobj = new JSONObject(responseBody);
-                    String responseToken = (String) tokenobj.get("access_token");
-                    String permissionLevel = (String) tokenobj.get("role");
-                    int userId = (Integer) tokenobj.get("user_id");
+                    JSONObject responseObj = new JSONObject(responseBody);
+                    String responseToken = (String) responseObj.get("access_token");
+                    String permissionLevel = (String) responseObj.get("role");
+                    int userId = (Integer) responseObj.get("userId");
 
                     this.setAccessToken(responseToken);
                     this.setPermissionLevel(permissionLevel);
-                    StudentDashboard.setUserId(userId);
-                    StudentDashboard.setAccessToken(responseToken);
+                    this.setUserId(userId);
+
 
                     if(permissionLevel.equals("student")){
                        loadStudentDashboard(event);
@@ -155,12 +156,14 @@ public class LoginController extends Application {
     }
 
     private void loadStudentDashboard(ActionEvent event) throws IOException {
-        AnchorPane StudentDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
+        StudentDashboard.setAccessToken(accessToken);
+        StudentDashboard.setUserId(userId);
+        AnchorPane sd = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
         window.setTitle("Artemis");
-        window.setScene(new Scene(StudentDashboard));
-        StudentDashboard.getStylesheets().add("TabbedPanes.css");
+        window.setScene(new Scene(sd));
+        sd.getStylesheets().add("TabbedPanes.css");
         window.setResizable(false);
         window.setWidth(1100);
         window.setHeight(680);
@@ -172,8 +175,10 @@ public class LoginController extends Application {
     }
 
     private void loadAdminDashboard(ActionEvent event) throws IOException {
+        AdminDashboard.setAccessToken(accessToken);
+        AdminDashboard.setUserId(userId);
         AnchorPane AdminDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/AdminDashboard.fxml"));
-        Stage window = new Stage();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(AdminDashboard));

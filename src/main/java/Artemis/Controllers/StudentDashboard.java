@@ -2,10 +2,12 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
+import Artemis.Models.Marks;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
 import javafx.animation.Animation;
@@ -20,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -38,7 +41,6 @@ import org.apache.http.util.EntityUtils;
 import org.controlsfx.control.PopOver;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.kordamp.bootstrapfx.scene.layout.Panel;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -65,6 +67,8 @@ public class StudentDashboard extends Application implements Initializable {
 
     private boolean weatherPanePrepared = false;
 
+    private boolean marksPanePrepared = false;
+
     //StackPane config
     @FXML
     StackPane stackPane = new StackPane();
@@ -79,8 +83,6 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Pane weatherPane = new Pane();
     @FXML
-    Panel alertPanel = new Panel();
-    @FXML
     Label dateLabel = new Label();
     @FXML
     Label timeLabel = new Label();
@@ -91,20 +93,22 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Label fullNameText = new Label();
     @FXML
-    Label welcomeBack = new Label();
+    Label formLabel = new Label();
     @FXML
-    JFXTabPane marksTabPane = new JFXTabPane();
+    Label welcomeBack = new Label();
     @FXML
     Button signOut = new Button();
     @FXML
     Button settings = new Button();
 
+
+    //Marks Pane components
+    @FXML
+    JFXTabPane marksTabPane = new JFXTabPane();
+
     //Settings Popover components
 
     PopOver popOver;
-
-    @FXML
-    Button settingsClose = new Button();
 
 
     //Weather Pane Labels - Today
@@ -182,6 +186,7 @@ public class StudentDashboard extends Application implements Initializable {
     ImageView seventhDayImage = new ImageView();
 
     ForecastWeather forecastWeather = null;
+    int currentForm;
 
 
     public static void main(String[] args) {
@@ -196,6 +201,7 @@ public class StudentDashboard extends Application implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { //for announcements table
+
         subject.setCellValueFactory(new PropertyValueFactory<>("subject"));
         ObservableList<Announcement> obsListAnnouncements = null;
         try {
@@ -218,9 +224,11 @@ public class StudentDashboard extends Application implements Initializable {
         popOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
 
 
+        try { //Handler for if there are no announcements
+            announcementTable.getItems().setAll(obsListAnnouncements);
+        }catch (NullPointerException n){
 
-
-        announcementTable.getItems().setAll(obsListAnnouncements);//TODO Add handler for if announcements = null
+        }
         initStackPane();
 
         //---------------------UPDATING DASHBOARD TIME EVERY SECOND ON ANOTHER THREAD-------------------------
@@ -252,10 +260,12 @@ public class StudentDashboard extends Application implements Initializable {
             CloseableHttpResponse response = client.execute(request);
             return EntityUtils.toString(response.getEntity());
         }
+
         catch(ConnectException e){
             alert.setContentText("Error connecting to server");
             alert.showAndWait();
         }
+
         return null;
     }
 
@@ -276,21 +286,33 @@ public class StudentDashboard extends Application implements Initializable {
         return null;
     }
 
-    private ObservableList<Announcement> prepareHomePane() throws IOException, JSONException {
+    private ObservableList<Announcement> prepareHomePane() throws IOException{
 
-
-        String studentResponseBody = performHttpGet("https://artemisystem.xyz/api/student/home/" + userId);
-        JSONObject nameObj = new JSONObject(studentResponseBody);
-        String firstName = (nameObj.get("firstName")).toString();
-        String lastName = (nameObj.get("lastName").toString());
+        JSONObject nameObj;
+        String firstName = "";
+        String lastName = "";
+        int form = 0;
+        String studentResponseBody = performHttpGet("https://artemisystem.xyz/api/students/home/" + userId);
+        try {
+            nameObj = new JSONObject(studentResponseBody);
+            firstName = (nameObj.get("first_name")).toString();
+            lastName = (nameObj.get("last_name").toString());
+            form = nameObj.getInt("Form");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
         fullNameText.setText(firstName + " " + lastName);
+        formLabel.setText("FORM " + form);
+        this.setCurrentForm(form);
         welcomeBack.setText("Welcome back " + firstName);
 
         String announcementsResponseBody = performHttpGet("https://artemisystem.xyz/api/announcements");
 
             Gson gson = new Gson();
 
-            Type announcementListType = new TypeToken<ArrayList<Announcement>>(){}.getType();
+            Type announcementListType = new TypeToken<ArrayList<Announcement>>() {
+            }.getType();
             ArrayList<Announcement> announcements = gson.fromJson(announcementsResponseBody, announcementListType);
 
         //table only accepts observable list, so the arraylist needs to be converted to an observable list like so...
@@ -315,9 +337,25 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     private void signOutActionPerformed(ActionEvent event) throws IOException {
         event.consume();
-        String response = performHttpPost("https://artemisystem.xyz/api/aut/logoutt");
+        String response = performHttpPost("https://artemisystem.xyz/api/auth/logout");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Logged out successfully");
+        alert.showAndWait();
 
+        Stage stage = (Stage) signOut.getScene().getWindow();
+        stage.close();
+
+        AnchorPane LoginController = (AnchorPane) FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
+        Stage window = new Stage();
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.setTitle("Artemis");
+        window.setScene(new Scene(LoginController));
+        window.setResizable(false);
+        window.show();
     }
+
+
+
 
     @FXML
     private void settingsActionPerformed(ActionEvent event){
@@ -332,10 +370,11 @@ public class StudentDashboard extends Application implements Initializable {
         stackPane.getChildren().add(homePane);
     }
     @FXML
-    private void marksActionPerformed(ActionEvent event){
+    private void marksActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(marksPane);
+        prepareMarksPane();
     }
     @FXML
     private void subjectsActionPerformed(ActionEvent event){
@@ -356,6 +395,24 @@ public class StudentDashboard extends Application implements Initializable {
         stackPane.getChildren().add(weatherPane);
         prepareWeatherPane();
     }
+
+    private void prepareMarksPane() throws IOException {
+
+        if(marksPanePrepared){
+            String response = performHttpGet("https://artemisystem.xyz/api/students/marks/" + getUserId());
+            Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
+            Marks[] marks = gson.fromJson(response, Marks[].class);
+
+            Calendar cal = Calendar.getInstance();
+            int enrollmentYear = (cal.get(Calendar.YEAR) - currentForm) + 1;
+
+
+            marksPanePrepared = false;
+        }
+
+
+    }
+
 
     private String fetchWeatherData() throws IOException, JSONException {
         String forecastWeatherData = performHttpGet("https://artemisystem.xyz/api/weather");
@@ -447,6 +504,7 @@ public class StudentDashboard extends Application implements Initializable {
         Weather[] weather7 = dailyWeather[6].getWeather();
         seventhDayImage.setImage(determineWeatherImages(weather7[0].getId()));
     }
+
     //See https://openweathermap.org/weather-conditions for more information
     private Image determineWeatherImages(int id){
 
@@ -522,8 +580,6 @@ public class StudentDashboard extends Application implements Initializable {
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
-
-
     public String getFullName() {
         return fullName;
     }
@@ -555,5 +611,9 @@ public class StudentDashboard extends Application implements Initializable {
 
     public static void setAccessToken(String accessToken) {
         StudentDashboard.accessToken = accessToken;
+    }
+
+    public void setCurrentForm(int currentForm) {
+        this.currentForm = currentForm;
     }
 }
