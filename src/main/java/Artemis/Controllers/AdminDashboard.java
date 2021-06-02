@@ -1,41 +1,37 @@
 package Artemis.Controllers;
 
 import Artemis.App;
+import Artemis.Models.Student;
 import com.calendarfx.view.YearMonthView;
+import com.google.gson.Gson;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.checkerframework.checker.units.qual.C;
-import org.w3c.dom.Text;
 
-import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
@@ -47,12 +43,16 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static javafx.collections.FXCollections.observableArrayList;
+
 public class AdminDashboard extends Application implements Initializable {
 
 
     private static String accessToken;
 
     private static int userId;
+
+    private boolean studentsPanePrepared = false;
 
     @FXML
     YearMonthView calendar = new YearMonthView();
@@ -73,6 +73,19 @@ public class AdminDashboard extends Application implements Initializable {
     Pane timetablesPane = new Pane();
     @FXML
     Button signOut = new Button();
+
+    @FXML
+    TableView studentsTable = new TableView();
+    @FXML
+    TableColumn<Student, String> colFirstName;
+    @FXML
+    TableColumn<Student, String> colLastName;
+    @FXML
+    TableColumn<Student, Integer> colForm;
+    @FXML
+    TableColumn<Student, String> colHouse;
+    @FXML
+    TableColumn<Student, String> colEmail;
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -135,6 +148,23 @@ public class AdminDashboard extends Application implements Initializable {
         return null;
     }
 
+    private CloseableHttpResponse performHttpGet(String url) throws IOException {
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        try{
+            CloseableHttpResponse response = client.execute(request);
+            return response;
+        }
+
+        catch(ConnectException e){
+            alert.setContentText("Error connecting to server");
+            alert.showAndWait();
+        }
+
+        return null;
+    }
 
 
     private int fetchDayOfWeek(LocalDate date){
@@ -157,10 +187,17 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void studentsActionPerformed(ActionEvent event){
+    private void studentsActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(studentsPane);
+
+        if(!studentsPanePrepared){
+
+            prepareStudentsPane();
+            studentsPanePrepared = true;
+        }
+
     }
 
     @FXML
@@ -196,7 +233,37 @@ public class AdminDashboard extends Application implements Initializable {
         else{
             displayAlert(result.getEntity().getContent().toString(), Alert.AlertType.ERROR);
         }
+    }
 
+    private void prepareStudentsPane() throws IOException {
+        CloseableHttpResponse response = performHttpGet("https://artemisystem.xyz/api/students");
+
+        if(response.getStatusLine().getStatusCode() == 200){
+            Gson gson = new Gson();
+
+            ObservableList<Student> studentsList = observableArrayList();
+
+            studentsList.addAll(gson.fromJson(EntityUtils.toString(response.getEntity()), Student[].class));
+
+
+
+
+            colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            colForm.setCellValueFactory(new PropertyValueFactory<>("Form"));
+            colHouse.setCellValueFactory(new PropertyValueFactory<>("House"));
+            colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+            studentsTable.setItems(studentsList);
+
+
+
+        }
+        else if(response.getStatusLine().getStatusCode() == 401){
+            displayAlert("Unauthorized, please re-authenticate", Alert.AlertType.ERROR);
+        }
+        else if(response.getStatusLine().getStatusCode() == 403){
+            displayAlert("Forbidden, please re-authenticate", Alert.AlertType.ERROR);
+        }
     }
 
 
@@ -204,6 +271,12 @@ public class AdminDashboard extends Application implements Initializable {
         Alert alert = new Alert(alertType);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void viewFullInfoActionPerformed(ActionEvent event) throws IOException {
+
+        AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
     }
 
 

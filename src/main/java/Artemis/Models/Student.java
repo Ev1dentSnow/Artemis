@@ -13,19 +13,42 @@ import java.util.Date;
  */
 public class Student extends User {
 
-    private String house;
+
     private int form;
-    private boolean prefectStatus;
-    
-    public Student(String f, String l, Date dob, String h, int fo, boolean ps){
+
+    public Student(String f, String l, Date dob, String h, int fo, String em){
         
-        fName = f;
-        lName = l;
-        DOB = dob;
+        firstName = f;
+        lastName = l;
+        this.dob = dob;
         house = h;
         form = fo;
-        prefectStatus = ps;
-        
+        email = em;
+
+    }
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public void setFirstName(String firstName){
+         this.firstName = firstName;
+    }
+
+    public String getLastName(){
+        return lastName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public String getHouse(){
@@ -44,11 +67,6 @@ public class Student extends User {
         this.form = form;
     }
 
-    public boolean isPrefectStatus(){
-        return prefectStatus;
-    }
 
-    public void setPrefectStatus(boolean prefectStatus){
-        this.prefectStatus = prefectStatus;
-    }
+
 }

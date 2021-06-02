@@ -131,48 +131,6 @@
          </children></Pane>
       <StackPane fx:id="stackPane" layoutX="150.0" layoutY="68.0" prefHeight="668.0" prefWidth="1042.0">
          <children>
-            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
-               <children>
-                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
-                     <tabs>
-                        <Tab styleClass="tab-admin-students" text="View Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
-                                 <children>
-                                    <TableView layoutX="8.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
-                                      <columns>
-                                        <TableColumn prefWidth="128.0" text="First Name" />
-                                        <TableColumn prefWidth="157.0" text="Second Name(s)" />
-                                          <TableColumn prefWidth="134.0" text="Last Name" />
-                                          <TableColumn prefWidth="59.0" text="Form" />
-                                          <TableColumn prefWidth="212.0" text="House" />
-                                          <TableColumn prefWidth="328.0" text="Email" />
-                                      </columns>
-                                    </TableView>
-                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
-                                    <JFXButton layoutX="917.0" layoutY="22.0" styleClass="btn-info" text="View Full Info" />
-                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab styleClass="tab-admin-students" text="Manage Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Manage Student Groups/Classes">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                     </tabs>
-                  </JFXTabPane>
-               </children></Pane>
             <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="TeachersPane" fx:id="teachersPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
@@ -286,6 +244,47 @@
                   </Pane>
                </children>
             </Pane>
+            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
+               <children>
+                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
+                     <tabs>
+                        <Tab styleClass="tab-admin-students" text="View Students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
+                                 <children>
+                                    <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
+                                      <columns>
+                                        <TableColumn fx:id="colFirstName" prefWidth="274.0" text="First Name" />
+                                          <TableColumn fx:id="colLastName" prefWidth="292.0" text="Last Name" />
+                                          <TableColumn fx:id="colForm" prefWidth="54.0" text="Form" />
+                                          <TableColumn fx:id="colHouse" prefWidth="146.0" text="House" />
+                                          <TableColumn fx:id="colEmail" prefWidth="252.0" text="Email" />
+                                      </columns>
+                                    </TableView>
+                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
+                                    <JFXButton layoutX="917.0" layoutY="22.0" styleClass="btn-info" text="View Full Info" />
+                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-admin-students" text="Manage Students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab text="Manage Student Groups/Classes">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></Pane>
          </children>
       </StackPane>
    </children>
