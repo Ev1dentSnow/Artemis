@@ -255,11 +255,12 @@
                                  <children>
                                     <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
                                       <columns>
-                                        <TableColumn fx:id="colFirstName" prefWidth="274.0" text="First Name" />
-                                          <TableColumn fx:id="colLastName" prefWidth="292.0" text="Last Name" />
-                                          <TableColumn fx:id="colForm" prefWidth="54.0" text="Form" />
-                                          <TableColumn fx:id="colHouse" prefWidth="146.0" text="House" />
-                                          <TableColumn fx:id="colEmail" prefWidth="252.0" text="Email" />
+                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
+                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
+                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
+                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
+                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
                                       </columns>
                                     </TableView>
                                     <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />

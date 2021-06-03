@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -254,15 +255,19 @@
                                  <children>
                                     <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
                                       <columns>
-                                        <TableColumn fx:id="colFirstName" prefWidth="274.0" text="First Name" />
-                                          <TableColumn fx:id="colLastName" prefWidth="292.0" text="Last Name" />
-                                          <TableColumn fx:id="colForm" prefWidth="54.0" text="Form" />
-                                          <TableColumn fx:id="colHouse" prefWidth="146.0" text="House" />
-                                          <TableColumn fx:id="colEmail" prefWidth="252.0" text="Email" />
+                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
+                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
+                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
+                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
+                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
                                       </columns>
                                     </TableView>
                                     <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
-                                    <JFXButton layoutX="917.0" layoutY="22.0" styleClass="btn-info" text="View Full Info" />
+                                    <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
+                                       <effect>
+                                          <Shadow />
+                                       </effect></JFXButton>
                                     <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@fxmlAssets/icons8-search-client-white-48.png" />

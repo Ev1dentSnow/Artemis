@@ -5,7 +5,10 @@
  */
 package Artemis.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
+
 
 /**
  *
@@ -15,16 +18,38 @@ public class Student extends User {
 
 
     private int form;
+    @SerializedName(value = "primary_contact_name")
+    String primaryContactName;
+    @SerializedName(value = "primary_contact_email")
+    String primaryContactEmail;
+    @SerializedName(value = "secondary_contact_name")
+    String secondaryContactName;
+    @SerializedName(value = "secondary_contact_email")
+    String secondaryContactEmail;
 
-    public Student(String f, String l, Date dob, String h, int fo, String em){
-        
+    public Student(int i, String f, String l, Date dob, String h, int fo, String em, String c, String pcn, String pce, String scn, String sce){
+
+        id = i;
         firstName = f;
         lastName = l;
         this.dob = dob;
         house = h;
         form = fo;
         email = em;
+        comments = c;
+        primaryContactName = pcn;
+        primaryContactEmail = pce;
+        secondaryContactName = scn;
+        secondaryContactEmail = sce;
 
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getFirstName(){
@@ -41,6 +66,14 @@ public class Student extends User {
 
     public void setLastName(String lastName){
         this.lastName = lastName;
+    }
+
+    public Date getDob(){
+        return (Date) dob;
+    }
+
+    public void setDob(Date dob){
+        this.dob = dob;
     }
 
     public String getEmail(){
@@ -67,6 +100,43 @@ public class Student extends User {
         this.form = form;
     }
 
+    public String getPrimaryContactName() {
+        return primaryContactName;
+    }
 
+    public void setPrimaryContactName(String primaryContactName) {
+        this.primaryContactName = primaryContactName;
+    }
 
+    public String getPrimaryContactEmail() {
+        return primaryContactEmail;
+    }
+
+    public void setPrimaryContactEmail(String primaryContactEmail) {
+        this.primaryContactEmail = primaryContactEmail;
+    }
+
+    public String getSecondaryContactName() {
+        return secondaryContactName;
+    }
+
+    public void setSecondaryContactName(String secondaryContactName) {
+        this.secondaryContactName = secondaryContactName;
+    }
+
+    public String getSecondaryContactEmail() {
+        return secondaryContactEmail;
+    }
+
+    public void setSecondaryContactEmail(String secondaryContactEmail) {
+        this.secondaryContactEmail = secondaryContactEmail;
+    }
+
+    public String getComments(){
+        return comments;
+    }
+
+    public void setComments(String comments){
+        this.comments = comments;
+    }
 }

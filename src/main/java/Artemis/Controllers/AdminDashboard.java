@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
@@ -77,6 +79,8 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     TableView studentsTable = new TableView();
     @FXML
+    TableColumn<Student, Integer> colID;
+    @FXML
     TableColumn<Student, String> colFirstName;
     @FXML
     TableColumn<Student, String> colLastName;
@@ -88,6 +92,10 @@ public class AdminDashboard extends Application implements Initializable {
     TableColumn<Student, String> colEmail;
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+
+    private ObservableList<Student> studentsList;
+
+    private static Student selectedStudent;
 
 
     public static void main(String[] args) {
@@ -241,13 +249,13 @@ public class AdminDashboard extends Application implements Initializable {
         if(response.getStatusLine().getStatusCode() == 200){
             Gson gson = new Gson();
 
-            ObservableList<Student> studentsList = observableArrayList();
+            studentsList = observableArrayList();
 
             studentsList.addAll(gson.fromJson(EntityUtils.toString(response.getEntity()), Student[].class));
 
 
 
-
+            colID.setCellValueFactory(new PropertyValueFactory<>("id"));
             colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
             colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
             colForm.setCellValueFactory(new PropertyValueFactory<>("Form"));
@@ -276,7 +284,25 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void viewFullInfoActionPerformed(ActionEvent event) throws IOException {
 
-        AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
+        selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
+
+
+
+        if (!(selectedStudent == null)){
+            ViewFullInfo.setSelectedStudentId(selectedStudent.getId());
+            AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
+            Stage viewFullInfoStage = new Stage();
+            Scene viewFullInfoScene = new Scene(fullInfoPane);
+            viewFullInfoStage.setScene(viewFullInfoScene);
+            viewFullInfoStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            viewFullInfoStage.initModality(Modality.APPLICATION_MODAL);
+            viewFullInfoStage.setTitle("Full Information");
+            viewFullInfoStage.show();
+        }
+        else{
+            displayAlert("Select a student first", Alert.AlertType.ERROR);
+        }
+
     }
 
 
@@ -294,5 +320,13 @@ public class AdminDashboard extends Application implements Initializable {
 
     public static void setUserId(int userId) {
         AdminDashboard.userId = userId;
+    }
+
+    public ObservableList<Student> getStudentsList() {
+        return studentsList;
+    }
+
+    public void setStudentsList(ObservableList<Student> studentsList) {
+        this.studentsList = studentsList;
     }
 }

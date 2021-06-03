@@ -10,6 +10,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
 repositories {
@@ -66,6 +67,8 @@ javafx{
     version = "15.0.1"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base']
 }
+
+mainClassName = 'Artemis.App'
 
 jar {
     manifest {
