@@ -4,6 +4,7 @@ import Artemis.App;
 import Artemis.Models.Student;
 import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -247,7 +248,7 @@ public class AdminDashboard extends Application implements Initializable {
         CloseableHttpResponse response = performHttpGet("https://artemisystem.xyz/api/students");
 
         if(response.getStatusLine().getStatusCode() == 200){
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
 
             studentsList = observableArrayList();
 
@@ -286,18 +287,21 @@ public class AdminDashboard extends Application implements Initializable {
 
         selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
 
-
-
         if (!(selectedStudent == null)){
-            ViewFullInfo.setSelectedStudentId(selectedStudent.getId());
+
+            ViewFullInfo.setCurrentStudent(selectedStudent);
             AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
             Stage viewFullInfoStage = new Stage();
+            //Passing the selected students data to the view full info window
+            viewFullInfoStage.setUserData(selectedStudent);
             Scene viewFullInfoScene = new Scene(fullInfoPane);
             viewFullInfoStage.setScene(viewFullInfoScene);
             viewFullInfoStage.initOwner(((Node) event.getSource()).getScene().getWindow());
             viewFullInfoStage.initModality(Modality.APPLICATION_MODAL);
             viewFullInfoStage.setTitle("Full Information");
             viewFullInfoStage.show();
+
+
         }
         else{
             displayAlert("Select a student first", Alert.AlertType.ERROR);

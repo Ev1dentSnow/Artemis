@@ -436,7 +436,6 @@ public class StudentDashboard extends Application implements Initializable {
             setWeatherImages(dailyWeather);
             weatherPanePrepared = true;
         }
-
     }
 
     //Sets the text labels of temperatures, days etc on the weatherPane
