@@ -142,7 +142,7 @@
             </TextField>
          </children>
       </VBox>
-      <Button layoutX="260.0" layoutY="79.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="31.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnConfirm" layoutX="260.0" layoutY="79.0" mnemonicParsing="false" onAction="#btnConfirmActionPerformed" prefHeight="42.0" prefWidth="31.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -154,7 +154,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button layoutX="409.0" layoutY="76.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnCancel" layoutX="409.0" layoutY="76.0" mnemonicParsing="false" onAction="#btnCancelActionPerformed" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: transparent;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

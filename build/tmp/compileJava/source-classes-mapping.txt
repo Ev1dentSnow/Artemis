@@ -28,10 +28,10 @@ Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController
 Artemis/Controllers/ViewFullInfo.java
  Artemis.Controllers.ViewFullInfo
 Artemis/Controllers/AdminDashboard.java
  Artemis.Controllers.AdminDashboard
  Artemis.Controllers.AdminDashboard$1
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
