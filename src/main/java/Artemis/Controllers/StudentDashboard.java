@@ -3,6 +3,7 @@ package Artemis.Controllers;
 import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.Marks;
+import Artemis.Models.Quote;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
@@ -57,6 +58,11 @@ import java.util.ResourceBundle;
 
 public class StudentDashboard extends Application implements Initializable {
 
+    private final String ANNOUCEMENTS_PATH = "api/announcements";
+    private final String WEATHER_PATH = "api/weather";
+    private final String STUDENT_LIST_PATH = "api/students";
+    private final String QUOTE_PATH = "api/quote";
+
     private static String accessToken;
 
     private String fullName = "";
@@ -68,6 +74,10 @@ public class StudentDashboard extends Application implements Initializable {
     private boolean weatherPanePrepared = false;
 
     private boolean marksPanePrepared = false;
+
+    //The "daily motivation" quote on the home pane
+    @FXML
+    Text quoteText = new Text();
 
     //StackPane config
     @FXML
@@ -287,7 +297,7 @@ public class StudentDashboard extends Application implements Initializable {
     }
 
     private ObservableList<Announcement> prepareHomePane() throws IOException{
-
+        /*
         JSONObject nameObj;
         String firstName = "";
         String lastName = "";
@@ -307,7 +317,18 @@ public class StudentDashboard extends Application implements Initializable {
         this.setCurrentForm(form);
         welcomeBack.setText("Welcome back " + firstName);
 
-        String announcementsResponseBody = performHttpGet("https://artemisystem.xyz/api/announcements");
+        */
+
+        //Get daily motivational quote of the day
+
+        String quoteResponseBody = performHttpGet(App.BASEURL + QUOTE_PATH);
+
+        Gson gson1 = new Gson();
+        Quote dailyQuote = gson1.fromJson(quoteResponseBody, Quote.class);
+        quoteText.setText(dailyQuote.getQuote() + " - " + dailyQuote.getAuthor());
+
+        //Get announcements list
+        String announcementsResponseBody = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
 
             Gson gson = new Gson();
 
@@ -415,7 +436,7 @@ public class StudentDashboard extends Application implements Initializable {
 
 
     private String fetchWeatherData() throws IOException, JSONException {
-        String forecastWeatherData = performHttpGet("https://artemisystem.xyz/api/weather");
+        String forecastWeatherData = performHttpGet(App.BASEURL + WEATHER_PATH);
     return forecastWeatherData;
     }
 
@@ -504,7 +525,10 @@ public class StudentDashboard extends Application implements Initializable {
         seventhDayImage.setImage(determineWeatherImages(weather7[0].getId()));
     }
 
-    //See https://openweathermap.org/weather-conditions for more information
+    /*
+      This method determines which weather icon should be used based on the day's weather. For more information
+      on these weather codes, see https://openweathermap.org/weather-conditions
+    */
     private Image determineWeatherImages(int id){
 
         if(id >= 200 && id <= 232){ // id  200 - 232 = Thunderstorm

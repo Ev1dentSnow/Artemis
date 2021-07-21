@@ -1,7 +1,11 @@
 package Artemis.Controllers;
 
 import Artemis.App;
+import Artemis.Models.Announcement;
 import Artemis.Models.Student;
+import Artemis.Models.Weather.Daily;
+import Artemis.Models.Weather.ForecastWeather;
+import Artemis.Models.Weather.Weather;
 import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -56,6 +61,31 @@ public class AdminDashboard extends Application implements Initializable {
     private static int userId;
 
     private boolean studentsPanePrepared = false;
+
+    private final String ANNOUCEMENTS_PATH = "api/announcements";
+    private final String WEATHER_PATH = "api/weather";
+    private final String STUDENT_LIST_PATH = "api/students";
+
+    @FXML
+    private ListView announcementList;
+
+    //Weather "widget" images
+
+    @FXML
+    ImageView todayImage = new ImageView();
+    @FXML
+    ImageView secondDayImage = new ImageView();
+    @FXML
+    ImageView thirdDayImage = new ImageView();
+    @FXML
+    ImageView fourthDayImage = new ImageView();
+    @FXML
+    ImageView fifthDayImage = new ImageView();
+    @FXML
+    ImageView sixthDayImage = new ImageView();
+    @FXML
+    ImageView seventhDayImage = new ImageView();
+
 
     @FXML
     YearMonthView calendar = new YearMonthView();
@@ -136,6 +166,13 @@ public class AdminDashboard extends Application implements Initializable {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(homePane);
 
+        //Prepare the home pane (announcements, weather, etc)
+        try {
+            prepareHomePane();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -186,6 +223,15 @@ public class AdminDashboard extends Application implements Initializable {
         return day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }
 
+    /*
+
+    ------------------------------------
+
+    TABBEDPANE BUTTON ACTION LISTENERS
+
+    ------------------------------------
+
+     */
 
 
     @FXML
@@ -244,8 +290,64 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
+    /*
+
+    ------------------------------------
+
+    PREPARATION OF DIFFERENT TABBED PANES
+
+    ------------------------------------
+
+     */
+
+
+    private void prepareHomePane() throws IOException {
+
+        /*
+        IN THIS METHOD...
+
+         1) ANNOUNCEMENTS ARE FETCHED AND ADDED TO THE ANNOUNCEMENTS LIST
+
+         2) WEATHER INFO IS FETCHED AND ADDED TO THE WEATHER "WIDGET"
+
+         */
+
+        //First fetching the announcements
+
+        CloseableHttpResponse announcementsResponse = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
+        String announcementsResponseString = EntityUtils.toString(announcementsResponse.getEntity());
+
+        //Deserialize all the announcements
+        if(announcementsResponse.getStatusLine().getStatusCode() == 200){
+            Gson gson = new Gson();
+            Announcement[] announcements = gson.fromJson(announcementsResponseString, Announcement[].class);
+
+            //Add each announcement to the list
+            for(int i = 0; i < announcements.length; i++){
+                announcementList.getItems().add(announcements[i].getSubject());
+            }
+        }
+        else{
+            displayAlert("Error fetching latest announcements. HTTP Status code: " + String.valueOf(announcementsResponse.getStatusLine().getStatusCode()), Alert.AlertType.ERROR);
+        }
+
+        //Now fetching the weather data
+        CloseableHttpResponse weatherResponse = performHttpGet(App.BASEURL + WEATHER_PATH);
+        String weatherResponseString = EntityUtils.toString(weatherResponse.getEntity());
+
+        //Deserialize the weather data
+
+        if(weatherResponse.getStatusLine().getStatusCode() == 200){
+            Gson gson = new Gson();
+            ForecastWeather weatherData = gson.fromJson(weatherResponseString, ForecastWeather.class);
+
+            //Set the weather icons according to the weather data
+            setWeatherImages(weatherData.getDaily());
+        }
+    }
+
     private void prepareStudentsPane() throws IOException {
-        CloseableHttpResponse response = performHttpGet("https://artemisystem.xyz/api/students");
+        CloseableHttpResponse response = performHttpGet(App.BASEURL + STUDENT_LIST_PATH);
 
         if(response.getStatusLine().getStatusCode() == 200){
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
@@ -276,11 +378,8 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
 
-    private void displayAlert(String content, Alert.AlertType alertType){
-        Alert alert = new Alert(alertType);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
+
 
     @FXML
     private void viewFullInfoActionPerformed(ActionEvent event) throws IOException {
@@ -299,7 +398,8 @@ public class AdminDashboard extends Application implements Initializable {
             viewFullInfoStage.initOwner(((Node) event.getSource()).getScene().getWindow());
             viewFullInfoStage.initModality(Modality.APPLICATION_MODAL);
             viewFullInfoStage.setTitle("Full Information");
-            viewFullInfoStage.show();
+            viewFullInfoStage.showAndWait();
+            prepareStudentsPane(); //refresh the table after changes are made
 
 
         }
@@ -309,6 +409,79 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
+    /*
+      This method determines which weather icon should be used based on the day's weather. For more information
+      on these weather codes, see https://openweathermap.org/weather-conditions
+    */
+    private Image determineWeatherImages(int id){
+
+        if(id >= 200 && id <= 232){ // id  200 - 232 = Thunderstorm
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/11d@2x.png"));
+        }
+        else if(id >= 300 && id <= 321){ //id 300 - 321 = Drizzle
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+        }
+        else if(id >= 500 && id <= 504){ //id 500 - 504 = Normal rain
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/10d@2x.png"));
+        }
+        else if(id == 511){ //id 511 = Freezing rain (Rare  "corner case")
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+        }
+        else if(id >= 520 && id <= 531){ //id 520 - 531 = Shower rain
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+        }
+        else if(id >= 600 && id <= 622){ //id 600 - 622 = Snow
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+        }
+        else if(id >= 701 && id <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/50d@2x.png"));
+        }
+        else if(id == 800){ //id 800 = Clear sky
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/01d@2x.png"));
+        }
+        else if(id == 801){ //id 801 = Few clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/02d@2x.png"));
+        }
+        else if(id == 802){ //id 802 = Scattered clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/03d@2x.png"));
+        }
+        else if(id == 803 || id == 804){ //id 803 - 804 = Broken and Overcast clouds
+            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/04d@2x.png"));
+        }
+        return null;
+    }
+
+    //This method takes in each day's weather and sets its icon in the weather "widget" accordingly
+    private void setWeatherImages(Daily[] dailyWeather){
+
+        Weather[] weather1 = dailyWeather[0].getWeather();
+        todayImage.setImage(determineWeatherImages(weather1[0].getId()));
+
+        Weather[] weather2 = dailyWeather[1].getWeather();
+        secondDayImage.setImage(determineWeatherImages(weather2[0].getId()));
+
+        Weather[] weather3 = dailyWeather[2].getWeather();
+        thirdDayImage.setImage(determineWeatherImages(weather3[0].getId()));
+
+        Weather[] weather4 = dailyWeather[3].getWeather();
+        fourthDayImage.setImage(determineWeatherImages(weather4[0].getId()));
+
+        Weather[] weather5 = dailyWeather[4].getWeather();
+        fifthDayImage.setImage(determineWeatherImages(weather5[0].getId()));
+
+        Weather[] weather6 = dailyWeather[5].getWeather();
+        sixthDayImage.setImage(determineWeatherImages(weather6[0].getId()));
+
+        Weather[] weather7 = dailyWeather[6].getWeather();
+        seventhDayImage.setImage(determineWeatherImages(weather7[0].getId()));
+    }
+
+
+    private void displayAlert(String content, Alert.AlertType alertType){
+        Alert alert = new Alert(alertType);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
     public static String getAccessToken() {
         return accessToken;

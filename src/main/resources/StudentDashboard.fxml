@@ -160,71 +160,6 @@
                   <Button id="viewReasons" layoutX="596.0" layoutY="8.0" mnemonicParsing="false" text="&lt;- Back" />
                </children>
             </Pane>
-            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
-               <children>
-                  <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="337.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="200.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
-                           <font>
-                              <Font name="Calibri Bold" size="16.0" />
-                           </font></Label>
-                        <Text layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
-                           <font>
-                              <Font name="Arial Italic" size="23.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="462.0" styleClass="widget-header" stylesheets="@LightMode.css">
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color opacity="0.1043478399515152" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
-                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
-                           <font>
-                              <Font name="Calibri" size="30.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="announcementTable" layoutX="1.0" layoutY="65.0" prefHeight="407.0" prefWidth="461.0" stylesheets="@AnnouncementTableLightMode.css">
-                          <columns>
-                            <TableColumn fx:id="subject" prefWidth="460.0" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" styleClass="alert-success" stylesheets="@LightMode.css">
-                     <children>
-                        <Label fx:id="welcomeBack" layoutX="21.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
-                           <font>
-                              <Font name="Calibri" size="16.0" />
-                           </font></Label>
-                     </children>
-                  </Pane>
-               </children></Pane>
             <VBox prefHeight="48.0" prefWidth="32.0" spacing="15.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High:" />
@@ -1564,6 +1499,71 @@
                   </JFXTabPane>
                </children>
             </Pane>
+            <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@LightMode.css">
+               <children>
+                  <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <YearMonthView layoutX="14.0" prefHeight="252.0" prefWidth="337.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="517.0" layoutY="84.0" prefHeight="200.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Label layoutX="124.0" layoutY="14.0" text="Daily Motivation">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font></Label>
+                        <Text fx:id="quoteText" layoutX="58.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;It always seems impossible until it's done&quot; - Nelson Mandela" wrappingWidth="243.5">
+                           <font>
+                              <Font name="Arial Italic" size="23.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="34.0" layoutY="84.0" prefHeight="472.0" prefWidth="462.0" styleClass="widget-header" stylesheets="@LightMode.css">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.1043478399515152" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Separator layoutX="11.0" layoutY="74.0" prefHeight="2.0" prefWidth="445.0" />
+                        <Label layoutX="115.0" layoutY="21.0" stylesheets="@LightMode.css" text="📣 Announcements">
+                           <font>
+                              <Font name="Calibri" size="30.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="announcementTable" layoutX="1.0" layoutY="65.0" prefHeight="407.0" prefWidth="461.0" stylesheets="@AnnouncementTableLightMode.css">
+                          <columns>
+                            <TableColumn fx:id="subject" prefWidth="460.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Pane layoutX="34.0" layoutY="14.0" prefHeight="53.0" prefWidth="845.0" styleClass="alert-success" stylesheets="@LightMode.css">
+                     <children>
+                        <Label fx:id="welcomeBack" layoutX="21.0" layoutY="17.0" style="-fx-font-family: Roboto;" text="Welcome back" textFill="#39a860">
+                           <font>
+                              <Font name="Calibri" size="16.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children></Pane>
          </children></StackPane>
       <Pane layoutX="178.0" prefHeight="66.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@LightMode.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <opaqueInsets>

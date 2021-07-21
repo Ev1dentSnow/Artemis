@@ -1,11 +1,10 @@
 package Artemis.Controllers;
 
 import Artemis.App;
-import Artemis.Models.Student;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import javafx.animation.FillTransition;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,17 +33,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class LoginController extends Application {
 
-    private static final String LOCAL_LOGIN_URL = "http://127.0.0.1:5000/auth/login";
-    private static final String ONLINE_LOGIN_URL = "https://artemisystem.xyz/api/auth/login";
+    private static final String LOGIN_PATH = "api/authentication";
+
     private boolean keyTyped = true;
     @FXML
     TextField txfUsername = new TextField();
@@ -82,7 +79,7 @@ public class LoginController extends Application {
             int responseStatusCode = 0;
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost(ONLINE_LOGIN_URL);
+            HttpPost httpPost = new HttpPost(App.BASEURL + LOGIN_PATH);
 
             List<NameValuePair> body = new ArrayList<NameValuePair>();
             body.add(new BasicNameValuePair("username", username));
@@ -97,30 +94,37 @@ public class LoginController extends Application {
 
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert selectLoginTypeAlert = new Alert(Alert.AlertType.INFORMATION);
 
                 if (responseStatusCode == 200) {
                     alert.setContentText("Login Successful");
                     alert.showAndWait();
 
                     JSONObject responseObj = new JSONObject(responseBody);
-                    String responseToken = (String) responseObj.get("access_token");
-                    String permissionLevel = (String) responseObj.get("role");
-                    int userId = (Integer) responseObj.get("userId");
+                    String responseToken = (String) responseObj.get("access");
+
+                    DecodedJWT jwt = JWT.decode(responseToken);
+                    String permissionLevel = jwt.getClaim("roles").toString();
+
 
                     this.setAccessToken(responseToken);
                     this.setPermissionLevel(permissionLevel);
                     this.setUserId(userId);
 
+                    //Determining which dashboard to open based on the user's role stated in the access token
 
-                    if(permissionLevel.equals("student")){
+                    if(permissionLevel.contains("student")){
                        loadStudentDashboard(event);
                     }
-                    else if(permissionLevel.equals("teacher")){
+                    else if(permissionLevel.contains("teacher")){
                         loadTeacherDashboard(event);
                     }
-                    else if(permissionLevel.equals("admin")){
+                    else if(permissionLevel.contains("admin")){
                         loadAdminDashboard(event);
+                        AdminDashboard.setAccessToken(accessToken);
                     }
+                    else if(permissionLevel.contains("teacher") && permissionLevel.contains("admin")) //Some teachers are admins too!
+                        selectLoginTypeAlert.setContentText("What would you like to sign in as?");
 
                 } else {
                     if(responseStatusCode == 401){

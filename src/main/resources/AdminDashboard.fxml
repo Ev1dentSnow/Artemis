@@ -6,6 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
@@ -134,6 +135,51 @@
          <children>
             <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="TeachersPane" fx:id="teachersPane" prefHeight="200.0" prefWidth="200.0" />
+            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
+               <children>
+                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
+                     <tabs>
+                        <Tab styleClass="tab-admin-students" text="View Students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
+                                 <children>
+                                    <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
+                                      <columns>
+                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
+                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
+                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
+                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
+                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
+                                      </columns>
+                                    </TableView>
+                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
+                                    <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
+                                       <effect>
+                                          <Shadow />
+                                       </effect></JFXButton>
+                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-admin-students" text="Manage Students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab text="Manage Student Groups/Classes">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
                <children>
                   <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
@@ -187,37 +233,37 @@
                               </Text>
                            </children>
                         </HBox>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="todayImage" fitHeight="46.0" fitWidth="40.0" layoutX="32.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/01d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="secondDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="91.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/02d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="thirdDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="147.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/03d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fourthDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="207.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/04d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fifthDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="260.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/09d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="sixthDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="312.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/10d@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="seventhDayImage" fitHeight="46.0" fitWidth="40.0" layoutX="366.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@fxmlAssets/Weather/11d@2x.png" />
                            </image>
@@ -236,60 +282,11 @@
                               <Font name="Roboto Black" size="30.0" />
                            </font>
                         </Text>
-                        <TableView layoutY="100.0" prefHeight="487.0" prefWidth="476.0" stylesheets="@AnnouncementTableDarkMode.css">
-                          <columns>
-                            <TableColumn prefWidth="475.0" />
-                          </columns>
-                        </TableView>
+                        <ListView fx:id="announcementList" layoutX="11.0" layoutY="93.0" prefHeight="480.0" prefWidth="455.0" stylesheets="@AnnouncementTableDarkMode.css" />
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
-               <children>
-                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
-                     <tabs>
-                        <Tab styleClass="tab-admin-students" text="View Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
-                                 <children>
-                                    <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
-                                      <columns>
-                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
-                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
-                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
-                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
-                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
-                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
-                                      </columns>
-                                    </TableView>
-                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
-                                    <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
-                                       <effect>
-                                          <Shadow />
-                                       </effect></JFXButton>
-                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab styleClass="tab-admin-students" text="Manage Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Manage Student Groups/Classes">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                     </tabs>
-                  </JFXTabPane>
-               </children></Pane>
          </children>
       </StackPane>
    </children>

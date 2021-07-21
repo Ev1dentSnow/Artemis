@@ -122,12 +122,14 @@ public class ViewFullInfo extends Application implements Initializable {
 
         event.consume();
         try {
-            performHttpPatch("https://artemisystem.xyz/api/students/" + currentStudent.getId());
+            performHttpPatch("https://artemisystem.xyz/api/student/" + currentStudent.getId());
         }
         catch(IOException e){
             displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
         }
 
+        Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
+        currentWindow.close();
     }
 
     @FXML
