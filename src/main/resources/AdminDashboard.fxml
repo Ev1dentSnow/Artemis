@@ -135,51 +135,6 @@
          <children>
             <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="TeachersPane" fx:id="teachersPane" prefHeight="200.0" prefWidth="200.0" />
-            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
-               <children>
-                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
-                     <tabs>
-                        <Tab styleClass="tab-admin-students" text="View Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
-                                 <children>
-                                    <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
-                                      <columns>
-                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
-                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
-                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
-                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
-                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
-                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
-                                      </columns>
-                                    </TableView>
-                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
-                                    <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
-                                       <effect>
-                                          <Shadow />
-                                       </effect></JFXButton>
-                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                        <Tab styleClass="tab-admin-students" text="Manage Students">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Manage Student Groups/Classes">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                     </tabs>
-                  </JFXTabPane>
-               </children></Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
                <children>
                   <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@AdminDashboard.css">
@@ -287,6 +242,87 @@
                   </Pane>
                </children>
             </Pane>
+            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@AdminDashboard.css">
+               <children>
+                  <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@TabbedPanes.css">
+                     <tabs>
+                        <Tab styleClass="tab-admin-students" text="View Students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="1030.0">
+                                 <children>
+                                    <TableView fx:id="studentsTable" layoutX="17.0" layoutY="66.0" prefHeight="545.0" prefWidth="1019.0" stylesheets="@LightMode-Tables.css">
+                                      <columns>
+                                          <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="colFirstName" prefWidth="226.0" text="First Name" />
+                                          <TableColumn fx:id="colLastName" prefWidth="230.0" text="Last Name" />
+                                          <TableColumn fx:id="colForm" prefWidth="63.0" text="Form" />
+                                          <TableColumn fx:id="colHouse" prefWidth="121.0" text="House" />
+                                          <TableColumn fx:id="colEmail" prefWidth="378.0" text="Email" />
+                                      </columns>
+                                    </TableView>
+                                    <TextField layoutX="55.0" layoutY="24.0" prefHeight="27.0" prefWidth="222.0" promptText="Search by first name..." />
+                                    <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
+                                       <effect>
+                                          <Shadow />
+                                       </effect></JFXButton>
+                                    <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@fxmlAssets/icons8-search-client-white-48.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="tab-admin-students" text="Add or remove a student">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox layoutX="85.0" layoutY="73.0" prefHeight="478.0" prefWidth="892.0" spacing="30.0">
+                                       <children>
+                                          <JFXButton fx:id="btnAddStudent" buttonType="RAISED" contentDisplay="BOTTOM" graphicTextGap="20.0" onAction="#addStudentActionPerformed" prefHeight="563.0" prefWidth="420.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="Add new student" textFill="WHITE">
+                                             <effect>
+                                                <Shadow />
+                                             </effect>
+                                             <graphic>
+                                                <ImageView fitHeight="145.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@fxmlAssets/icons8-add-user-male-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btnRemoveStudent" contentDisplay="BOTTOM" graphicTextGap="20.0" onAction="#removeStudentActionPerformed" prefHeight="563.0" prefWidth="419.0" style="-fx-border-width: 1; -fx-background-color: #d9534f;" text="Remove existing student" textFill="WHITE">
+                                             <effect>
+                                                <Shadow />
+                                             </effect>
+                                             <graphic>
+                                                <ImageView fitHeight="128.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@fxmlAssets/icons8-denied-90.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                       </children>
+                                    </HBox>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Manage Student Groups/Classes">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></Pane>
          </children>
       </StackPane>
    </children>

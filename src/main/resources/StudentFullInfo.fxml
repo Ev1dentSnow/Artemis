@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="681.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.ViewFullInfo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="681.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.StudentFullInfo">
    <children>
       <Text layoutX="238.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Information">
          <font>
@@ -28,9 +29,14 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:" wrappingWidth="89.193359375">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="89.193359375">
                <VBox.margin>
                   <Insets top="37.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:">
+               <VBox.margin>
+                  <Insets top="40.0" />
                </VBox.margin>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age:">
@@ -38,39 +44,44 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
+            <Text layoutX="10.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
          </children>
       </VBox>
-      <VBox layoutX="139.0" layoutY="142.0" prefHeight="276.0" prefWidth="194.0">
+      <VBox layoutX="139.0" layoutY="142.0" prefHeight="305.0" prefWidth="194.0">
          <children>
-            <TextField fx:id="txfFirstName" text="Pop" />
-            <TextField fx:id="txfLastName" text="Smoke">
+            <TextField fx:id="txfFirstName" />
+            <TextField fx:id="txfLastName">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfDOB" text="14/07/2003">
+            <TextField fx:id="txfUsername">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfAge" layoutX="10.0" layoutY="166.0" text="17 years">
+            <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0">
                <VBox.margin>
                   <Insets top="33.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfEmail" prefHeight="27.0" prefWidth="194.0" text="psmoke@school.com">
+            <TextField fx:id="txfAge" prefHeight="27.0" prefWidth="194.0">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="txfEmail" layoutX="10.0" layoutY="231.0" prefHeight="27.0" prefWidth="194.0">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </TextField>
          </children>
       </VBox>
-      <TextArea fx:id="txaComments" layoutX="133.0" layoutY="493.0" prefHeight="104.0" prefWidth="468.0" text="Rap Club Chairman&#10;&#10;Emergency Contact No. : +27 27 277 2772" />
+      <TextArea fx:id="txaComments" layoutX="133.0" layoutY="493.0" prefHeight="104.0" prefWidth="468.0" text="&#10;" />
       <Text layoutX="133.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -114,35 +125,35 @@
       </VBox>
       <VBox layoutX="484.0" layoutY="142.0" prefHeight="311.0" prefWidth="183.0">
          <children>
-            <TextField fx:id="txfHouse" text="Ochse" />
-            <TextField fx:id="txfForm" text="5">
+            <TextField fx:id="txfHouse" />
+            <TextField fx:id="txfForm">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfPrimaryContactName" text="Kyrie">
+            <TextField fx:id="txfPrimaryContactName">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfPrimaryContactEmail" text="ksmoke@work.com">
+            <TextField fx:id="txfPrimaryContactEmail">
                <VBox.margin>
                   <Insets top="32.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfSecondaryContactName" text="Kylie">
+            <TextField fx:id="txfSecondaryContactName">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfSecondaryContactEmail" text="kysmokee@work.com">
+            <TextField fx:id="txfSecondaryContactEmail">
                <VBox.margin>
                   <Insets top="27.0" />
                </VBox.margin>
             </TextField>
          </children>
       </VBox>
-      <Button fx:id="btnConfirm" layoutX="260.0" layoutY="79.0" mnemonicParsing="false" onAction="#btnConfirmActionPerformed" prefHeight="42.0" prefWidth="31.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnConfirm" layoutX="260.0" layoutY="70.0" mnemonicParsing="false" onAction="#btnConfirmActionPerformed" prefHeight="42.0" prefWidth="31.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -154,7 +165,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnCancel" layoutX="409.0" layoutY="76.0" mnemonicParsing="false" onAction="#btnCancelActionPerformed" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnCancel" layoutX="409.0" layoutY="70.0" mnemonicParsing="false" onAction="#btnCancelActionPerformed" prefHeight="48.0" prefWidth="52.0" style="-fx-background-color: transparent;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -171,5 +182,10 @@
       </Button>
       <Label layoutX="264.0" layoutY="116.0" text="Confirm" />
       <Label layoutX="417.0" layoutY="116.0" text="Cancel" />
+      <JFXToggleButton fx:id="editModeSwitch" layoutX="29.0" layoutY="45.0" onAction="#editModeSwitchActionPerformed" text="Edit Mode" toggleColor="WHITE" toggleLineColor="#3dc225" unToggleLineColor="#e1e1e1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXToggleButton>
    </children>
 </AnchorPane>

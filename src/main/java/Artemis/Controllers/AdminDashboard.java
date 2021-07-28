@@ -2,6 +2,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
+import Artemis.Models.JSON.Deserializers.StudentJSON;
 import Artemis.Models.Student;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
@@ -9,6 +10,7 @@ import Artemis.Models.Weather.Weather;
 import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,9 +49,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -107,6 +107,8 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     Button signOut = new Button();
 
+    //Students Pane Componenets
+
     @FXML
     TableView studentsTable = new TableView();
     @FXML
@@ -121,6 +123,11 @@ public class AdminDashboard extends Application implements Initializable {
     TableColumn<Student, String> colHouse;
     @FXML
     TableColumn<Student, String> colEmail;
+
+    @FXML
+    JFXButton btnAddStudent = new JFXButton();
+    @FXML
+    JFXButton btnRemoveStudent = new JFXButton();
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -255,6 +262,24 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
+    //Student Pane 2nd tab method
+    @FXML
+    private void addStudentActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        Stage window = new Stage();
+        AnchorPane viewFullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
+        window.setScene(new Scene(viewFullInfoPane));
+        window.setResizable(false);
+        window.showAndWait();
+
+    }
+
+    //Student Pane 2nd tab method
+    @FXML
+    private void removeStudentActionPerformed(ActionEvent event){
+        event.consume();
+    }
+
     @FXML
     private void teachersActionPerformed(ActionEvent event){
         event.consume();
@@ -272,23 +297,24 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void signOutActionPerformed(ActionEvent event) throws IOException {
         event.consume();
+
+        //This request is to let the API know it can add the access token to the blacklist
         CloseableHttpResponse result = performHttpPost("https://artemisystem.xyz/api/auth/logout");
-        if(result.getStatusLine().getStatusCode() == 200){
-            displayAlert("Logged out successfully!", Alert.AlertType.INFORMATION);
-            Stage stage = (Stage) signOut.getScene().getWindow();
-            stage.close();
-            AnchorPane LoginController = (AnchorPane) FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
-            Stage window = new Stage();
-            window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
-            window.setTitle("Artemis");
-            window.setScene(new Scene(LoginController));
-            window.setResizable(false);
-            window.show();
+        displayAlert("Logged out successfully!", Alert.AlertType.INFORMATION);
+
+        //Return to login screen
+        Stage stage = (Stage) signOut.getScene().getWindow();
+        stage.close();
+        AnchorPane LoginController = (AnchorPane) FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
+        Stage window = new Stage();
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.setTitle("Artemis");
+        window.setScene(new Scene(LoginController));
+        window.setResizable(false);
+        window.show();
         }
-        else{
-            displayAlert(result.getEntity().getContent().toString(), Alert.AlertType.ERROR);
-        }
-    }
+
+
 
     /*
 
@@ -354,6 +380,26 @@ public class AdminDashboard extends Application implements Initializable {
 
             studentsList = observableArrayList();
 
+            StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
+
+            for(int i = 0; i < studentJson.length; i++){
+
+                HashMap userDetails = studentJson[i].getUser_details();
+
+                int id = (Integer) userDetails.get("id");
+                String username = (String) userDetails.get("username");
+                String email = (String) userDetails.get("email");
+                Date dob = (Date) userDetails.get("dob");
+                String house = (String) userDetails.get("house");
+                String firstName = (String) userDetails.get("first_name");
+                String lastName = (String) userDetails.get("last_name");
+                String comments = (String) userDetails.get("comments");
+
+                studentsList.add(new Student(id, username, email, dob, firstName, lastName, comments))
+
+                //studentsList.add(new Student(studentJson))
+            }
+
             studentsList.addAll(gson.fromJson(EntityUtils.toString(response.getEntity()), Student[].class));
 
 
@@ -388,7 +434,7 @@ public class AdminDashboard extends Application implements Initializable {
 
         if (!(selectedStudent == null)){
 
-            ViewFullInfo.setCurrentStudent(selectedStudent);
+            StudentFullInfo.setCurrentStudent(selectedStudent);
             AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
             Stage viewFullInfoStage = new Stage();
             //Passing the selected students data to the view full info window
@@ -396,7 +442,7 @@ public class AdminDashboard extends Application implements Initializable {
             Scene viewFullInfoScene = new Scene(fullInfoPane);
             viewFullInfoStage.setScene(viewFullInfoScene);
             viewFullInfoStage.initOwner(((Node) event.getSource()).getScene().getWindow());
-            viewFullInfoStage.initModality(Modality.APPLICATION_MODAL);
+            viewFullInfoStage.initModality(Modality.APPLICATION_MODAL); //makes the window a "child" window of the admin dashboard
             viewFullInfoStage.setTitle("Full Information");
             viewFullInfoStage.showAndWait();
             prepareStudentsPane(); //refresh the table after changes are made

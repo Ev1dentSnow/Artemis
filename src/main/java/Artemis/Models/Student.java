@@ -52,6 +52,10 @@ public class Student extends User {
         this.id = id;
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+
     public String getFirstName(){
         return firstName;
     }

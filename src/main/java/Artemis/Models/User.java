@@ -7,6 +7,7 @@ import java.util.Date;
 public class User {
 
     int id;
+    String username;
     @SerializedName(value = "first_name")
     String firstName;
     @SerializedName(value = "last_name")
