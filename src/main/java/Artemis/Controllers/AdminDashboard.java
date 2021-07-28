@@ -45,6 +45,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -183,6 +184,12 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
+    /**
+     * Executes an HTTP POST request to the supplied URL, and returns the response
+     * @param url
+     * @return CloseableHttpResponse
+     * @throws IOException
+     */
 
     private CloseableHttpResponse performHttpPost(String url) throws  IOException{
 
@@ -249,7 +256,7 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void studentsActionPerformed(ActionEvent event) throws IOException {
+    private void studentsActionPerformed(ActionEvent event) throws IOException, ParseException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(studentsPane);
@@ -294,6 +301,12 @@ public class AdminDashboard extends Application implements Initializable {
         stackPane.getChildren().add(timetablesPane);
     }
 
+    /**
+     * Closes the window, notifies the API it can invalidate the access token,
+     * and returns to the login screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void signOutActionPerformed(ActionEvent event) throws IOException {
         event.consume();
@@ -326,6 +339,10 @@ public class AdminDashboard extends Application implements Initializable {
 
      */
 
+    /**
+     * Prepares the home pane for use by fetching announcements and weather data from the API
+     * @throws IOException
+     */
 
     private void prepareHomePane() throws IOException {
 
@@ -372,7 +389,14 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
-    private void prepareStudentsPane() throws IOException {
+    /**
+     * Prepares the Students Pane for use by fetching all necessary data from the
+     * API, to populate the students table
+     * @throws IOException
+     * @throws ParseException
+     */
+
+    private void prepareStudentsPane() throws IOException, ParseException {
         CloseableHttpResponse response = performHttpGet(App.BASEURL + STUDENT_LIST_PATH);
 
         if(response.getStatusLine().getStatusCode() == 200){
@@ -382,14 +406,16 @@ public class AdminDashboard extends Application implements Initializable {
 
             StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
             for(int i = 0; i < studentJson.length; i++){
 
                 HashMap userDetails = studentJson[i].getUser_details();
 
-                int id = (Integer) userDetails.get("id");
+                int id = Integer.parseInt((String) userDetails.get("id")) ;
                 String username = (String) userDetails.get("username");
                 String email = (String) userDetails.get("email");
-                Date dob = (Date) userDetails.get("dob");
+                String dob = (String) userDetails.get("dob");
                 String house = (String) userDetails.get("house");
                 String firstName = (String) userDetails.get("first_name");
                 String lastName = (String) userDetails.get("last_name");
@@ -401,13 +427,9 @@ public class AdminDashboard extends Application implements Initializable {
                 String secondaryContactName = studentJson[i].getSecondary_contact_name();
                 String secondaryContactEmail = studentJson[i].getSecondary_contact_email();
 
-                studentsList.add(new Student(id, firstName, lastName, username, dob, house, form, email, comments, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail));
+                studentsList.add(new Student(id, firstName, lastName, username, dateFormat.parse(dob), house, form, email, comments, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail));
 
             }
-
-            studentsList.addAll(gson.fromJson(EntityUtils.toString(response.getEntity()), Student[].class));
-
-
 
             colID.setCellValueFactory(new PropertyValueFactory<>("id"));
             colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -429,11 +451,16 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
 
-
-
+    /**
+     * Opens a panel where the full information about a student can be viewed or edited.
+     * This panel is also used to enter details when adding a new student
+     * @param event
+     * @throws IOException
+     * @throws ParseException
+     */
 
     @FXML
-    private void viewFullInfoActionPerformed(ActionEvent event) throws IOException {
+    private void viewFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException {
 
         selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
 
@@ -460,49 +487,57 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
-    /*
-      This method determines which weather icon should be used based on the day's weather. For more information
-      on these weather codes, see https://openweathermap.org/weather-conditions
-    */
-    private Image determineWeatherImages(int id){
+    /**
+     * Determines which weather icon should be used based on the day's weather. For more information
+     * on these weather codes, see https://openweathermap.org/weather-conditions
+     * @param weatherID
+     * @return weatherIcon
+     */
 
-        if(id >= 200 && id <= 232){ // id  200 - 232 = Thunderstorm
+    private Image determineWeatherImages(int weatherID){
+
+        if(weatherID >= 200 && weatherID <= 232){ // id  200 - 232 = Thunderstorm
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/11d@2x.png"));
         }
-        else if(id >= 300 && id <= 321){ //id 300 - 321 = Drizzle
+        else if(weatherID >= 300 && weatherID <= 321){ //id 300 - 321 = Drizzle
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
         }
-        else if(id >= 500 && id <= 504){ //id 500 - 504 = Normal rain
+        else if(weatherID >= 500 && weatherID <= 504){ //id 500 - 504 = Normal rain
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/10d@2x.png"));
         }
-        else if(id == 511){ //id 511 = Freezing rain (Rare  "corner case")
+        else if(weatherID == 511){ //id 511 = Freezing rain (Rare  "corner case")
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
         }
-        else if(id >= 520 && id <= 531){ //id 520 - 531 = Shower rain
+        else if(weatherID >= 520 && weatherID <= 531){ //id 520 - 531 = Shower rain
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
         }
-        else if(id >= 600 && id <= 622){ //id 600 - 622 = Snow
+        else if(weatherID >= 600 && weatherID <= 622){ //id 600 - 622 = Snow
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
         }
-        else if(id >= 701 && id <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
+        else if(weatherID >= 701 && weatherID <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/50d@2x.png"));
         }
-        else if(id == 800){ //id 800 = Clear sky
+        else if(weatherID == 800){ //id 800 = Clear sky
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/01d@2x.png"));
         }
-        else if(id == 801){ //id 801 = Few clouds
+        else if(weatherID == 801){ //id 801 = Few clouds
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/02d@2x.png"));
         }
-        else if(id == 802){ //id 802 = Scattered clouds
+        else if(weatherID == 802){ //id 802 = Scattered clouds
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/03d@2x.png"));
         }
-        else if(id == 803 || id == 804){ //id 803 - 804 = Broken and Overcast clouds
+        else if(weatherID == 803 || weatherID == 804){ //id 803 - 804 = Broken and Overcast clouds
             return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/04d@2x.png"));
         }
         return null;
     }
 
-    //This method takes in each day's weather and sets its icon in the weather "widget" accordingly
+
+    /**
+     * Takes in each day's weather and sets its icon in the weather "widget" accordingly
+     * @param dailyWeather
+     */
+
     private void setWeatherImages(Daily[] dailyWeather){
 
         Weather[] weather1 = dailyWeather[0].getWeather();
@@ -527,12 +562,19 @@ public class AdminDashboard extends Application implements Initializable {
         seventhDayImage.setImage(determineWeatherImages(weather7[0].getId()));
     }
 
+    /**
+     * Displays a JAVAFX Alert (similar to a swing JOptionPane)
+     * @param content
+     * @param alertType
+     */
 
     private void displayAlert(String content, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    //GETTERS AND SETTERS
 
     public static String getAccessToken() {
         return accessToken;
