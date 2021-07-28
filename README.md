@@ -7,4 +7,5 @@ This is the client side desktop application of my Artemis School Management Syst
 ## Dependencies
 
 This project uses the gradle build system for managing all required libraries. All required libraries can be found in this repository's "build.gradle" file
-WIP
+
+**WIP**
