@@ -27,20 +27,22 @@ public class Student extends User {
     @SerializedName(value = "secondary_contact_email")
     String secondaryContactEmail;
 
-    public Student(int i, String f, String l, Date dob, String h, int fo, String em, String c, String pcn, String pce, String scn, String sce){
+    public Student(int id, String firstName, String lastName, String username, Date dob, String house, int form,
+                   String email, String comments, String pcn, String pce, String scn, String sce){
 
-        id = i;
-        firstName = f;
-        lastName = l;
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
         this.dob = dob;
-        house = h;
-        form = fo;
-        email = em;
-        comments = c;
-        primaryContactName = pcn;
-        primaryContactEmail = pce;
-        secondaryContactName = scn;
-        secondaryContactEmail = sce;
+        this.house = house;
+        this.form = form;
+        this.email = email;
+        this.comments = comments;
+        this.primaryContactName = pcn;
+        this.primaryContactEmail = pce;
+        this.secondaryContactName = scn;
+        this.secondaryContactEmail = sce;
 
     }
 

@@ -395,9 +395,14 @@ public class AdminDashboard extends Application implements Initializable {
                 String lastName = (String) userDetails.get("last_name");
                 String comments = (String) userDetails.get("comments");
 
-                studentsList.add(new Student(id, username, email, dob, firstName, lastName, comments))
+                int form = studentJson[i].getForm();
+                String primaryContactName = studentJson[i].getPrimary_contact_name();
+                String primaryContactEmail = studentJson[i].getPrimary_contact_email();
+                String secondaryContactName = studentJson[i].getSecondary_contact_name();
+                String secondaryContactEmail = studentJson[i].getSecondary_contact_email();
 
-                //studentsList.add(new Student(studentJson))
+                studentsList.add(new Student(id, firstName, lastName, username, dob, house, form, email, comments, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail));
+
             }
 
             studentsList.addAll(gson.fromJson(EntityUtils.toString(response.getEntity()), Student[].class));
