@@ -5,4 +5,6 @@ My Matric 2021 P.A.T Project
 This is the client side desktop application of my Artemis School Management System which I created for my 2021 Matric IT PAT. The backend it interacts with is a REST API written in the Django REST Framework for python (a framework for Django). It can be found here [link placeholder]
 
 ## Dependencies
+
+This project uses the gradle build system for managing all required libraries. All required libraries can be found in this repository's "build.gradle" file
 WIP
