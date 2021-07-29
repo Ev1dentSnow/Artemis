@@ -22,14 +22,14 @@
          <children>
             <ImageView fitHeight="556.0" fitWidth="404.0" pickOnBounds="true">
                <image>
-                  <Image url="@bckgnd.jpg" />
+                  <Image url="@Images/bckgnd.jpg" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="404.0" prefHeight="556.0" prefWidth="489.0" styleClass="rightside-pane" stylesheets="@LoginViewStylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="404.0" prefHeight="556.0" prefWidth="489.0" styleClass="rightside-pane" stylesheets="@CSS/LoginViewStylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="btnLogin" layoutX="68.0" layoutY="384.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="Login">
+            <Button fx:id="btnLogin" layoutX="68.0" layoutY="384.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@CSS/LoginViewStylesheet.css" text="Login">
                <font>
                   <Font name="Roboto Medium" size="12.0" />
                </font>
@@ -47,7 +47,7 @@
                         <Insets bottom="15.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="txfUsername" onKeyTyped="#usernameKeyTyped" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <TextField fx:id="txfUsername" onKeyTyped="#usernameKeyTyped" styleClass="text-fields" stylesheets="@CSS/LoginViewStylesheet.css" />
                   <Rectangle fx:id="loginRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="4.0" stroke="BLACK" strokeType="INSIDE" width="355.0" />
                   <Label text="Password" textFill="WHITE">
                      <VBox.margin>
@@ -60,12 +60,12 @@
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txfPassword" onKeyTyped="#passwordKeyTyped" styleClass="text-fields" stylesheets="@LoginViewStylesheet.css" />
+                  <PasswordField fx:id="txfPassword" onKeyTyped="#passwordKeyTyped" styleClass="text-fields" stylesheets="@CSS/LoginViewStylesheet.css" />
                   <Rectangle fx:id="passwordRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="4.0" layoutX="10.0" layoutY="68.0" stroke="BLACK" strokeType="INSIDE" width="355.0" />
                </children>
             </VBox>
-            <Separator layoutX="68.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@LoginViewStylesheet.css" />
-            <Button fx:id="btnForgot" layoutX="68.0" layoutY="475.0" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@LoginViewStylesheet.css" text="I forgot my password">
+            <Separator layoutX="68.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@CSS/LoginViewStylesheet.css" />
+            <Button fx:id="btnForgot" layoutX="68.0" layoutY="475.0" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@CSS/LoginViewStylesheet.css" text="I forgot my password">
                <font>
                   <Font name="Roboto Medium" size="12.0" />
                </font>
@@ -73,11 +73,11 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Separator layoutX="263.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@LoginViewStylesheet.css" />
+            <Separator layoutX="263.0" layoutY="439.0" prefHeight="25.0" prefWidth="158.0" styleClass="loginseparatorr" stylesheets="@CSS/LoginViewStylesheet.css" />
             <Text fill="WHITE" layoutX="238.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or" />
             <ImageView fitHeight="116.0" fitWidth="149.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxmlAssets/ArtemisAlpha.png" />
+                  <Image url="@Images/ArtemisAlpha.png" />
                </image>
             </ImageView>
             <Label fx:id="notificationLabel" layoutX="72.0" layoutY="343.0" style="-fx-text-fill: #080808#080808;" text="Incorrect username and/or password" />

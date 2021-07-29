@@ -164,10 +164,10 @@ public class LoginController extends Application {
         StudentDashboard.setUserId(userId);
         AnchorPane sd = (AnchorPane) FXMLLoader.load(getClass().getResource("/StudentDashboard.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(sd));
-        sd.getStylesheets().add("TabbedPanes.css");
+        sd.getStylesheets().add("CSS/TabbedPanes.css");
         window.setResizable(false);
         window.setWidth(1100);
         window.setHeight(680);
@@ -183,7 +183,7 @@ public class LoginController extends Application {
         AdminDashboard.setUserId(userId);
         AnchorPane AdminDashboard = (AnchorPane) FXMLLoader.load(getClass().getResource("/AdminDashboard.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(AdminDashboard));
         window.setResizable(false);

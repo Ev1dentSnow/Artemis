@@ -208,6 +208,13 @@ public class AdminDashboard extends Application implements Initializable {
         return null;
     }
 
+    /**
+     * Executes a HTTP GET request to the supplied URL, and returns the response
+     * @param url
+     * @return CloseableHttpResponse
+     * @throws IOException
+     */
+
     private CloseableHttpResponse performHttpGet(String url) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
@@ -231,6 +238,12 @@ public class AdminDashboard extends Application implements Initializable {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return dayOfWeek.getValue();
     }
+
+    /**
+     * Returns the current day of the week as a string, such as "Saturday"
+     * @param date
+     * @return dayString
+     */
 
     private String fetchDayOfWeekString(LocalDate date){
         DayOfWeek day = date.getDayOfWeek();
@@ -320,7 +333,7 @@ public class AdminDashboard extends Application implements Initializable {
         stage.close();
         AnchorPane LoginController = (AnchorPane) FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
         Stage window = new Stage();
-        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(LoginController));
         window.setResizable(false);
@@ -439,8 +452,6 @@ public class AdminDashboard extends Application implements Initializable {
             colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
             studentsTable.setItems(studentsList);
 
-
-
         }
         else if(response.getStatusLine().getStatusCode() == 401){
             displayAlert("Unauthorized, please re-authenticate", Alert.AlertType.ERROR);
@@ -497,37 +508,37 @@ public class AdminDashboard extends Application implements Initializable {
     private Image determineWeatherImages(int weatherID){
 
         if(weatherID >= 200 && weatherID <= 232){ // id  200 - 232 = Thunderstorm
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/11d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/11d@2x.png"));
         }
         else if(weatherID >= 300 && weatherID <= 321){ //id 300 - 321 = Drizzle
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/09d@2x.png"));
         }
         else if(weatherID >= 500 && weatherID <= 504){ //id 500 - 504 = Normal rain
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/10d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/10d@2x.png"));
         }
         else if(weatherID == 511){ //id 511 = Freezing rain (Rare  "corner case")
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/13d@2x.png"));
         }
         else if(weatherID >= 520 && weatherID <= 531){ //id 520 - 531 = Shower rain
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/09d@2x.png"));
         }
         else if(weatherID >= 600 && weatherID <= 622){ //id 600 - 622 = Snow
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/13d@2x.png"));
         }
         else if(weatherID >= 701 && weatherID <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/50d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/50d@2x.png"));
         }
         else if(weatherID == 800){ //id 800 = Clear sky
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/01d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/01d@2x.png"));
         }
         else if(weatherID == 801){ //id 801 = Few clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/02d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/02d@2x.png"));
         }
         else if(weatherID == 802){ //id 802 = Scattered clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/03d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/03d@2x.png"));
         }
         else if(weatherID == 803 || weatherID == 804){ //id 803 - 804 = Broken and Overcast clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/04d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/04d@2x.png"));
         }
         return null;
     }

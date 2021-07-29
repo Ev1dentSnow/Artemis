@@ -157,7 +157,7 @@
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxmlAssets/icons8-tick-box-48.png" />
+                  <Image url="@Images/icons8-tick-box-48.png" />
                </image>
             </ImageView>
          </graphic>
@@ -172,7 +172,7 @@
          <graphic>
             <ImageView fitHeight="36.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxmlAssets/icons8-close-window-48.png" />
+                  <Image url="@Images/icons8-close-window-48.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />

@@ -41,7 +41,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.controlsfx.control.PopOver;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -368,7 +367,7 @@ public class StudentDashboard extends Application implements Initializable {
 
         AnchorPane LoginController = (AnchorPane) FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
         Stage window = new Stage();
-        window.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        window.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         window.setTitle("Artemis");
         window.setScene(new Scene(LoginController));
         window.setResizable(false);
@@ -532,37 +531,37 @@ public class StudentDashboard extends Application implements Initializable {
     private Image determineWeatherImages(int id){
 
         if(id >= 200 && id <= 232){ // id  200 - 232 = Thunderstorm
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/11d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/11d@2x.png"));
         }
         else if(id >= 300 && id <= 321){ //id 300 - 321 = Drizzle
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/09d@2x.png"));
         }
         else if(id >= 500 && id <= 504){ //id 500 - 504 = Normal rain
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/10d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/10d@2x.png"));
         }
         else if(id == 511){ //id 511 = Freezing rain (Rare  "corner case")
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/13d@2x.png"));
         }
         else if(id >= 520 && id <= 531){ //id 520 - 531 = Shower rain
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/09d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/09d@2x.png"));
         }
         else if(id >= 600 && id <= 622){ //id 600 - 622 = Snow
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/13d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/13d@2x.png"));
         }
         else if(id >= 701 && id <= 781){ //id 701 - 781 = Atmosphere (like mist, or ash)
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/50d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/50d@2x.png"));
         }
         else if(id == 800){ //id 800 = Clear sky
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/01d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/01d@2x.png"));
         }
         else if(id == 801){ //id 801 = Few clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/02d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/02d@2x.png"));
         }
         else if(id == 802){ //id 802 = Scattered clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/03d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/03d@2x.png"));
         }
         else if(id == 803 || id == 804){ //id 803 - 804 = Broken and Overcast clouds
-            return new Image(App.class.getResourceAsStream("/fxmlAssets/Weather/04d@2x.png"));
+            return new Image(App.class.getResourceAsStream("/Images/Weather/04d@2x.png"));
         }
         return null;
     }

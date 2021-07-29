@@ -3,19 +3,12 @@
  */
 package Artemis;
 
-import Artemis.Controllers.LoginController;
-import Artemis.Controllers.StudentDashboard;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class App extends Application{
 
@@ -39,7 +32,7 @@ public class App extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent root = loader.load();
         Scene loginScene = new Scene(root);
-        primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("/fxmlAssets/ArtemisAlpha.png")));
+        primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         primaryStage.setTitle("Artemis");
         primaryStage.setScene(loginScene);
         primaryStage.show();

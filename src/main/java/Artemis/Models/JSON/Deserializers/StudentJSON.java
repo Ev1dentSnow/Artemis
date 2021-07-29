@@ -2,13 +2,15 @@ package Artemis.Models.JSON.Deserializers;
 
 import java.util.HashMap;
 
+/**
+ * "Helper" Class / "Interface" (idk which term to use), which is used to make deserializing Student JSON data muuuuch
+ *  much easier. This is one of very few instances in this project where a "helper" class like this is required for
+ *  deserialization
+ */
+
 public class StudentJSON {
 
-    /*
-    "Helper" Class / "Interface" (idk which term to use), which is used to make deserializing Student JSON data muuuuch
-    much easier. This is one of very few instances in this project where a "helper" class like this is required for
-    deserialization
-    */
+
 
     private HashMap<String, String> user_details = new HashMap<>();
     private int form;
