@@ -24,13 +24,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="736.0" prefWidth="1200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.AdminDashboard">
+<AnchorPane prefHeight="736.0" prefWidth="1200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.AdminDashboard">
    <children>
-      <Pane prefHeight="736.0" prefWidth="150.0" styleClass="leftside-panel" stylesheets="@CSS/AdminDashboard.css">
+      <Pane prefHeight="736.0" prefWidth="150.0" styleClass="leftside-panel" stylesheets="@CSS/AdminDashboard_dark.css">
          <children>
-            <VBox layoutY="144.0" prefHeight="302.0" prefWidth="150.0" stylesheets="@CSS/AdminDashboard.css">
+            <VBox layoutY="144.0" prefHeight="302.0" prefWidth="150.0" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#homeActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" stylesheets="@CSS/AdminDashboard.css" text="Home" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#homeActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" stylesheets="@CSS/AdminDashboard_dark.css" text="Home" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -99,16 +99,16 @@
                   </Button>
                </children>
             </VBox>
-            <Label layoutX="64.0" layoutY="620.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard.css" text="Pops Cantola" textFill="WHITE">
+            <Label layoutX="64.0" layoutY="620.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard_dark.css" text="Pops Cantola" textFill="WHITE">
                <font>
                   <Font name="Roboto Medium" size="13.0" />
                </font></Label>
-            <Label layoutX="63.0" layoutY="640.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard.css" text="Administrator" textFill="#d0cdcd">
+            <Label layoutX="63.0" layoutY="640.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard_dark.css" text="Administrator" textFill="#d0cdcd">
                <font>
                   <Font name="Roboto Medium" size="13.0" />
                </font></Label>
             <ImageView id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="signOut" layoutX="10.0" layoutY="506.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@CSS/AdminDashboard.css" text="Sign Out" textFill="WHITE" />
+            <Button fx:id="signOut" layoutX="10.0" layoutY="506.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@CSS/AdminDashboard_dark.css" text="Sign Out" textFill="WHITE" />
             <Circle fill="DODGERBLUE" layoutX="34.0" layoutY="635.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <ImageView fitHeight="91.0" fitWidth="150.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -135,9 +135,9 @@
          <children>
             <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="TeachersPane" fx:id="teachersPane" prefHeight="200.0" prefWidth="200.0" />
-            <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard.css">
+            <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
-                  <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard.css">
+                  <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard_dark.css">
                      <children>
                         <Text fill="WHITE" layoutX="34.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-black" text="Weather">
                            <font>
@@ -225,24 +225,24 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane id="calendarCard" layoutX="540.0" layoutY="41.0" prefHeight="289.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard.css">
+                  <Pane id="calendarCard" layoutX="540.0" layoutY="41.0" prefHeight="289.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard_dark.css">
                      <children>
                         <YearMonthView layoutX="19.0" layoutY="4.0" prefHeight="254.0" prefWidth="398.0" showUsageColors="true" />
                      </children>
                   </Pane>
-                  <Pane id="announcementsCard" layoutX="32.0" layoutY="41.0" prefHeight="587.0" prefWidth="476.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard.css">
+                  <Pane id="announcementsCard" layoutX="32.0" layoutY="41.0" prefHeight="587.0" prefWidth="476.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard_dark.css">
                      <children>
                         <Text fill="WHITE" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Announcements">
                            <font>
                               <Font name="Roboto Black" size="30.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="announcementList" layoutX="11.0" layoutY="93.0" prefHeight="480.0" prefWidth="455.0" stylesheets="@CSS/AnnouncementTableDarkMode.css" />
+                        <ListView fx:id="announcementList" layoutX="11.0" layoutY="93.0" prefHeight="480.0" prefWidth="455.0" stylesheets="@CSS/AnnouncementTable_dark.css" />
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard.css">
+            <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
                   <JFXTabPane prefHeight="668.0" prefWidth="1052.0" stylesheets="@CSS/TabbedPanes.css">
                      <tabs>
