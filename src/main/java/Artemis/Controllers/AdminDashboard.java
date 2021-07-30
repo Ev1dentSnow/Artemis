@@ -15,7 +15,9 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -60,14 +62,16 @@ public class AdminDashboard extends Application implements Initializable {
 
 
     private static String accessToken;
-
     private static int userId;
-
     private boolean studentsPanePrepared = false;
 
     private final String ANNOUCEMENTS_PATH = "api/announcements";
     private final String WEATHER_PATH = "api/weather";
     private final String STUDENT_LIST_PATH = "api/students";
+
+    private ObservableList<Student> studentsList;
+
+
 
     @FXML
     private ListView announcementList;
@@ -134,6 +138,8 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     Button btnCancelStudentSearch = new Button();
 
+
+
     //2nd Tab of Students Pane components
 
     @FXML
@@ -143,7 +149,7 @@ public class AdminDashboard extends Application implements Initializable {
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
-    private ObservableList<Student> studentsList;
+
 
     private static Student selectedStudent;
 
@@ -293,6 +299,11 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
+    /**
+     * Dynamically updates the table with every key typed with relevant results
+     * depending on what is typed in the search bar
+     * @param event
+     */
     @FXML
     private void studentSearchKeyTyped(KeyEvent event){
         event.consume();
@@ -302,15 +313,39 @@ public class AdminDashboard extends Application implements Initializable {
 
         String searchPhrase = txfStudentSearch.getText();
 
-        if(false == true){
+        studentsTable.setItems((ObservableList) filterList(studentsList, searchPhrase));
+        lblStudentSearchMatches.setText(studentsTable.getItems().size() + " matches found");
 
-        }
-        else{
-            //setting the searchbar to red if no matches are found
+        if (studentsTable.getItems() == null || studentsTable.getItems().size() == 0) {
             txfStudentSearch.setStyle("-fx-control-inner-background: salmon;");
             lblStudentSearchMatches.setText("0 matches found");
         }
+
     }
+
+    /**
+     * Filters the list of students to see if they correspond with a search
+     * phrase entered in the students table search bar
+     * @param studentList
+     * @param searchPhrase
+     * @return filteredList
+     */
+    private ObservableList<Student> filterList(List<Student> studentList, String searchPhrase){
+
+        ObservableList<Student> filteredList = FXCollections.observableArrayList();
+        for(int i = 0; i < studentList.size(); i++){
+            if(studentList.get(i).getFirstName().toLowerCase().contains(searchPhrase.toLowerCase())){
+                filteredList.add(studentList.get(i));
+            }
+        }
+        return filteredList;
+    }
+
+    /**
+     * Clears the search bar and cancels the filter applied to the students table,
+     * thus displaying all students
+     * @param event
+     */
 
     @FXML
     private void cancelStudentSearchActionPerformed(ActionEvent event){
@@ -318,6 +353,7 @@ public class AdminDashboard extends Application implements Initializable {
         txfStudentSearch.clear();
         txfStudentSearch.setStyle("-fx-control-inner-background: white;");
         lblStudentSearchMatches.setText("");
+        studentsTable.setItems(studentsList);
     }
 
     //Student Pane 2nd tab method
