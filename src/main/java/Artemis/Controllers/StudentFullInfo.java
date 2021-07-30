@@ -204,7 +204,6 @@ public class StudentFullInfo extends Application implements Initializable {
             editModeEnabled = false;
         }
 
-        System.out.println("WAHAHAHAHAHAHAHAHA");
     }
 
     private String performHTTP_PUT(String url) throws IOException {

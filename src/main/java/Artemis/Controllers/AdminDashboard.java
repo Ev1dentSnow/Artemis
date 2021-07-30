@@ -28,9 +28,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -124,6 +126,15 @@ public class AdminDashboard extends Application implements Initializable {
     TableColumn<Student, String> colHouse;
     @FXML
     TableColumn<Student, String> colEmail;
+
+    @FXML
+    TextField txfStudentSearch = new TextField();
+    @FXML
+    Text lblStudentSearchMatches = new Text();
+    @FXML
+    Button btnCancelStudentSearch = new Button();
+
+    //2nd Tab of Students Pane components
 
     @FXML
     JFXButton btnAddStudent = new JFXButton();
@@ -280,6 +291,33 @@ public class AdminDashboard extends Application implements Initializable {
             studentsPanePrepared = true;
         }
 
+    }
+
+    @FXML
+    private void studentSearchKeyTyped(KeyEvent event){
+        event.consume();
+        //resetting the searchbar background color back to white
+        txfStudentSearch.setStyle("-fx-control-inner-background: white;");
+        lblStudentSearchMatches.setText("");
+
+        String searchPhrase = txfStudentSearch.getText();
+
+        if(false == true){
+
+        }
+        else{
+            //setting the searchbar to red if no matches are found
+            txfStudentSearch.setStyle("-fx-control-inner-background: salmon;");
+            lblStudentSearchMatches.setText("0 matches found");
+        }
+    }
+
+    @FXML
+    private void cancelStudentSearchActionPerformed(ActionEvent event){
+        event.consume();
+        txfStudentSearch.clear();
+        txfStudentSearch.setStyle("-fx-control-inner-background: white;");
+        lblStudentSearchMatches.setText("");
     }
 
     //Student Pane 2nd tab method
@@ -488,6 +526,7 @@ public class AdminDashboard extends Application implements Initializable {
             viewFullInfoStage.initModality(Modality.APPLICATION_MODAL); //makes the window a "child" window of the admin dashboard
             viewFullInfoStage.setTitle("Full Information");
             viewFullInfoStage.showAndWait();
+            StudentFullInfo.setCurrentStudent(null); //resetting the current student to null so all fields are cleared
             prepareStudentsPane(); //refresh the table after changes are made
 
 
@@ -497,6 +536,7 @@ public class AdminDashboard extends Application implements Initializable {
         }
 
     }
+
 
     /**
      * Determines which weather icon should be used based on the day's weather. For more information
