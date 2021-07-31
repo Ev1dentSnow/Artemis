@@ -67,7 +67,7 @@ public class AdminDashboard extends Application implements Initializable {
     private boolean studentsPanePrepared = false;
 
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
-    private final String WEATHER_PATH = "api/weather/";
+    private final String WEATHER_PATH = "api/weather";
     private final String STUDENT_LIST_PATH = "api/students/";
 
     private ObservableList<Student> studentsList;
