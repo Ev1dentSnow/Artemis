@@ -187,5 +187,6 @@
             <Font size="20.0" />
          </font>
       </JFXToggleButton>
+      <Button fx:id="btnResetPassword" layoutX="484.0" layoutY="77.0" mnemonicParsing="false" onAction="#resetPasswordActionPerformed" prefHeight="34.0" prefWidth="183.0" text="Reset Password" />
    </children>
 </AnchorPane>

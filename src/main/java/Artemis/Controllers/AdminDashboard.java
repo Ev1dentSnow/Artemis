@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -65,9 +66,9 @@ public class AdminDashboard extends Application implements Initializable {
     private static int userId;
     private boolean studentsPanePrepared = false;
 
-    private final String ANNOUCEMENTS_PATH = "api/announcements";
-    private final String WEATHER_PATH = "api/weather";
-    private final String STUDENT_LIST_PATH = "api/students";
+    private final String ANNOUCEMENTS_PATH = "api/announcements/";
+    private final String WEATHER_PATH = "api/weather/";
+    private final String STUDENT_LIST_PATH = "api/students/";
 
     private ObservableList<Student> studentsList;
 
@@ -213,14 +214,13 @@ public class AdminDashboard extends Application implements Initializable {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost request = new HttpPost(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+
         try{
             CloseableHttpResponse response = client.execute(request);
             return response;
         }
         catch (ConnectException e){
-            alert.setContentText("Error connecting to server");
-            alert.showAndWait();
+            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -236,17 +236,30 @@ public class AdminDashboard extends Application implements Initializable {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+
         try{
             CloseableHttpResponse response = client.execute(request);
             return response;
         }
-
         catch(ConnectException e){
-            alert.setContentText("Error connecting to server");
-            alert.showAndWait();
+            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
         }
 
+        return null;
+    }
+
+    private CloseableHttpResponse performHttpDelete(String url) throws IOException{
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpDelete request = new HttpDelete(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+
+        try{
+            CloseableHttpResponse response = client.execute(request);
+            return response;
+        }
+        catch(ConnectException e){
+            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
+        }
         return null;
     }
 
@@ -368,10 +381,31 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
-    //Student Pane 2nd tab method
+    /**
+     * Removes a selected student from the database through an HTTP DELETE request
+     * @param event
+     * @throws IOException
+     */
+
     @FXML
-    private void removeStudentActionPerformed(ActionEvent event){
+    private void removeStudentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
+        //TODO: Remove the selectedStudent at the top of the file, there's no need for its scope to be global at all
+        Student selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
+
+        if(selectedStudent == null){
+            displayAlert("Select a student to be removed from the table first", Alert.AlertType.ERROR);
+        }
+        else{
+            Optional<ButtonType> result = displayAlert("Are you sure you would like to permanently delete a student with the ID: \"" +
+                    selectedStudent.getId() + "\" and the last name \"" + selectedStudent.getLastName() + "\""
+                    + " from the system?", Alert.AlertType.CONFIRMATION);
+
+            if (result.get() == ButtonType.OK){
+                performHttpDelete(App.BASEURL + STUDENT_LIST_PATH + selectedStudent.getId());
+            }
+        }
+
     }
 
     @FXML
@@ -655,10 +689,18 @@ public class AdminDashboard extends Application implements Initializable {
      * @param alertType
      */
 
-    private void displayAlert(String content, Alert.AlertType alertType){
+    private Optional displayAlert(String content, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
         alert.setContentText(content);
-        alert.showAndWait();
+
+        if (alertType == Alert.AlertType.CONFIRMATION){
+            Optional<ButtonType> result = alert.showAndWait();
+            return result;
+        }
+        else{
+            alert.show();
+        }
+        return null;
     }
 
     //GETTERS AND SETTERS

@@ -6,10 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
@@ -23,16 +20,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.controlsfx.control.ToggleSwitch;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class StudentFullInfo extends Application implements Initializable {
 
@@ -71,6 +66,8 @@ public class StudentFullInfo extends Application implements Initializable {
     private Button btnConfirm;
     @FXML
     private Button btnCancel;
+    @FXML
+    private Button btnResetPassword;
 
     private Stage primaryStage;
 
@@ -163,10 +160,17 @@ public class StudentFullInfo extends Application implements Initializable {
     }
 
 
-    private void displayAlert(String content, Alert.AlertType alertType){
+    private Optional<ButtonType> displayAlert(String content, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
         alert.setContentText(content);
-        alert.showAndWait();
+        if (alertType == Alert.AlertType.CONFIRMATION){
+            Optional<ButtonType> result = alert.showAndWait();
+            return result;
+        }
+        else{
+            alert.show();
+        }
+        return null;
     }
 
     @FXML
@@ -202,6 +206,20 @@ public class StudentFullInfo extends Application implements Initializable {
         else{
             disableTextFields();
             editModeEnabled = false;
+        }
+
+    }
+
+    @FXML
+    private void resetPasswordActionPerformed(ActionEvent event){
+        event.consume();
+        Optional result = displayAlert("Warning! Only do this if this user does not have access to the email they registered " +
+        "with. Doing this will reset the user's password to their username. Are you sure you wish to continue?",
+                Alert.AlertType.CONFIRMATION);
+
+        if (result.get() == ButtonType.OK){
+            //TODO: Add HTTP Patch request thingy thingy here
+            System.out.println("PEEPEEPOOPOO");
         }
 
     }
