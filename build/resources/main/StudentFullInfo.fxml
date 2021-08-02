@@ -14,37 +14,37 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="681.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.StudentFullInfo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="726.0" styleClass="background-color" stylesheets="@CSS/StudentFullInfo.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.StudentFullInfo">
    <children>
-      <Text layoutX="238.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Information">
+      <Text fill="WHITE" layoutX="238.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Information">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
-      <VBox layoutX="39.0" layoutY="142.0" prefHeight="311.0" prefWidth="100.0">
+      <VBox alignment="CENTER_RIGHT" layoutX="36.0" layoutY="134.0" prefHeight="328.0" prefWidth="77.0" spacing="5.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="89.193359375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="59.193359375">
                <VBox.margin>
                   <Insets top="37.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text layoutX="10.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
+            <Text fill="WHITE" layoutX="10.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -53,59 +53,59 @@
       </VBox>
       <VBox layoutX="139.0" layoutY="142.0" prefHeight="305.0" prefWidth="194.0">
          <children>
-            <TextField fx:id="txfFirstName" />
-            <TextField fx:id="txfLastName">
+            <TextField fx:id="txfFirstName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css" />
+            <TextField fx:id="txfLastName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfUsername">
+            <TextField fx:id="txfUsername" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0">
+            <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="33.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfAge" prefHeight="27.0" prefWidth="194.0">
+            <TextField fx:id="txfAge" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfEmail" layoutX="10.0" layoutY="231.0" prefHeight="27.0" prefWidth="194.0">
+            <TextField fx:id="txfEmail" layoutX="10.0" layoutY="231.0" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </TextField>
          </children>
       </VBox>
-      <TextArea fx:id="txaComments" layoutX="133.0" layoutY="493.0" prefHeight="104.0" prefWidth="468.0" text="&#10;" />
-      <Text layoutX="133.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+      <TextArea fx:id="txaComments" layoutX="129.0" layoutY="530.0" prefHeight="104.0" prefWidth="468.0" text="&#10;" />
+      <Text fill="WHITE" layoutX="129.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <VBox layoutX="350.0" layoutY="142.0" prefHeight="305.0" prefWidth="100.0">
+      <VBox alignment="CENTER_RIGHT" layoutX="344.0" layoutY="158.0" prefHeight="305.0" prefWidth="100.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="House:" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="House:" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Form:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Contact Name:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Contact Name:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Contact Email:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Contact Email:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Contact Name:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Contact Name:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -113,7 +113,7 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Contact Email:">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Contact Email:">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -123,32 +123,32 @@
             </Text>
          </children>
       </VBox>
-      <VBox layoutX="484.0" layoutY="142.0" prefHeight="311.0" prefWidth="183.0">
+      <VBox layoutX="484.0" layoutY="155.0" prefHeight="311.0" prefWidth="183.0" spacing="25.0">
          <children>
-            <TextField fx:id="txfHouse" />
-            <TextField fx:id="txfForm">
+            <TextField fx:id="txfHouse" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css" />
+            <TextField fx:id="txfForm" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
-                  <Insets top="25.0" />
+                  <Insets />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfPrimaryContactName">
+            <TextField fx:id="txfPrimaryContactName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
-                  <Insets top="25.0" />
+                  <Insets />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfPrimaryContactEmail">
+            <TextField fx:id="txfPrimaryContactEmail" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
-                  <Insets top="32.0" />
+                  <Insets />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfSecondaryContactName">
+            <TextField fx:id="txfSecondaryContactName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="txfSecondaryContactEmail">
+            <TextField fx:id="txfSecondaryContactEmail" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
-                  <Insets top="27.0" />
+                  <Insets />
                </VBox.margin>
             </TextField>
          </children>
@@ -180,13 +180,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="264.0" layoutY="116.0" text="Confirm" />
-      <Label layoutX="417.0" layoutY="116.0" text="Cancel" />
-      <JFXToggleButton fx:id="editModeSwitch" layoutX="29.0" layoutY="45.0" onAction="#editModeSwitchActionPerformed" text="Edit Mode" toggleColor="WHITE" toggleLineColor="#3dc225" unToggleLineColor="#e1e1e1">
+      <Label layoutX="264.0" layoutY="116.0" text="Confirm" textFill="WHITE" />
+      <Label layoutX="417.0" layoutY="116.0" text="Cancel" textFill="WHITE" />
+      <JFXToggleButton fx:id="editModeSwitch" layoutX="29.0" layoutY="45.0" onAction="#editModeSwitchActionPerformed" text="Edit Mode" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#3dc225" unToggleLineColor="#e1e1e1">
          <font>
             <Font size="20.0" />
          </font>
       </JFXToggleButton>
-      <Button fx:id="btnResetPassword" layoutX="484.0" layoutY="77.0" mnemonicParsing="false" onAction="#resetPasswordActionPerformed" prefHeight="34.0" prefWidth="183.0" text="Reset Password" />
+      <Button fx:id="btnResetPassword" layoutX="510.0" layoutY="77.0" mnemonicParsing="false" onAction="#resetPasswordActionPerformed" prefHeight="34.0" prefWidth="183.0" styleClass="reset-password-button" stylesheets="@CSS/StudentFullInfo.css" text="Reset Password" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,9 +1,9 @@
 Artemis/App.java
  Artemis.App
-Artemis/Models/Weather/Temp.java
- Artemis.Models.Weather.Temp
-Artemis/Models/House.java
- Artemis.Models.House
+Artemis/Controllers/LoginController.java
+ Artemis.Controllers.LoginController
+Artemis/Controllers/StudentFullInfo.java
+ Artemis.Controllers.StudentFullInfo
 Artemis/Models/Weather/ForecastWeather.java
  Artemis.Models.Weather.ForecastWeather
 Artemis/Models/Weather/Daily.java
@@ -26,16 +26,16 @@ Artemis/Models/Announcement.java
  Artemis.Models.Announcement
 Artemis/Models/JSON/Deserializers/StudentJSON.java
  Artemis.Models.JSON.Deserializers.StudentJSON
-Artemis/Models/Student.java
- Artemis.Models.Student
+Artemis/Controllers/AdminDashboard.java
+ Artemis.Controllers.AdminDashboard
+ Artemis.Controllers.AdminDashboard$1
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
-Artemis/Controllers/LoginController.java
- Artemis.Controllers.LoginController
-Artemis/Controllers/AdminDashboard.java
- Artemis.Controllers.AdminDashboard
- Artemis.Controllers.AdminDashboard$1
-Artemis/Controllers/StudentFullInfo.java
- Artemis.Controllers.StudentFullInfo
+Artemis/Models/House.java
+ Artemis.Models.House
+Artemis/Models/Weather/Temp.java
+ Artemis.Models.Weather.Temp
+Artemis/Models/Student.java
+ Artemis.Models.Student
