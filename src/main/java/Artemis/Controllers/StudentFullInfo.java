@@ -12,15 +12,12 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.controlsfx.control.ToggleSwitch;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
@@ -175,6 +172,8 @@ public class StudentFullInfo extends Application implements Initializable {
 
     @FXML
     private void btnConfirmActionPerformed(ActionEvent event){
+
+        //TODO: Add measures to differentiate when confirm button should be a put request, or a post request
 
         event.consume();
         try {

@@ -11,6 +11,7 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.5'
 }
 
 repositories {
@@ -33,9 +34,8 @@ dependencies {
     //implementation 'com.google.guava:guava:29.0-jre'
     //implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0'
 
-    implementation ('com.calendarfx:view:11.8.3'){
-        exclude module: 'javafx.controls;'
-    }
+    implementation 'com.calendarfx:view:11.8.3'
+
 
     //implementation 'eu.hansolo:tilesfx:11.48'
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
@@ -51,7 +51,7 @@ dependencies {
 
 
 
-    //compile 'com.jfoenix:jfoenix:9.0.10'
+    compile 'com.jfoenix:jfoenix:9.0.10'
 
 
 
@@ -69,6 +69,11 @@ java{
     modularity.inferModulePath.set(true)
 }
 
+javafx {
+    version = "11"
+    modules = ['javafx.fxml', 'javafx.controls']
+}
+
 mainClassName = 'Artemis.App'
 
 private static String getJavaFXPlatform() {
@@ -83,6 +88,17 @@ private static String getJavaFXPlatform() {
     return null
 }
 
+run {
+    jvmArgs = [
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED",
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED",
+            "--add-exports=javafx.base/com.sun.javafx.binding=ALL-UNNAMED",
+            "--add-exports=javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED",
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED",
+            "--add-opens=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
+            "--add-opens=javafx.controls/com.sun.javafx.scene.control=com.jfoenix"
+    ]
+}
 
 
 

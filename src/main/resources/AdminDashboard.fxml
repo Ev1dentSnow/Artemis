@@ -301,7 +301,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="145.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@Images/icons8-add-user-male-96.png" />
+                                                      <Image url="@Images/user-add-line%20(2).png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -316,7 +316,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="128.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@Images/icons8-denied-90.png" />
+                                                      <Image url="@Images/user-unfollow-line%20(1).png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
