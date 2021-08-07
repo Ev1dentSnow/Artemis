@@ -81,7 +81,7 @@
             </TextField>
          </children>
       </VBox>
-      <TextArea fx:id="txaComments" layoutX="129.0" layoutY="530.0" prefHeight="104.0" prefWidth="468.0" text="&#10;" />
+      <TextArea fx:id="txaComments" layoutX="129.0" layoutY="530.0" prefHeight="104.0" prefWidth="468.0"/>
       <Text fill="WHITE" layoutX="129.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
          <font>
             <Font name="System Bold" size="15.0" />

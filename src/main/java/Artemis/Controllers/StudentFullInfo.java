@@ -1,6 +1,9 @@
 package Artemis.Controllers;
 
+import Artemis.App;
+import Artemis.Models.JSON.Deserializers.StudentJSON;
 import Artemis.Models.Student;
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,7 +15,9 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,6 +34,15 @@ import java.util.*;
 public class StudentFullInfo extends Application implements Initializable {
 
     private boolean editModeEnabled = false;
+
+
+
+
+    /** This boolean is used to determine whether this window is being used for a POST or a PATCH request, as otherwise
+     *  the "confirm" button would not know which type of HTTP Request to execute. If false, it
+     *  is being used for a PATCH request
+     */
+    public static boolean postRequest = false;
 
     @FXML
     JFXToggleButton editModeSwitch = new JFXToggleButton();
@@ -171,16 +185,64 @@ public class StudentFullInfo extends Application implements Initializable {
     }
 
     @FXML
-    private void btnConfirmActionPerformed(ActionEvent event){
+    private void btnConfirmActionPerformed(ActionEvent event) throws IOException {
 
         //TODO: Add measures to differentiate when confirm button should be a put request, or a post request
 
         event.consume();
-        try {
-            performHTTP_PUT("https://artemisystem.xyz/api/student/" + currentStudent.getId());
+
+        String firstName = txfFirstName.getText();
+        String lastName = txfLastName.getText();
+        String username = txfUsername.getText();
+        //TODO: Add "date" data validation for txfDOB, and data all fields
+        String dob = txfDOB.getText();
+        String age = txfAge.getText();
+        String email = txfEmail.getText();
+        String house = txfHouse.getText();
+        String comments = txaComments.getText();
+        int form = Integer.parseInt(txfForm.getText());
+        String primaryContactName = txfPrimaryContactName.getText();
+        String primaryContactEmail = txfPrimaryContactEmail.getText();
+        String secondaryContactName = txfSecondaryContactName.getText();
+        String secondaryContactEmail = txfSecondaryContactEmail.getText();
+
+        int enrollmentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+
+        if (postRequest) {
+
+            HashMap<String, String> userDetails = new HashMap<String, String>();
+
+
+            userDetails.put("first_name", firstName);
+            userDetails.put("last_name", lastName);
+            userDetails.put("username", username);
+            userDetails.put("password", username); //Default password is the same as the student's username
+            userDetails.put("dob", dob);
+            userDetails.put("email", email);
+            userDetails.put("house", house);
+
+            if (!txaComments.getText().equals("")) {
+                userDetails.put("comments", comments);
+            }
+
+
+            StudentJSON student = new StudentJSON(userDetails, form, enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(student);
+
+
+            try {
+                String result = performHTTP_POST(App.BASEURL + App.STUDENT_LIST_PATH, json);
+                System.out.println(result);
+            } catch (IOException e) {
+                displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
+            }
         }
-        catch(IOException e){
-            displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
+
+        else{
+
         }
 
         Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
@@ -223,27 +285,18 @@ public class StudentFullInfo extends Application implements Initializable {
 
     }
 
-    private String performHTTP_PUT(String url) throws IOException {
+    private String performHTTP_POST(String url, String jsonBody) throws IOException {
 
         //TODO: Improve http request status code handling
 
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPut request = new HttpPut(url);
+        HttpPost request = new HttpPost(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        StringEntity entity = new StringEntity(jsonBody);
+        request.setEntity(entity);
 
-        List<NameValuePair> body = new ArrayList<NameValuePair>();
-        body.add(new BasicNameValuePair("first_name", txfFirstName.getText()));
-        body.add(new BasicNameValuePair("last_name", txfLastName.getText()));
-        body.add(new BasicNameValuePair("house", txfHouse.getText()));
-        body.add(new BasicNameValuePair("email", txfEmail.getText()));
-        body.add(new BasicNameValuePair("dob", txfDOB.getText()));
-        body.add(new BasicNameValuePair("primary_contact_email", txfPrimaryContactEmail.getText()));
-        body.add(new BasicNameValuePair("primary_contact_name", txfPrimaryContactName.getText()));
-        body.add(new BasicNameValuePair("secondary_contact_email", txfSecondaryContactEmail.getText()));
-        body.add(new BasicNameValuePair("secondary_contact_name", txfSecondaryContactName.getText()));
-        body.add(new BasicNameValuePair("comments", txaComments.getText()));
-
-        request.setEntity(new UrlEncodedFormEntity(body));
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
         try{

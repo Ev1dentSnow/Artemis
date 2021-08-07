@@ -68,7 +68,6 @@ public class AdminDashboard extends Application implements Initializable {
 
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
-    private final String STUDENT_LIST_PATH = "api/students/";
 
     private ObservableList<Student> studentsList;
 
@@ -138,6 +137,8 @@ public class AdminDashboard extends Application implements Initializable {
     Text lblStudentSearchMatches = new Text();
     @FXML
     Button btnCancelStudentSearch = new Button();
+    @FXML
+    JFXButton btnRefreshStudents = new JFXButton();
 
 
 
@@ -373,11 +374,14 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void addStudentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
+
+        StudentFullInfo.postRequest = true;
         Stage window = new Stage();
         AnchorPane viewFullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
         window.setScene(new Scene(viewFullInfoPane));
         window.setResizable(false);
         window.showAndWait();
+        StudentFullInfo.postRequest = false;
 
     }
 
@@ -402,7 +406,7 @@ public class AdminDashboard extends Application implements Initializable {
                     + " from the system?", Alert.AlertType.CONFIRMATION);
 
             if (result.get() == ButtonType.OK){
-                performHttpDelete(App.BASEURL + STUDENT_LIST_PATH + selectedStudent.getId());
+                performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedStudent.getId());
             }
         }
 
@@ -518,7 +522,7 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     private void prepareStudentsPane() throws IOException, ParseException {
-        CloseableHttpResponse response = performHttpGet(App.BASEURL + STUDENT_LIST_PATH);
+        CloseableHttpResponse response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH);
 
         if(response.getStatusLine().getStatusCode() == 200){
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
@@ -569,6 +573,16 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
+
+    /**
+     * Fetches updated data for the students table from the API
+     * @param event
+     */
+
+    @FXML
+    private void refreshStudentsActionPerformed(ActionEvent event) throws IOException, ParseException {
+        prepareStudentsPane();
+    }
 
     /**
      * Opens a panel where the full information about a student can be viewed or edited.

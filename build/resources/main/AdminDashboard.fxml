@@ -265,7 +265,14 @@
                                     <JFXButton layoutX="916.0" layoutY="27.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #1e90ff;" text="View Full Info" textFill="WHITE">
                                        <effect>
                                           <Shadow />
-                                       </effect></JFXButton>
+                                       </effect>
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@Images/eye-fill.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
                                     <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@Images/icons8-search-client-white-48.png" />
@@ -284,6 +291,18 @@
                                           <Cursor fx:constant="OPEN_HAND" />
                                        </cursor>
                                     </Button>
+                                    <JFXButton fx:id="btnRefreshStudents" graphicTextGap="8.0" layoutX="776.0" layoutY="27.0" onAction="#refreshStudentsActionPerformed" prefHeight="28.0" prefWidth="120.0" style="-fx-border-width: 1; -fx-background-color: #5cb85c;" text="Refresh" textFill="WHITE">
+                                       <effect>
+                                          <Shadow />
+                                       </effect>
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@Images/refresh.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
                                  </children>
                               </AnchorPane>
                           </content>
