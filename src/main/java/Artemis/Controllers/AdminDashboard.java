@@ -2,7 +2,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
-import Artemis.Models.JSON.Deserializers.StudentJSON;
+import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
@@ -17,7 +17,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -153,7 +152,6 @@ public class AdminDashboard extends Application implements Initializable {
 
 
 
-    private static Student selectedStudent;
 
 
     public static void main(String[] args) {
@@ -380,6 +378,7 @@ public class AdminDashboard extends Application implements Initializable {
         AnchorPane viewFullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
         window.setScene(new Scene(viewFullInfoPane));
         window.setResizable(false);
+        window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
         StudentFullInfo.postRequest = false;
 
@@ -394,7 +393,6 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void removeStudentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
-        //TODO: Remove the selectedStudent at the top of the file, there's no need for its scope to be global at all
         Student selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
 
         if(selectedStudent == null){
@@ -562,6 +560,7 @@ public class AdminDashboard extends Application implements Initializable {
             colForm.setCellValueFactory(new PropertyValueFactory<>("Form"));
             colHouse.setCellValueFactory(new PropertyValueFactory<>("House"));
             colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+
             studentsTable.setItems(studentsList);
 
         }
@@ -595,7 +594,9 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void viewFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException {
 
-        selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
+        event.consume();
+        StudentFullInfo.postRequest = false;
+        Student selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
 
         if (!(selectedStudent == null)){
 

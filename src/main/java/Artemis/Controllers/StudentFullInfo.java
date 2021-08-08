@@ -1,7 +1,7 @@
 package Artemis.Controllers;
 
 import Artemis.App;
-import Artemis.Models.JSON.Deserializers.StudentJSON;
+import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXToggleButton;
@@ -12,20 +12,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.http.HttpHeaders;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -118,10 +116,12 @@ public class StudentFullInfo extends Application implements Initializable {
 
     private void setTextFields(Student student){
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         txfFirstName.setText(student.getFirstName());
         txfLastName.setText(student.getLastName());
         txfUsername.setText(student.getUsername());
-        txfDOB.setText(student.getDob().toString());
+        txfDOB.setText(formatter.format(student.getDob()));
         txfAge.setText(String.valueOf(calculateAge(student.getDob())));
         txfEmail.setText(student.getEmail());
         txfForm.setText(String.valueOf(student.getForm()));
@@ -187,7 +187,7 @@ public class StudentFullInfo extends Application implements Initializable {
     @FXML
     private void btnConfirmActionPerformed(ActionEvent event) throws IOException {
 
-        //TODO: Add measures to differentiate when confirm button should be a put request, or a post request
+        //TODO: Optimise the poo out of this method
 
         event.consume();
 
@@ -222,16 +222,14 @@ public class StudentFullInfo extends Application implements Initializable {
             userDetails.put("email", email);
             userDetails.put("house", house);
 
-            if (!txaComments.getText().equals("")) {
-                userDetails.put("comments", comments);
+            if(txaComments.getText().equals("")){
+                userDetails.remove("comments");
             }
-
 
             StudentJSON student = new StudentJSON(userDetails, form, enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
 
             Gson gson = new Gson();
             String json = gson.toJson(student);
-
 
             try {
                 String result = performHTTP_POST(App.BASEURL + App.STUDENT_LIST_PATH, json);
@@ -240,9 +238,43 @@ public class StudentFullInfo extends Application implements Initializable {
                 displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
             }
         }
-
         else{
 
+            HashMap<String, String> userDetails = new HashMap<String, String>();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            userDetails.put("first_name", firstName);
+            userDetails.put("last_name", lastName);
+            userDetails.put("username", username);
+            userDetails.put("password", username); //Default password is the same as the student's username
+            userDetails.put("dob", dob);
+            userDetails.put("email", email);
+            userDetails.put("house", house);
+            userDetails.put("comments", comments);
+
+            Iterator userDetailsIterator = userDetails.entrySet().iterator();
+
+            while(userDetailsIterator.hasNext()){
+                Map.Entry userDetailsElement = (Map.Entry) userDetailsIterator.next();
+                String value = (String) userDetailsElement.getValue();
+
+                if(value.equals("")){
+                    userDetailsIterator.remove();
+                }
+            }
+
+            StudentJSON student = new StudentJSON(userDetails, form, enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(student);
+
+            try {
+               CloseableHttpResponse wa = performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
+                System.out.println(EntityUtils.toString(wa.getEntity()));
+            }
+            catch(IOException e) {
+                displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
+            }
         }
 
         Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
@@ -272,15 +304,15 @@ public class StudentFullInfo extends Application implements Initializable {
     }
 
     @FXML
-    private void resetPasswordActionPerformed(ActionEvent event){
+    private void resetPasswordActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         Optional result = displayAlert("Warning! Only do this if this user does not have access to the email they registered " +
-        "with. Doing this will reset the user's password to their username. Are you sure you wish to continue?",
+        "with. Doing this will set this user's password to the same as their username. Are you sure you wish to continue?",
                 Alert.AlertType.CONFIRMATION);
 
         if (result.get() == ButtonType.OK){
-            //TODO: Add HTTP Patch request thingy thingy here
-            System.out.println("PEEPEEPOOPOO");
+            String json = String.format("{\"user_details\": {\"password\": \"%s\"}}", currentStudent.getUsername());
+            performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
         }
 
     }
@@ -304,6 +336,29 @@ public class StudentFullInfo extends Application implements Initializable {
             return EntityUtils.toString(response.getEntity());
         }
         catch (ConnectException e){
+            alert.setContentText("Error connecting to server");
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    private CloseableHttpResponse performHTTP_PATCH(String url, String jsonBody) throws IOException {
+
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPatch request = new HttpPatch(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        StringEntity entity = new StringEntity(jsonBody);
+        request.setEntity(entity);
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        try {
+            CloseableHttpResponse response = client.execute(request);
+            return response;
+        }
+        catch(ConnectException e){
             alert.setContentText("Error connecting to server");
             alert.showAndWait();
         }

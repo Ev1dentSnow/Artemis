@@ -29,12 +29,12 @@ Artemis/Models/Announcement.java
 Artemis/Controllers/AdminDashboard.java
  Artemis.Controllers.AdminDashboard
  Artemis.Controllers.AdminDashboard$1
-Artemis/Models/JSON/Deserializers/StudentJSON.java
- Artemis.Models.JSON.Deserializers.StudentJSON
 Artemis/Controllers/StudentDashboard.java
  Artemis.Controllers.StudentDashboard
  Artemis.Controllers.StudentDashboard$1
  Artemis.Controllers.StudentDashboard$2
+Artemis/Models/JSON/Serializers/StudentJSON.java
+ Artemis.Models.JSON.Serializers.StudentJSON
 Artemis/Models/House.java
  Artemis.Models.House
 Artemis/Models/Weather/Temp.java

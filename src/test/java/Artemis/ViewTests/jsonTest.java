@@ -1,6 +1,6 @@
 package Artemis.ViewTests;
 
-import Artemis.Models.JSON.Deserializers.StudentJSON;
+import Artemis.Models.JSON.Serializers.StudentJSON;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 

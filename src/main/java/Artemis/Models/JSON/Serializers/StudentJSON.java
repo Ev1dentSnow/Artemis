@@ -1,4 +1,4 @@
-package Artemis.Models.JSON.Deserializers;
+package Artemis.Models.JSON.Serializers;
 
 import java.util.HashMap;
 
