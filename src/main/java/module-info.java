@@ -7,12 +7,14 @@ module Artemis{
     requires json;
     requires com.calendarfx.view;
     requires org.apache.httpcomponents.httpclient;
+    requires reactfx;
+    requires MaterialFX;
     requires com.jfoenix;
 
     opens Artemis.Controllers to javafx.graphics, javafx.fxml;
     opens Artemis.Models to javafx.base, com.google.gson;
     opens Artemis.Models.Weather to com.google.gson;
-
+    opens Artemis.Models.JSON.Serializers to com.google.gson;
 
     exports Artemis;
 }

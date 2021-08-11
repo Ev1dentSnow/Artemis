@@ -1,10 +1,12 @@
 package Artemis.Controllers;
 
 import Artemis.App;
+import Artemis.Models.House;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
 import com.google.gson.Gson;
-import com.jfoenix.controls.JFXToggleButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +25,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -43,7 +46,7 @@ public class StudentFullInfo extends Application implements Initializable {
     public static boolean postRequest = false;
 
     @FXML
-    JFXToggleButton editModeSwitch = new JFXToggleButton();
+    MFXToggleButton editModeSwitch = new MFXToggleButton();
 
     @FXML
     private TextField txfFirstName;
@@ -58,7 +61,7 @@ public class StudentFullInfo extends Application implements Initializable {
     @FXML
     private TextField txfEmail;
     @FXML
-    private TextField txfHouse;
+    private MFXComboBox<String> houseComboBox;
     @FXML
     private TextField txfForm;
     @FXML
@@ -99,6 +102,14 @@ public class StudentFullInfo extends Application implements Initializable {
         catch(NullPointerException n){
 
         }
+
+        houseComboBox.getItems().add(new House("Ochse", "Blue").getName());
+        houseComboBox.getItems().add(new House("MacRobert", "Red").getName());
+        houseComboBox.getItems().add(new House("Knoll", "Black").getName());
+        houseComboBox.getItems().add(new House("DeBeer", "Yellow").getName());
+        houseComboBox.getItems().add(new House("Knapp Fischer", "Green").getName());
+        houseComboBox.getItems().add(new House("Murray", "Purple").getName());
+
 
         //edit mode is disabled by default to prevent accidents
         disableTextFields();
@@ -141,12 +152,12 @@ public class StudentFullInfo extends Application implements Initializable {
         txfAge.setDisable(false);
         txfEmail.setDisable(false);
         txfForm.setDisable(false);
-        txfHouse.setDisable(false);
         txfPrimaryContactName.setDisable(false);
         txfPrimaryContactEmail.setDisable(false);
         txfSecondaryContactName.setDisable(false);
         txfSecondaryContactEmail.setDisable(false);
         txaComments.setDisable(false);
+        houseComboBox.setDisable(false);
     }
 
     private void disableTextFields(){
@@ -157,12 +168,12 @@ public class StudentFullInfo extends Application implements Initializable {
         txfAge.setDisable(true);
         txfEmail.setDisable(true);
         txfForm.setDisable(true);
-        txfHouse.setDisable(true);
         txfPrimaryContactName.setDisable(true);
         txfPrimaryContactEmail.setDisable(true);
         txfSecondaryContactName.setDisable(true);
         txfSecondaryContactEmail.setDisable(true);
         txaComments.setDisable(true);
+        houseComboBox.setDisable(true);
     }
 
     private int calculateAge(Date dateOfBirth){
@@ -185,7 +196,7 @@ public class StudentFullInfo extends Application implements Initializable {
     }
 
     @FXML
-    private void btnConfirmActionPerformed(ActionEvent event) throws IOException {
+    private void btnConfirmActionPerformed(ActionEvent event) throws IOException, ParseException {
 
         //TODO: Optimise the poo out of this method
 
@@ -198,16 +209,25 @@ public class StudentFullInfo extends Application implements Initializable {
         String dob = txfDOB.getText();
         String age = txfAge.getText();
         String email = txfEmail.getText();
-        String house = txfHouse.getText();
+        String house = houseComboBox.getSelectionModel().getSelectedItem();
         String comments = txaComments.getText();
         int form = Integer.parseInt(txfForm.getText());
         String primaryContactName = txfPrimaryContactName.getText();
         String primaryContactEmail = txfPrimaryContactEmail.getText();
         String secondaryContactName = txfSecondaryContactName.getText();
         String secondaryContactEmail = txfSecondaryContactEmail.getText();
-
         int enrollmentYear = Calendar.getInstance().get(Calendar.YEAR);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        ArrayList<TextField> invalidFields = validateData(firstName, lastName, username, formatter.parse(dob), email, house, String.valueOf(form),
+                                                          primaryContactName, primaryContactEmail, secondaryContactName,
+                                                          secondaryContactEmail);
+
+        for(int i = 0; i < invalidFields.size(); i++){
+            invalidFields.get(i).setStyle("-fx-background-color: red;");
+        }
 
         if (postRequest) {
 
@@ -241,7 +261,6 @@ public class StudentFullInfo extends Application implements Initializable {
         else{
 
             HashMap<String, String> userDetails = new HashMap<String, String>();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
             userDetails.put("first_name", firstName);
             userDetails.put("last_name", lastName);
@@ -315,6 +334,39 @@ public class StudentFullInfo extends Application implements Initializable {
             performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
         }
 
+    }
+
+    /**
+     * Validates that all data entered is in the correct format as defined by the REST API
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param dob
+     * @param email
+     * @param house
+     * @param form
+     * @param primaryContactName
+     * @param primaryContactEmail
+     * @param secondaryContactName
+     * @param secondaryContactEmail
+     * @return
+     */
+
+    private ArrayList<TextField> validateData(String firstName, String lastName, String username, Date dob, String email,
+                                 String house, String form, String primaryContactName, String primaryContactEmail,
+                                 String secondaryContactName, String secondaryContactEmail){
+
+        ArrayList<TextField> invalidFields = new ArrayList<>();
+
+        if(firstName.equals("")){
+            invalidFields.add(txfFirstName);
+        }
+
+        if(lastName.equals("")){
+            invalidFields.add(txfLastName);
+        }
+
+        return invalidFields;
     }
 
     private String performHTTP_POST(String url, String jsonBody) throws IOException {
