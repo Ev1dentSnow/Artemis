@@ -10,6 +10,9 @@ module Artemis{
     requires reactfx;
     requires MaterialFX;
     requires com.jfoenix;
+    requires org.kordamp.iconli.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.fontawesome;
 
     opens Artemis.Controllers to javafx.graphics, javafx.fxml;
     opens Artemis.Models to javafx.base, com.google.gson;

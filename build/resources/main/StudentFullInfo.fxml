@@ -55,25 +55,25 @@
       <VBox layoutX="169.0" layoutY="142.0" prefHeight="305.0" prefWidth="194.0">
          <children>
             <TextField fx:id="txfFirstName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css" />
-            <Label prefHeight="17.0" prefWidth="167.0" text="This field cannot be empty" textFill="RED" />
+            <Label fx:id="lblFirstNameError" prefHeight="17.0" prefWidth="167.0" text="This field cannot be empty" textFill="RED" />
             <TextField fx:id="txfLastName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </TextField>
-            <Label text="This field cannot be empty" textFill="RED" />
+            <Label fx:id="lblLastNameError" text="This field cannot be empty" textFill="RED" />
             <TextField fx:id="txfUsername" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="184.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
+            <Label fx:id="lblUsernameError" prefHeight="17.0" prefWidth="184.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
             <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="38.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="193.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
+            <Label fx:id="lblDobError" prefHeight="17.0" prefWidth="193.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
             <Label prefHeight="17.0" prefWidth="179.0" />
             <TextField fx:id="txfAge" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
@@ -86,7 +86,7 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="183.0" text="Enter a valid email address" textFill="RED" />
+            <Label fx:id="lblEmailError" prefHeight="17.0" prefWidth="183.0" text="Enter a valid email address" textFill="RED" />
          </children>
       </VBox>
       <TextArea fx:id="txaComments" layoutX="129.0" layoutY="616.0" prefHeight="104.0" prefWidth="468.0" />
@@ -139,31 +139,31 @@
                   <Insets top="35.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Enter an integer from 1 - 5" textFill="RED" />
+            <Label fx:id="lblFormError" text="Enter an integer from 1 - 5" textFill="RED" />
             <TextField fx:id="txfPrimaryContactName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="164.0" text="This field cannot be empty" textFill="RED" />
+            <Label fx:id="lblPrimaryContactNameError" prefHeight="17.0" prefWidth="164.0" text="This field cannot be empty" textFill="RED" />
             <TextField fx:id="txfPrimaryContactEmail" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Enter a valid email address" textFill="RED" />
+            <Label fx:id="lblPrimaryContactEmailError" text="Enter a valid email address" textFill="RED" />
             <TextField fx:id="txfSecondaryContactName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="157.0" text="This field cannot be empty" textFill="RED" />
+            <Label fx:id="lblSecondaryContactNameError" prefHeight="17.0" prefWidth="157.0" text="This field cannot be empty" textFill="RED" />
             <TextField fx:id="txfSecondaryContactEmail" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Enter a valid email address" textFill="RED" />
+            <Label fx:id="lblSecondaryContactEmailError" text="Enter a valid email address" textFill="RED" />
          </children>
       </VBox>
       <Button fx:id="btnConfirm" layoutX="260.0" layoutY="70.0" mnemonicParsing="false" onAction="#btnConfirmActionPerformed" prefHeight="42.0" prefWidth="31.0" style="-fx-background-color: transparent;">
