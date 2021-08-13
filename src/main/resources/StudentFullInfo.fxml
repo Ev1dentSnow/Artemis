@@ -75,7 +75,7 @@
             </TextField>
             <Label fx:id="lblDobError" prefHeight="17.0" prefWidth="193.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
             <Label prefHeight="17.0" prefWidth="179.0" />
-            <TextField fx:id="txfAge" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
+            <TextField fx:id="txfNewPassword" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

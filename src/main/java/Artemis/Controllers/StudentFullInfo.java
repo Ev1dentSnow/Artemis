@@ -81,7 +81,7 @@ public class StudentFullInfo extends Application implements Initializable {
     @FXML
     private TextField txfDOB;
     @FXML
-    private TextField txfAge;
+    private TextField txfNewPassword;
     @FXML
     private TextField txfEmail;
     @FXML
@@ -159,7 +159,7 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setText(student.getLastName());
         txfUsername.setText(student.getUsername());
         txfDOB.setText(formatter.format(student.getDob()));
-        txfAge.setText(String.valueOf(calculateAge(student.getDob())));
+        txfNewPassword.setText("");
         txfEmail.setText(student.getEmail());
         txfForm.setText(String.valueOf(student.getForm()));
         txfPrimaryContactName.setText(student.getPrimaryContactName());
@@ -175,7 +175,7 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setDisable(false);
         txfUsername.setDisable(false);
         txfDOB.setDisable(false);
-        txfAge.setDisable(false);
+        txfNewPassword.setDisable(false);
         txfEmail.setDisable(false);
         txfForm.setDisable(false);
         txfPrimaryContactName.setDisable(false);
@@ -191,7 +191,7 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setDisable(true);
         txfUsername.setDisable(true);
         txfDOB.setDisable(true);
-        txfAge.setDisable(true);
+        txfNewPassword.setDisable(true);
         txfEmail.setDisable(true);
         txfForm.setDisable(true);
         txfPrimaryContactName.setDisable(true);
@@ -251,7 +251,7 @@ public class StudentFullInfo extends Application implements Initializable {
         String username = txfUsername.getText();
         //TODO: Add "date" data validation for txfDOB, and data all fields
         String dob = txfDOB.getText();
-        String age = txfAge.getText();
+        String newPassword = txfNewPassword.getText();
         String email = txfEmail.getText();
         String house = houseComboBox.getSelectionModel().getSelectedItem();
         String comments = txaComments.getText();
@@ -318,16 +318,20 @@ public class StudentFullInfo extends Application implements Initializable {
 
         if (noInvalidFields) {
 
-
             if (postRequest) {
 
                 HashMap<String, String> userDetails = new HashMap<String, String>();
-
-
                 userDetails.put("first_name", firstName);
                 userDetails.put("last_name", lastName);
                 userDetails.put("username", username);
-                userDetails.put("password", username); //Default password is the same as the student's username
+
+                if(txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", username); //Default password is the same as the student's username if none is supplied
+                }
+                else{
+                    userDetails.put("password", newPassword);
+                }
+
                 userDetails.put("dob", dob);
                 userDetails.put("email", email);
                 userDetails.put("house", house);
@@ -337,7 +341,6 @@ public class StudentFullInfo extends Application implements Initializable {
                 }
 
                 StudentJSON student = new StudentJSON(userDetails, Integer.parseInt(form), enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
-
                 Gson gson = new Gson();
                 String json = gson.toJson(student);
 
@@ -347,14 +350,19 @@ public class StudentFullInfo extends Application implements Initializable {
                 } catch (IOException e) {
                     displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
                 }
-            } else {
+            }
+            else {
 
                 HashMap<String, String> userDetails = new HashMap<String, String>();
 
                 userDetails.put("first_name", firstName);
                 userDetails.put("last_name", lastName);
                 userDetails.put("username", username);
-                userDetails.put("password", username); //Default password is the same as the student's username
+
+                if(!txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", newPassword);
+                }
+
                 userDetails.put("dob", dob);
                 userDetails.put("email", email);
                 userDetails.put("house", house);
