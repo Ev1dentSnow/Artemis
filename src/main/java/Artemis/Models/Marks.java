@@ -5,73 +5,77 @@ import java.sql.Date;
 
 public class Marks {
 
-    @SerializedName(value = "studentid", alternate = {"studentId"})
-    private int studentId;
-    @SerializedName(value = "classid", alternate = {"classId"})
-    private int classId;
-    private String name;
-    @SerializedName(value = "marksawarded", alternate = {"marksAwarded"})
-    private double marksawarded;
-    @SerializedName(value = "maxmarks", alternate = {"maxMarks"})
-    private int maxMarks;
-    @SerializedName(value = "duedate", alternate = {"dueDate"})
-    private Date dueDate;
+    private int assignment_id;
+    private String assignment_name;
+    private double max_marks;
+    private double marks_awarded;
+    private String date_assigned;
+    private String date_due;
+    private int teacher_id;
 
-
-    public Marks(int studentId, int classId, String name, double marksawarded, int maxMarks, Date dueDate) {
-        this.studentId = studentId;
-        this.classId = classId;
-        this.name = name;
-        this.marksawarded = marksawarded;
-        this.maxMarks = maxMarks;
-        this.dueDate = dueDate;
+    public Marks(int assignment_id, String assignment_name, double max_marks, double marks_awarded, String date_assigned, String date_due, int teacher_id) {
+        this.assignment_id = assignment_id;
+        this.assignment_name = assignment_name;
+        this.max_marks = max_marks;
+        this.marks_awarded = marks_awarded;
+        this.date_assigned = date_assigned;
+        this.date_due = date_due;
+        this.teacher_id = teacher_id;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public int getAssignment_id() {
+        return assignment_id;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setAssignment_id(int assignment_id) {
+        this.assignment_id = assignment_id;
     }
 
-    public int getClassId() {
-        return classId;
+    public String getAssignment_name() {
+        return assignment_name;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setAssignment_name(String assignment_name) {
+        this.assignment_name = assignment_name;
     }
 
-    public String getName() {
-        return name;
+    public double getMax_marks() {
+        return max_marks;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMax_marks(double max_marks) {
+        this.max_marks = max_marks;
     }
 
-    public double getMarksawarded() {
-        return marksawarded;
+    public double getMarks_awarded() {
+        return marks_awarded;
     }
 
-    public void setMarksawarded(double marksawarded) {
-        this.marksawarded = marksawarded;
+    public void setMarks_awarded(double marks_awarded) {
+        this.marks_awarded = marks_awarded;
     }
 
-    public int getMaxMarks() {
-        return maxMarks;
+    public String getDate_assigned() {
+        return date_assigned;
     }
 
-    public void setMaxMarks(int maxMarks) {
-        this.maxMarks = maxMarks;
+    public void setDate_assigned(String date_assigned) {
+        this.date_assigned = date_assigned;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public String getDate_due() {
+        return date_due;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setDate_due(String date_due) {
+        this.date_due = date_due;
+    }
+
+    public int getTeacher_id() {
+        return teacher_id;
+    }
+
+    public void setTeacher_id(int teacher_id) {
+        this.teacher_id = teacher_id;
     }
 }
