@@ -1,10 +1,12 @@
 package Artemis.Controllers;
 
 import Artemis.App;
+import Artemis.Models.House;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
 import com.google.gson.Gson;
-import com.jfoenix.controls.JFXToggleButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,11 +25,14 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class StudentFullInfo extends Application implements Initializable {
 
@@ -43,7 +48,29 @@ public class StudentFullInfo extends Application implements Initializable {
     public static boolean postRequest = false;
 
     @FXML
-    JFXToggleButton editModeSwitch = new JFXToggleButton();
+    Label lblFirstNameError;
+    @FXML
+    Label lblLastNameError;
+    @FXML
+    Label lblUsernameError;
+    @FXML
+    Label lblDobError;
+    @FXML
+    Label lblFormError;
+    @FXML
+    Label lblEmailError;
+    @FXML
+    Label lblPrimaryContactNameError;
+    @FXML
+    Label lblPrimaryContactEmailError;
+    @FXML
+    Label lblSecondaryContactNameError;
+    @FXML
+    Label lblSecondaryContactEmailError;
+
+
+    @FXML
+    MFXToggleButton editModeSwitch = new MFXToggleButton();
 
     @FXML
     private TextField txfFirstName;
@@ -54,11 +81,11 @@ public class StudentFullInfo extends Application implements Initializable {
     @FXML
     private TextField txfDOB;
     @FXML
-    private TextField txfAge;
+    private TextField txfNewPassword;
     @FXML
     private TextField txfEmail;
     @FXML
-    private TextField txfHouse;
+    private MFXComboBox<String> houseComboBox;
     @FXML
     private TextField txfForm;
     @FXML
@@ -100,8 +127,18 @@ public class StudentFullInfo extends Application implements Initializable {
 
         }
 
+        houseComboBox.getItems().add(new House("Ochse", "Blue").getName());
+        houseComboBox.getItems().add(new House("MacRobert", "Red").getName());
+        houseComboBox.getItems().add(new House("Knoll", "Black").getName());
+        houseComboBox.getItems().add(new House("DeBeer", "Yellow").getName());
+        houseComboBox.getItems().add(new House("Knapp Fischer", "Green").getName());
+        houseComboBox.getItems().add(new House("Murray", "Purple").getName());
+        houseComboBox.getSelectionModel().selectItem(currentStudent.getHouse());
+
+
         //edit mode is disabled by default to prevent accidents
         disableTextFields();
+        resetErrorLabels();
 
     }
 
@@ -122,11 +159,11 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setText(student.getLastName());
         txfUsername.setText(student.getUsername());
         txfDOB.setText(formatter.format(student.getDob()));
-        txfAge.setText(String.valueOf(calculateAge(student.getDob())));
+        txfNewPassword.setText("");
         txfEmail.setText(student.getEmail());
         txfForm.setText(String.valueOf(student.getForm()));
         txfPrimaryContactName.setText(student.getPrimaryContactName());
-        txfPrimaryContactEmail.setText(student.getSecondaryContactEmail());
+        txfPrimaryContactEmail.setText(student.getPrimaryContactEmail());
         txfSecondaryContactName.setText(student.getSecondaryContactName());
         txfSecondaryContactEmail.setText(student.getSecondaryContactEmail());
         txaComments.setText(student.getComments());
@@ -138,15 +175,15 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setDisable(false);
         txfUsername.setDisable(false);
         txfDOB.setDisable(false);
-        txfAge.setDisable(false);
+        txfNewPassword.setDisable(false);
         txfEmail.setDisable(false);
         txfForm.setDisable(false);
-        txfHouse.setDisable(false);
         txfPrimaryContactName.setDisable(false);
         txfPrimaryContactEmail.setDisable(false);
         txfSecondaryContactName.setDisable(false);
         txfSecondaryContactEmail.setDisable(false);
         txaComments.setDisable(false);
+        houseComboBox.setDisable(false);
     }
 
     private void disableTextFields(){
@@ -154,15 +191,32 @@ public class StudentFullInfo extends Application implements Initializable {
         txfLastName.setDisable(true);
         txfUsername.setDisable(true);
         txfDOB.setDisable(true);
-        txfAge.setDisable(true);
+        txfNewPassword.setDisable(true);
         txfEmail.setDisable(true);
         txfForm.setDisable(true);
-        txfHouse.setDisable(true);
         txfPrimaryContactName.setDisable(true);
         txfPrimaryContactEmail.setDisable(true);
         txfSecondaryContactName.setDisable(true);
         txfSecondaryContactEmail.setDisable(true);
         txaComments.setDisable(true);
+        houseComboBox.setDisable(true);
+    }
+
+    private void resetErrorLabels(){
+        lblFirstNameError.setStyle("-fx-text-fill: #202020;");
+        lblLastNameError.setStyle("-fx-text-fill: #202020;");
+        lblUsernameError.setStyle("-fx-text-fill: #202020;");
+        lblEmailError.setStyle("-fx-text-fill: #202020;");
+        lblDobError.setStyle("-fx-text-fill: #202020;");
+        lblFormError.setStyle("-fx-text-fill: #202020;");
+        lblPrimaryContactNameError.setStyle("-fx-text-fill: #202020;");
+        lblPrimaryContactEmailError.setStyle("-fx-text-fill: #202020;");
+        lblSecondaryContactNameError.setStyle("-fx-text-fill: #202020;");
+        lblSecondaryContactEmailError.setStyle("-fx-text-fill: #202020;");
+    }
+
+    private void triggerErrorLabel(Label errorLabel){
+        errorLabel.setStyle("-fx-text-fill: red;");
     }
 
     private int calculateAge(Date dateOfBirth){
@@ -185,100 +239,163 @@ public class StudentFullInfo extends Application implements Initializable {
     }
 
     @FXML
-    private void btnConfirmActionPerformed(ActionEvent event) throws IOException {
+    private void btnConfirmActionPerformed(ActionEvent event) throws IOException, ParseException {
 
         //TODO: Optimise the poo out of this method
 
         event.consume();
+        resetErrorLabels();
 
         String firstName = txfFirstName.getText();
         String lastName = txfLastName.getText();
         String username = txfUsername.getText();
         //TODO: Add "date" data validation for txfDOB, and data all fields
         String dob = txfDOB.getText();
-        String age = txfAge.getText();
+        String newPassword = txfNewPassword.getText();
         String email = txfEmail.getText();
-        String house = txfHouse.getText();
+        String house = houseComboBox.getSelectionModel().getSelectedItem();
         String comments = txaComments.getText();
-        int form = Integer.parseInt(txfForm.getText());
+        String form = txfForm.getText();
         String primaryContactName = txfPrimaryContactName.getText();
         String primaryContactEmail = txfPrimaryContactEmail.getText();
         String secondaryContactName = txfSecondaryContactName.getText();
         String secondaryContactEmail = txfSecondaryContactEmail.getText();
-
         int enrollmentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-
-        if (postRequest) {
-
-            HashMap<String, String> userDetails = new HashMap<String, String>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 
-            userDetails.put("first_name", firstName);
-            userDetails.put("last_name", lastName);
-            userDetails.put("username", username);
-            userDetails.put("password", username); //Default password is the same as the student's username
-            userDetails.put("dob", dob);
-            userDetails.put("email", email);
-            userDetails.put("house", house);
+        ArrayList<TextField> invalidFields = validateData(firstName, lastName, username, dob, email, form,
+                                                          primaryContactName, primaryContactEmail, secondaryContactName,
+                                                          secondaryContactEmail);
 
-            if(txaComments.getText().equals("")){
-                userDetails.remove("comments");
-            }
+        boolean noInvalidFields = true;
 
-            StudentJSON student = new StudentJSON(userDetails, form, enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
-
-            Gson gson = new Gson();
-            String json = gson.toJson(student);
-
-            try {
-                String result = performHTTP_POST(App.BASEURL + App.STUDENT_LIST_PATH, json);
-                System.out.println(result);
-            } catch (IOException e) {
-                displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
-            }
+        if (invalidFields.contains(txfFirstName)){
+            triggerErrorLabel(lblFirstNameError);
+            noInvalidFields = false;
         }
-        else{
+        if (invalidFields.contains(txfLastName)){
+            triggerErrorLabel(lblLastNameError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfUsername)){
+            triggerErrorLabel(lblUsernameError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfDOB)){
+            triggerErrorLabel(lblDobError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfEmail)){
+            triggerErrorLabel(lblEmailError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfForm)){
+            triggerErrorLabel(lblFormError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfPrimaryContactName)){
+            triggerErrorLabel(lblPrimaryContactNameError);
+            noInvalidFields = false;
+        }
+        if(invalidFields.contains(txfPrimaryContactEmail)){
+            triggerErrorLabel(lblPrimaryContactEmailError);
+            noInvalidFields = false;
+        }
+        if(invalidFields.contains(txfSecondaryContactName)){
+            triggerErrorLabel(lblSecondaryContactNameError);
+            noInvalidFields = false;
+        }
+        if(invalidFields.contains(txfSecondaryContactEmail)){
+            triggerErrorLabel(lblSecondaryContactEmailError);
+            noInvalidFields = false;
+        }
+        if(houseComboBox.getSelectionModel().getSelectedItem() == null){
+            noInvalidFields = false;
+            displayAlert("A house must be selected", Alert.AlertType.ERROR);
+        }
 
-            HashMap<String, String> userDetails = new HashMap<String, String>();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        if (noInvalidFields) {
 
-            userDetails.put("first_name", firstName);
-            userDetails.put("last_name", lastName);
-            userDetails.put("username", username);
-            userDetails.put("password", username); //Default password is the same as the student's username
-            userDetails.put("dob", dob);
-            userDetails.put("email", email);
-            userDetails.put("house", house);
-            userDetails.put("comments", comments);
+            if (postRequest) {
 
-            Iterator userDetailsIterator = userDetails.entrySet().iterator();
+                HashMap<String, String> userDetails = new HashMap<String, String>();
+                userDetails.put("first_name", firstName);
+                userDetails.put("last_name", lastName);
+                userDetails.put("username", username);
 
-            while(userDetailsIterator.hasNext()){
-                Map.Entry userDetailsElement = (Map.Entry) userDetailsIterator.next();
-                String value = (String) userDetailsElement.getValue();
+                if(txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", username); //Default password is the same as the student's username if none is supplied
+                }
+                else{
+                    userDetails.put("password", newPassword);
+                }
 
-                if(value.equals("")){
-                    userDetailsIterator.remove();
+                userDetails.put("dob", dob);
+                userDetails.put("email", email);
+                userDetails.put("house", house);
+
+                if (txaComments.getText().equals("")) {
+                    userDetails.remove("comments");
+                }
+
+                StudentJSON student = new StudentJSON(userDetails, Integer.parseInt(form), enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
+                Gson gson = new Gson();
+                String json = gson.toJson(student);
+
+                try {
+                    String result = performHTTP_POST(App.BASEURL + App.STUDENT_LIST_PATH, json);
+                    System.out.println(result);
+                } catch (IOException e) {
+                    displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
+                }
+            }
+            else {
+
+                HashMap<String, String> userDetails = new HashMap<String, String>();
+
+                userDetails.put("first_name", firstName);
+                userDetails.put("last_name", lastName);
+                userDetails.put("username", username);
+
+                if(!txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", newPassword);
+                }
+
+                userDetails.put("dob", dob);
+                userDetails.put("email", email);
+                userDetails.put("house", house);
+                userDetails.put("comments", comments);
+
+                Iterator userDetailsIterator = userDetails.entrySet().iterator();
+
+                while (userDetailsIterator.hasNext()) {
+                    Map.Entry userDetailsElement = (Map.Entry) userDetailsIterator.next();
+                    String value = (String) userDetailsElement.getValue();
+
+                    if (value.equals("")) {
+                        userDetailsIterator.remove();
+                    }
+                }
+
+                StudentJSON student = new StudentJSON(userDetails, Integer.parseInt(form), enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(student);
+
+                try {
+                    CloseableHttpResponse wa = performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
+                    System.out.println(EntityUtils.toString(wa.getEntity()));
+                } catch (IOException e) {
+                    displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
                 }
             }
 
-            StudentJSON student = new StudentJSON(userDetails, form, enrollmentYear, primaryContactName, primaryContactEmail, secondaryContactName, secondaryContactEmail);
+            Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
+            currentWindow.close();
 
-            Gson gson = new Gson();
-            String json = gson.toJson(student);
-
-            try {
-               CloseableHttpResponse wa = performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
-                System.out.println(EntityUtils.toString(wa.getEntity()));
-            }
-            catch(IOException e) {
-                displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
-            }
         }
-
-        Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
-        currentWindow.close();
     }
 
     @FXML
@@ -315,6 +432,82 @@ public class StudentFullInfo extends Application implements Initializable {
             performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
         }
 
+    }
+
+    /**
+     * Validates that all data entered is in the correct format as defined by the REST API
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param dob
+     * @param email
+     * @param form
+     * @param primaryContactName
+     * @param primaryContactEmail
+     * @param secondaryContactName
+     * @param secondaryContactEmail
+     * @return Arraylist of invalid TextFields
+     */
+
+    private ArrayList<TextField> validateData(String firstName, String lastName, String username, String dob, String email,
+                                              String form, String primaryContactName, String primaryContactEmail,
+                                              String secondaryContactName, String secondaryContactEmail){
+
+
+        ArrayList<TextField> invalidFields = new ArrayList<>();
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        //Generic text user info validation
+        if(firstName == null || firstName.equals("")){
+            invalidFields.add(txfFirstName);
+        }
+        if(lastName == null || lastName.equals("")){
+            invalidFields.add(txfLastName);
+        }
+        if(username == null || username.equals("")){
+            invalidFields.add(txfUsername);
+        }
+        if(primaryContactName == null || primaryContactName.equals("")){
+            invalidFields.add(txfPrimaryContactName);
+        }
+        if(secondaryContactName == null || secondaryContactName.equals("")){
+            invalidFields.add(txfSecondaryContactName);
+        }
+
+
+        //DOB Validation
+        try{
+            dateFormatter.parse(dob);
+        }
+        catch(ParseException p){
+            invalidFields.add(txfDOB);
+        }
+
+        //Form Validation
+        try{
+            Integer.parseInt(form);
+        }
+        catch(NumberFormatException n){
+            invalidFields.add(txfForm);
+        }
+
+        //Email Validation
+        if(email == null || email.equals("") || !pattern.matcher(email).matches()){
+            invalidFields.add(txfEmail);
+        }
+        if(primaryContactEmail == null || primaryContactEmail.equals("") || !pattern.matcher(primaryContactEmail).matches()){
+            invalidFields.add(txfPrimaryContactEmail);
+        }
+        if(secondaryContactEmail == null || secondaryContactEmail.equals("") || !pattern.matcher(secondaryContactEmail).matches()){
+            invalidFields.add(txfSecondaryContactEmail);
+        }
+        return invalidFields;
     }
 
     private String performHTTP_POST(String url, String jsonBody) throws IOException {

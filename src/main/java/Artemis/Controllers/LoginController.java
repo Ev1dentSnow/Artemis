@@ -3,6 +3,14 @@ package Artemis.Controllers;
 import Artemis.App;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import io.github.palexdev.materialfx.controls.MFXDialog;
+import io.github.palexdev.materialfx.controls.MFXNotification;
+import io.github.palexdev.materialfx.controls.SimpleMFXNotificationPane;
+import io.github.palexdev.materialfx.controls.base.AbstractMFXDialog;
+import io.github.palexdev.materialfx.controls.enums.DialogType;
+import io.github.palexdev.materialfx.controls.factories.MFXDialogFactory;
+import io.github.palexdev.materialfx.notifications.NotificationPos;
+import io.github.palexdev.materialfx.notifications.NotificationsManager;
 import javafx.animation.FillTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -31,6 +40,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -97,8 +107,12 @@ public class LoginController extends Application {
                 Alert selectLoginTypeAlert = new Alert(Alert.AlertType.INFORMATION);
 
                 if (responseStatusCode == 200) {
-                    alert.setContentText("Login Successful");
-                    alert.showAndWait();
+
+                    MFXNotification notification = buildNotification();
+                    NotificationsManager.send(NotificationPos.TOP_RIGHT, notification);
+
+                    //alert.setContentText("Login Successful");
+                    //alert.showAndWait();
 
                     JSONObject responseObj = new JSONObject(responseBody);
                     String responseToken = (String) responseObj.get("access");
@@ -236,6 +250,22 @@ public class LoginController extends Application {
             keyTyped = true;
             notificationLabel.setTextFill(Color.BLACK);
         }
+    }
+
+    private MFXNotification buildNotification() {
+        FontIcon icon = new FontIcon("fa-check-circle");
+        icon.setIconColor(Color.LIGHTBLUE);
+        icon.setIconSize(15);
+        SimpleMFXNotificationPane pane = new SimpleMFXNotificationPane(icon, "Artemis School Management System", "Login Successful", "Welcome back!");
+        Region template = pane;
+
+        MFXNotification notification = new MFXNotification(template, true, true);
+        notification.setHideAfterDuration(Duration.seconds(3));
+
+        SimpleMFXNotificationPane notiPane = (SimpleMFXNotificationPane) template;
+        notiPane.setCloseHandler(closeEvent -> notification.hideNotification());
+
+        return notification;
     }
 
 

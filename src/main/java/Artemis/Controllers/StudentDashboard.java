@@ -57,16 +57,17 @@ import java.util.ResourceBundle;
 
 public class StudentDashboard extends Application implements Initializable {
 
+    private static int userId;
+    private String fullName = "";
+
+
     private final String ANNOUCEMENTS_PATH = "api/announcements";
+    private final String MARKS_PATH = "api/students/" + String.valueOf(userId) + "/marks";
     private final String WEATHER_PATH = "api/weather";
     private final String STUDENT_LIST_PATH = "api/students";
     private final String QUOTE_PATH = "api/quote";
 
     private static String accessToken;
-
-    private String fullName = "";
-
-    private static int userId;
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -418,17 +419,28 @@ public class StudentDashboard extends Application implements Initializable {
 
     private void prepareMarksPane() throws IOException {
 
-        if(marksPanePrepared){
-            String response = performHttpGet("https://artemisystem.xyz/api/students/marks/" + getUserId());
-            Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
-            Marks[] marks = gson.fromJson(response, Marks[].class);
-
-            Calendar cal = Calendar.getInstance();
-            int enrollmentYear = (cal.get(Calendar.YEAR) - currentForm) + 1;
-
-
+        if(!marksPanePrepared){
+            String response = performHttpGet(App.BASEURL + MARKS_PATH);
+            Gson gson = new Gson();
+            Marks[] studentMarks = gson.fromJson(response, Marks[].class);
             marksPanePrepared = false;
         }
+
+        /*
+        SAMPLE MARKS JSON
+        {
+        [
+            assignment_id: 1,
+            assignment_name: Atom Naming,
+            max_marks: 48,
+            marks_awarded: 47,
+            date_assigned: 2017-08-08,
+            date_due: 2017-08-10,
+            teacher_id: 27
+         ]
+        }
+         */
+
 
 
     }

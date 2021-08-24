@@ -1,5 +1,6 @@
 package Artemis.Controllers;
 
+
 import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.JSON.Serializers.StudentJSON;
@@ -10,7 +11,10 @@ import Artemis.Models.Weather.Weather;
 import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jfoenix.controls.JFXButton;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.cell.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,7 +49,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
@@ -55,8 +58,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.*;
+import io.github.palexdev.materialfx.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
+
 
 public class AdminDashboard extends Application implements Initializable {
 
@@ -67,9 +72,7 @@ public class AdminDashboard extends Application implements Initializable {
 
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
-
     private ObservableList<Student> studentsList;
-
 
 
     @FXML
@@ -116,37 +119,25 @@ public class AdminDashboard extends Application implements Initializable {
     //Students Pane Componenets
 
     @FXML
-    TableView studentsTable = new TableView();
-    @FXML
-    TableColumn<Student, Integer> colID;
-    @FXML
-    TableColumn<Student, String> colFirstName;
-    @FXML
-    TableColumn<Student, String> colLastName;
-    @FXML
-    TableColumn<Student, Integer> colForm;
-    @FXML
-    TableColumn<Student, String> colHouse;
-    @FXML
-    TableColumn<Student, String> colEmail;
+    MFXTableView<Student> studentsTable = new MFXTableView<>();
 
-    @FXML
-    TextField txfStudentSearch = new TextField();
+
     @FXML
     Text lblStudentSearchMatches = new Text();
     @FXML
     Button btnCancelStudentSearch = new Button();
     @FXML
-    JFXButton btnRefreshStudents = new JFXButton();
+    MFXButton btnViewFullInfo = new MFXButton();
+    @FXML
+    MFXButton btnRefreshStudents = new MFXButton();
+
+
 
 
 
     //2nd Tab of Students Pane components
 
-    @FXML
-    JFXButton btnAddStudent = new JFXButton();
-    @FXML
-    JFXButton btnRemoveStudent = new JFXButton();
+
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -311,29 +302,6 @@ public class AdminDashboard extends Application implements Initializable {
 
     }
 
-    /**
-     * Dynamically updates the table with every key typed with relevant results
-     * depending on what is typed in the search bar
-     * @param event
-     */
-    @FXML
-    private void studentSearchKeyTyped(KeyEvent event){
-        event.consume();
-        //resetting the searchbar background color back to white
-        txfStudentSearch.setStyle("-fx-control-inner-background: white;");
-        lblStudentSearchMatches.setText("");
-
-        String searchPhrase = txfStudentSearch.getText();
-
-        studentsTable.setItems((ObservableList) filterList(studentsList, searchPhrase));
-        lblStudentSearchMatches.setText(studentsTable.getItems().size() + " matches found");
-
-        if (studentsTable.getItems() == null || studentsTable.getItems().size() == 0) {
-            txfStudentSearch.setStyle("-fx-control-inner-background: salmon;");
-            lblStudentSearchMatches.setText("0 matches found");
-        }
-
-    }
 
     /**
      * Filters the list of students to see if they correspond with a search
@@ -353,20 +321,7 @@ public class AdminDashboard extends Application implements Initializable {
         return filteredList;
     }
 
-    /**
-     * Clears the search bar and cancels the filter applied to the students table,
-     * thus displaying all students
-     * @param event
-     */
 
-    @FXML
-    private void cancelStudentSearchActionPerformed(ActionEvent event){
-        event.consume();
-        txfStudentSearch.clear();
-        txfStudentSearch.setStyle("-fx-control-inner-background: white;");
-        lblStudentSearchMatches.setText("");
-        studentsTable.setItems(studentsList);
-    }
 
     //Student Pane 2nd tab method
     @FXML
@@ -525,7 +480,7 @@ public class AdminDashboard extends Application implements Initializable {
         if(response.getStatusLine().getStatusCode() == 200){
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
 
-            studentsList = observableArrayList();
+            studentsList = FXCollections.observableArrayList();
 
             StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
 
@@ -554,14 +509,23 @@ public class AdminDashboard extends Application implements Initializable {
 
             }
 
-            colID.setCellValueFactory(new PropertyValueFactory<>("id"));
-            colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            colForm.setCellValueFactory(new PropertyValueFactory<>("Form"));
-            colHouse.setCellValueFactory(new PropertyValueFactory<>("House"));
-            colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+            MFXTableColumn<Student> colID = new MFXTableColumn<>("ID", Comparator.comparing(Student::getId));
+            MFXTableColumn<Student> colFirstName = new MFXTableColumn<>("First Name", Comparator.comparing(Student::getFirstName));
+            MFXTableColumn<Student> colLastName = new MFXTableColumn<>("Last Name", Comparator.comparing(Student::getLastName));
+            MFXTableColumn<Student> colForm = new MFXTableColumn<>("Form", Comparator.comparing(Student::getForm));
+            MFXTableColumn<Student> colHouse = new MFXTableColumn<>("House", Comparator.comparing(Student::getHouse));
+            MFXTableColumn<Student> colEmail = new MFXTableColumn<>("Email", Comparator.comparing(Student::getEmail));
+
+            colID.setRowCellFunction(student ->  new MFXTableRowCell(String.valueOf(student.getId())));
+            colFirstName.setRowCellFunction(student -> new MFXTableRowCell(student.getFirstName()));
+            colLastName.setRowCellFunction(student -> new MFXTableRowCell(student.getLastName()));
+            colForm.setRowCellFunction(student -> new MFXTableRowCell(String.valueOf(student.getForm())));
+            colHouse.setRowCellFunction(student -> new MFXTableRowCell(student.getHouse()));
+            colEmail.setRowCellFunction(student -> new MFXTableRowCell(student.getEmail()));
 
             studentsTable.setItems(studentsList);
+            colID.setMaxWidth(10);
+            studentsTable.getTableColumns().addAll(colID, colFirstName, colLastName, colForm, colHouse, colEmail);
 
         }
         else if(response.getStatusLine().getStatusCode() == 401){
