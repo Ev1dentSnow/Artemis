@@ -23,8 +23,8 @@ This is the client side desktop application of my Artemis School Management Syst
 
 This is my first "big" project, so don't expect much from it. You may come across be some horrendous programming practices and other ugly things if you chose to take a look at the source code
 
-Links to other P.A.T Phases
----------------------------
+Links to other P.A.T Phases | View
+---------------------------   -----
 Phase 1 | View
 Phase 2 | View
 
