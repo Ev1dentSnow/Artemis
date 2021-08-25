@@ -23,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -416,28 +417,9 @@ public class StudentDashboard extends Application implements Initializable {
 
     private void prepareMarksPane() throws IOException {
 
-        if(!marksPanePrepared){
-            String response = performHttpGet(App.BASEURL + MARKS_PATH);
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-            Marks[] studentMarks = gson.fromJson(response, Marks[].class);
-
-            //This algorithm here will determine how many "year" tabs should be placed on the student's marks pane
-            ArrayList<Integer> alreadyAddedYearTabs = new ArrayList<>();
-            for(int i = 0; i < studentMarks.length; i++){
-
-                Date dueDate = studentMarks[i].getAssignment().getDateDue();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dueDate);
-
-                if(!alreadyAddedYearTabs.contains(calendar.get(Calendar.YEAR))){
-                    formTabPane.getTabs().add(new Tab(String.valueOf(calendar.get(Calendar.YEAR))));
-                    alreadyAddedYearTabs.add(calendar.get(Calendar.YEAR));
-                }
-            }
-
-            marksPanePrepared = true;
-        }
         /*
+        For reference, a sample JSON "marks" object which is basically one mark for a specific assignment
+
         [
     {
         "id": 1,
@@ -447,26 +429,85 @@ public class StudentDashboard extends Application implements Initializable {
             "max_marks": "48.0",
             "date_assigned": "2020-08-08",
             "date_due": "2020-08-09",
-            "teacher_id": 21
+            "teacher": {
+                "user_id": 21,
+                "subject": "Mathematics"
+            }
         },
         "mark_awarded": "47.5",
         "class_id": 3
-    },
-    {
-        "id": 7,
-        "assignment": {
-            "id": 4,
-            "assignment_name": "Atom Diagram Test",
-            "max_marks": "10.0",
-            "date_assigned": "2020-09-09",
-            "date_due": "2020-09-09",
-            "teacher_id": 21
-        },
-        "mark_awarded": "10.0",
-        "class_id": 3
     }
-         ]
-            */
+]
+         */
+
+
+        if(!marksPanePrepared){
+            String response = performHttpGet(App.BASEURL + MARKS_PATH);
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+            Marks[] studentMarks = gson.fromJson(response, Marks[].class);
+
+            //This algorithm here will determine how many "year" tabs and "subject/class" tabs should be placed on the student's marks pane
+            ArrayList<Tab> alreadyAddedYearTabs = new ArrayList<>();
+            ArrayList<Tab> alreadyAddedSubjectTabs = new ArrayList<>();
+            HashMap<Integer, List<String>> alreadyAddedSubjectYearTabs = new HashMap<>();
+            for(int i = 0; i < studentMarks.length; i++){
+
+                //Determine the year a mark object assignment was due
+                Date dueDate = studentMarks[i].getAssignment().getDateDue();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dueDate);
+                int year = calendar.get(Calendar.YEAR);
+
+                //NB! If a year tab is being added, we are also adding the first subject tab for that year, under that year, for the first time
+
+                if(!alreadyAddedSubjectYearTabs.containsKey(year)) {
+
+                    //Add a year tab and a subject tab (as each subjects mark has a year)
+                    Tab yearTab = new Tab(String.valueOf(year));
+                    JFXTabPane subjectsTabPane = new JFXTabPane();
+                    yearTab.setContent(subjectsTabPane);
+                    formTabPane.getTabs().add(yearTab);
+                    alreadyAddedYearTabs.add(yearTab);
+
+                    String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
+
+                    //Fetch the subjects tab pane which is nested in the year tab, in order to add a subject tab
+                    JFXTabPane subjectTabPane = (JFXTabPane) yearTab.getContent();
+                    Tab subjectTab = new Tab(currentSubject);
+                    subjectTabPane.getTabs().add(subjectTab);
+                    List<String> subjectToBeAdded = new ArrayList<>();
+                    subjectToBeAdded.add(currentSubject);
+                    alreadyAddedSubjectYearTabs.put(year, subjectToBeAdded);
+
+                }
+
+                //In the case that a required year tab already exists, we just need to add the required subject tab under the required existing year tab
+                else{
+
+                    String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
+                    ObservableList<Tab> yearTabs = formTabPane.getTabs();
+
+                    //Get the correct year tab which we want to add a subject to
+                    for(int j = 0; j < yearTabs.size(); j++){
+                        if(yearTabs.get(j).getText().equals(String.valueOf(year))){
+                            Tab yearTab = yearTabs.get(j);
+                            JFXTabPane subjectsTabPane = (JFXTabPane) yearTab.getContent();
+                            Tab subjectTab = new Tab(currentSubject);
+                            subjectsTabPane.getTabs().add(subjectTab);
+                            //Now update the hashmap of already added subjects and years to include the recently added subject
+                            List<String> alreadyAddedSubjects = alreadyAddedSubjectYearTabs.get(year);
+                            alreadyAddedSubjects.add(currentSubject);
+                            alreadyAddedSubjectYearTabs.put(year, alreadyAddedSubjects);
+                        }
+                    }
+
+                }
+
+            }
+
+            marksPanePrepared = true;
+        }
+
 
 
 

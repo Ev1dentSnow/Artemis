@@ -15,16 +15,15 @@ public class Assignment {
     private Date dateAssigned;
     @SerializedName(value = "date_due")
     private Date dateDue;
-    @SerializedName(value = "teacher_id")
-    private int teacherId;
+    private Teacher teacher;
 
-    public Assignment(int id, String assignmentName, double maxMarks, Date dateAssigned, Date dateDue, int teacherId) {
+    public Assignment(int id, String assignmentName, double maxMarks, Date dateAssigned, Date dateDue, Teacher teacher) {
         this.id = id;
         this.assignmentName = assignmentName;
         this.maxMarks = maxMarks;
         this.dateAssigned = dateAssigned;
         this.dateDue = dateDue;
-        this.teacherId = teacherId;
+        this.teacher = teacher;
     }
 
     public int getId() {
@@ -67,11 +66,11 @@ public class Assignment {
         this.dateDue = dateDue;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacher(Teacher teacherId) {
+        this.teacher = teacherId;
     }
 }
