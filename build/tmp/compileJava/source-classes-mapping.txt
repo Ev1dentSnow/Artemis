@@ -18,6 +18,8 @@ Artemis/Controllers/SettingsPopover.java
  Artemis.Controllers.SettingsPopover
 Artemis/Models/Quote.java
  Artemis.Models.Quote
+Artemis/Models/Dots.java
+ Artemis.Models.Dots
 Artemis/Models/User.java
  Artemis.Models.User
 Artemis/Models/Teacher.java

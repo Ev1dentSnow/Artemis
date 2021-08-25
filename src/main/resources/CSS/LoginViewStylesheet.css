@@ -1,11 +1,3 @@
-@font-face {
-    src: url('Roboto-Black.ttf');
-}
-
-@font-face {
-    src: url('Roboto-Medium.ttf');
-}
-
 .rightside-pane{
 -fx-background-color:#080808;
 }
