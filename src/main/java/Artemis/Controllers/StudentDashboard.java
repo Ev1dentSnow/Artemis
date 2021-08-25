@@ -2,6 +2,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
+import Artemis.Models.Classes;
 import Artemis.Models.Marks;
 import Artemis.Models.Quote;
 import Artemis.Models.Weather.Daily;
@@ -11,6 +12,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
+import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.cell.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,6 +65,7 @@ public class StudentDashboard extends Application implements Initializable {
 
     private final String ANNOUCEMENTS_PATH = "api/announcements";
     private final String MARKS_PATH = "api/students/" + String.valueOf(userId) + "/marks";
+    private final String SUBJECTS_PATH = "api/students/" + String.valueOf(userId) + "/classes";
     private final String WEATHER_PATH = "api/weather";
     private final String STUDENT_LIST_PATH = "api/students";
     private final String QUOTE_PATH = "api/quote";
@@ -70,8 +75,8 @@ public class StudentDashboard extends Application implements Initializable {
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
     private boolean weatherPanePrepared = false;
-
     private boolean marksPanePrepared = false;
+    private boolean subjectsPanePrepared = false;
 
     //The "daily motivation" quote on the home pane
     @FXML
@@ -118,6 +123,8 @@ public class StudentDashboard extends Application implements Initializable {
 
     PopOver popOver;
 
+    @FXML
+    MFXTableView<Classes> classesTableView = new MFXTableView<>();
 
     //Weather Pane Labels - Today
     @FXML
@@ -396,10 +403,12 @@ public class StudentDashboard extends Application implements Initializable {
         prepareMarksPane();
     }
     @FXML
-    private void subjectsActionPerformed(ActionEvent event){
+    private void subjectsActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(subjectsPane);
+        prepareSubjectsPane();
+
     }
     @FXML
     private void disciplineActionPerformed(ActionEvent event){
@@ -511,6 +520,29 @@ public class StudentDashboard extends Application implements Initializable {
 
 
 
+    }
+
+    private void prepareSubjectsPane() throws IOException {
+
+        if(!subjectsPanePrepared){
+            String response = performHttpGet(App.BASEURL + SUBJECTS_PATH);
+            Gson gson = new Gson();
+            Classes[] classesArray = gson.fromJson(response, Classes[].class);
+
+            List<Classes> classesList = Arrays.asList(classesArray);
+            ObservableList classesObservableList = FXCollections.observableList(classesList);
+
+            MFXTableColumn<Classes> colID = new MFXTableColumn<>("ID", Comparator.comparing(Classes::getId));
+            MFXTableColumn<Classes> colName = new MFXTableColumn<>("Name", Comparator.comparing(Classes::getName));
+
+            colID.setRowCellFunction(classes -> new MFXTableRowCell(String.valueOf(classes.getId())));
+            colName.setRowCellFunction(classes -> new MFXTableRowCell(classes.getName()));
+
+            classesTableView.setItems(classesObservableList);
+            classesTableView.getTableColumns().addAll(colID, colName);
+            subjectsPanePrepared = true;
+
+        }
     }
 
 

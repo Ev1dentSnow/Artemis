@@ -41,5 +41,7 @@ Artemis/Models/House.java
  Artemis.Models.House
 Artemis/Models/Weather/Temp.java
  Artemis.Models.Weather.Temp
+Artemis/Models/Classes.java
+ Artemis.Models.Classes
 Artemis/Models/Student.java
  Artemis.Models.Student
