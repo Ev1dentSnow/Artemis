@@ -1,11 +1,8 @@
 package Artemis.Controllers;
 
 import Artemis.App;
-import Artemis.Models.Announcement;
-import Artemis.Models.Classes;
+import Artemis.Models.*;
 import Artemis.Models.JSON.Serializers.StudentJSON;
-import Artemis.Models.Marks;
-import Artemis.Models.Quote;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
@@ -77,10 +74,14 @@ public class StudentDashboard extends Application implements Initializable {
     private boolean weatherPanePrepared = false;
     private boolean marksPanePrepared = false;
     private boolean subjectsPanePrepared = false;
+    private boolean disciplinePanePrepared = false;
 
     //The "daily motivation" quote on the home pane
     @FXML
     Text quoteText = new Text();
+
+    @FXML
+    MFXTableView<Dots> dotsTable = new MFXTableView<>();
 
     //StackPane config
     @FXML
@@ -391,10 +392,11 @@ public class StudentDashboard extends Application implements Initializable {
 
     }
     @FXML
-    private void disciplineActionPerformed(ActionEvent event){
+    private void disciplineActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(disciplinePane);
+        prepareDisciplinePane();
     }
     @FXML
     private void weatherActionPerformed(ActionEvent event){
@@ -521,6 +523,32 @@ public class StudentDashboard extends Application implements Initializable {
             classesTableView.setItems(classesObservableList);
             classesTableView.getTableColumns().addAll(colID, colName);
             subjectsPanePrepared = true;
+
+        }
+    }
+
+    private void prepareDisciplinePane() throws IOException {
+
+        if(!disciplinePanePrepared){
+            String response = performHttpGet(App.BASEURL + STUDENT_LIST_PATH + "/" + String.valueOf(userId) + "/dots");
+            Gson gson = new Gson();
+            Dots[] dotsArray = gson.fromJson(response, Dots[].class);
+
+            List<Dots> dotsList = Arrays.asList(dotsArray);
+            ObservableList dotsObservableList = FXCollections.observableList(dotsList);
+
+            MFXTableColumn<Dots> colID = new MFXTableColumn<>("ID", Comparator.comparing(Dots::getId));
+            MFXTableColumn<Dots> colReason = new MFXTableColumn<>("Reason", Comparator.comparing(Dots::getReason));
+            MFXTableColumn<Dots> colGivenBy = new MFXTableColumn<>("Given by", Comparator.comparing(Dots::getAssigningTeacherName));
+
+            colID.setRowCellFunction(dots -> new MFXTableRowCell(String.valueOf(dots.getId())));
+            colReason.setRowCellFunction(dots -> new MFXTableRowCell(dots.getReason()));
+            colGivenBy.setRowCellFunction(dots -> new MFXTableRowCell(dots.getAssigningTeacherName()));
+
+            dotsTable.setItems(dotsObservableList);
+            dotsTable.getTableColumns().addAll(colID, colReason, colGivenBy);
+            dotsTable.setHeaderText("Total dots this week: " + dotsTable.getItems().size());
+            disciplinePanePrepared = true;
 
         }
     }

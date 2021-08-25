@@ -448,15 +448,7 @@
                         <Font name="Calibri Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="33.0" layoutY="74.0" prefHeight="472.0" prefWidth="845.0" stylesheets="@CSS/LightMode-Tables.css">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="DotID" />
-                      <TableColumn prefWidth="75.0" text="Amount" />
-                        <TableColumn prefWidth="75.0" text="Given by" />
-                        <TableColumn prefWidth="394.0" text="Reason" />
-                        <TableColumn prefWidth="225.0" text="Appeal " />
-                    </columns>
-                  </TableView>
+                  <MFXTableView fx:id="dotsTable" headerText="Total Dots: 0" layoutX="110.0" layoutY="63.0" />
                </children>
             </Pane>
          </children></StackPane>
