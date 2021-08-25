@@ -23,10 +23,12 @@ This is the client side desktop application of my Artemis School Management Syst
 
 This is my first "big" project, so don't expect much from it. You may come across be some horrendous programming practices and other ugly things if you chose to take a look at the source code
 
-Links to other P.A.T Phases
----------------------------
-Phase 1 | View
-Phase 2 | View
+Links to other P.A.T Phases | Location
+--------------------------- | -----
+✔️Phase 1 | [View]()
+✔️Phase 2 | [View]()
+✔️Phase 3 | (This code is the 3rd phase)
+✔️Phase 4 | [View]()
 
 ## Dependencies
 
