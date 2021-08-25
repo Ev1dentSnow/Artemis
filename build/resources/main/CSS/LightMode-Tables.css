@@ -1,0 +1,53 @@
+/* Core table */
+
+.table-view{
+	-fx-background-color: transparent;
+    -fx-selection-bar: white;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+/* Table headers */
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header{
+	-fx-background-color:#0077E6;
+}
+
+.table-view .column-header .label{
+	-fx-text-fill: white;
+}
+
+/* Table cells */
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+    -fx-border-color: #282828;
+    -fx-alignment: CENTER;
+    /*-fx-text-fill: #b0b1b8;*/
+}
+
+.table-row-cell: selected{
+    -fx-background-color: white;
+}
+
+.table-row-cell: hover{
+    -fx-text-background-color: white;
+}
+
+.table-row-cell: odd{
+    -fx-background-color: transparent;
+}
+
+.table-row-cell: even{
+    -fx-background-color: #313132;
+}
+
+.table-row-cell: empty{
+    -fx-background-color: transparent;
+}

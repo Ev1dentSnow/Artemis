@@ -425,21 +425,36 @@ public class StudentDashboard extends Application implements Initializable {
             Marks[] studentMarks = gson.fromJson(response, Marks[].class);
             marksPanePrepared = false;
         }
-
         /*
-        SAMPLE MARKS JSON
-        {
         [
-            assignment_id: 1,
-            assignment_name: Atom Naming,
-            max_marks: 48,
-            marks_awarded: 47,
-            date_assigned: 2017-08-08,
-            date_due: 2017-08-10,
-            teacher_id: 27
+    {
+        "id": 1,
+        "assignment": {
+            "id": 1,
+            "assignment_name": "Atom Naming",
+            "max_marks": "48.0",
+            "date_assigned": "2020-08-08",
+            "date_due": "2020-08-09",
+            "teacher_id": 21
+        },
+        "mark_awarded": "47.5",
+        "class_id": 3
+    },
+    {
+        "id": 7,
+        "assignment": {
+            "id": 4,
+            "assignment_name": "Atom Diagram Test",
+            "max_marks": "10.0",
+            "date_assigned": "2020-09-09",
+            "date_due": "2020-09-09",
+            "teacher_id": 21
+        },
+        "mark_awarded": "10.0",
+        "class_id": 3
+    }
          ]
-        }
-         */
+            */
 
 
 

@@ -1,0 +1,40 @@
+@font-face {
+    src: url('Roboto-Black.ttf');
+}
+
+@font-face {
+    src: url('Roboto-Medium.ttf');
+}
+
+.rightside-pane{
+-fx-background-color:#080808;
+}
+
+.text-fields{
+-fx-background-color:#080808;
+-fx-text-fill: white;
+}
+
+
+.loginbtn{
+-fx-font-family: 'Roboto Medium';
+-fx-background-color: white;
+-fx-background-radius: 5px;
+}
+
+.loginbtn:hover{
+-fx-background-color: #c2c2c2;
+}
+
+.loginseparatorr *.line {
+-fx-border-style: solid;
+-fx-border-width: 0.5px;
+-fx-border-color:#686868;
+}
+
+.dashboardseparator *.line {
+-fx-border-style: solid;
+-fx-border-width: 0.5px;
+-fx-border-color: white;
+}
+
