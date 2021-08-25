@@ -10,6 +10,17 @@ This project uses the gradle build system for managing all required libraries. A
 
 **WIP**
 
+## Acknowledgements
+
+Although the actual coding part of this project was done by myself, would like to pay tribute to three people in particular who helped in various ways
+
+- @MikeRomaa for showing me the ropes around Django and the Django Rest Framework for the backend. He's a real expert at this framework with a lot of experience under his belt       with it, and helped me to understand many concepts
+
+- @liamdp for helping me wrap my head around the concept of A RESTful API and some RESTful "best practices". This is certainly one of his areas of expertise
+
+- @gavinvangent for sharing his experience with real world databases, and spending some time showing me some best practices for creating SQL relations.
+
+
 ## Contact
 
 If you have any further questions, feel free to send me a message on github, or join my discord server if you would prefer to talk to me there
