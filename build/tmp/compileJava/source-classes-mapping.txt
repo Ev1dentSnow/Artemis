@@ -1,3 +1,5 @@
+Artemis/Models/Assignment.java
+ Artemis.Models.Assignment
 Artemis/App.java
  Artemis.App
 Artemis/Controllers/LoginController.java

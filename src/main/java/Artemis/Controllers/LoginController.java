@@ -119,6 +119,7 @@ public class LoginController extends Application {
 
                     DecodedJWT jwt = JWT.decode(responseToken);
                     String permissionLevel = jwt.getClaim("roles").toString();
+                    userId = Integer.parseInt(jwt.getClaim("user_id").toString());
 
 
                     this.setAccessToken(responseToken);
@@ -128,6 +129,7 @@ public class LoginController extends Application {
                     //Determining which dashboard to open based on the user's role stated in the access token
 
                     if(permissionLevel.contains("student")){
+                        StudentDashboard.setUserId(userId);
                        loadStudentDashboard(event);
                     }
                     else if(permissionLevel.contains("teacher")){

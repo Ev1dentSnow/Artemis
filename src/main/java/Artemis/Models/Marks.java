@@ -1,21 +1,20 @@
 package Artemis.Models;
 
 import com.google.gson.annotations.SerializedName;
-import java.sql.Date;
 
 public class Marks {
 
    private int id;
    private Assignment assignment;
-   @SerializedName(value = "marks_awarded")
-   private double marksAwarded;
+   @SerializedName(value = "mark_awarded")
+   private double markAwarded;
    @SerializedName(value = "class_id")
    private int classId;
 
-   public Marks(int id, Assignment assignment, double marksAwarded, int classId) {
+   public Marks(int id, Assignment assignment, double markAwarded, int classId) {
       this.id = id;
       this.assignment = assignment;
-      this.marksAwarded = marksAwarded;
+      this.markAwarded = markAwarded;
       this.classId = classId;
    }
 
@@ -35,12 +34,12 @@ public class Marks {
       this.assignment = assignment;
    }
 
-   public double getMarksAwarded() {
-      return marksAwarded;
+   public double getMarkAwarded() {
+      return markAwarded;
    }
 
-   public void setMarksAwarded(double marksAwarded) {
-      this.marksAwarded = marksAwarded;
+   public void setMarkAwarded(double markAwarded) {
+      this.markAwarded = markAwarded;
    }
 
    public int getClassId() {

@@ -50,10 +50,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class StudentDashboard extends Application implements Initializable {
 
@@ -114,7 +111,7 @@ public class StudentDashboard extends Application implements Initializable {
 
     //Marks Pane components
     @FXML
-    JFXTabPane marksTabPane = new JFXTabPane();
+    JFXTabPane formTabPane = new JFXTabPane();
 
     //Settings Popover components
 
@@ -421,9 +418,24 @@ public class StudentDashboard extends Application implements Initializable {
 
         if(!marksPanePrepared){
             String response = performHttpGet(App.BASEURL + MARKS_PATH);
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Marks[] studentMarks = gson.fromJson(response, Marks[].class);
-            marksPanePrepared = false;
+
+            //This algorithm here will determine how many "year" tabs should be placed on the student's marks pane
+            ArrayList<Integer> alreadyAddedYearTabs = new ArrayList<>();
+            for(int i = 0; i < studentMarks.length; i++){
+
+                Date dueDate = studentMarks[i].getAssignment().getDateDue();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dueDate);
+
+                if(!alreadyAddedYearTabs.contains(calendar.get(Calendar.YEAR))){
+                    formTabPane.getTabs().add(new Tab(String.valueOf(calendar.get(Calendar.YEAR))));
+                    alreadyAddedYearTabs.add(calendar.get(Calendar.YEAR));
+                }
+            }
+
+            marksPanePrepared = true;
         }
         /*
         [
