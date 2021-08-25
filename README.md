@@ -1,15 +1,13 @@
-# Artemis School Management System
-
 <br />
 <p align="center">
   <a href="">
     <img src="src/main/resources/Images/ArtemisAlpha.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Artemis School Management System</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    My Matric 2021 I.T PAT (Practical Assessment Task) Project
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -23,7 +21,6 @@
 </p>
 
 
-My Matric 2021 I.T PAT (Practical Assessment Task) Project
 
 ## About
 This is the client side desktop application of my Artemis School Management System which I created for my 2021 Matric IT PAT. The backend it interacts with is a REST API written in the Django REST Framework for Python (a framework for Django). It can be found here [link placeholder]
