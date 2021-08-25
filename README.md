@@ -25,8 +25,8 @@ This is my first "big" project, so don't expect much from it. You may come acros
 
 Links to other P.A.T Phases
 ---------------------------
-Phase 1
-Phase 2
+Phase 1 | View
+Phase 2 | View
 
 ## Dependencies
 
