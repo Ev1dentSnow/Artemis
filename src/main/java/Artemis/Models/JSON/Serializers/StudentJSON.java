@@ -12,7 +12,7 @@ public class StudentJSON {
 
 
 
-    private HashMap<String, String> user_details = new HashMap<>();
+    private HashMap<String, String> user_details;
     private int form;
     private int enrollment_year;
     private String primary_contact_name;

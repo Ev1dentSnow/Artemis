@@ -3,6 +3,7 @@ package Artemis.Controllers;
 import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.Classes;
+import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Marks;
 import Artemis.Models.Quote;
 import Artemis.Models.Weather.Daily;
@@ -27,7 +28,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -96,7 +96,7 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     Pane weatherPane = new Pane();
     @FXML
-    Label dateLabel = new Label();
+    Label lblDate = new Label();
     @FXML
     Label timeLabel = new Label();
     @FXML
@@ -104,9 +104,9 @@ public class StudentDashboard extends Application implements Initializable {
     @FXML
     TableColumn<Announcement, String> subject;
     @FXML
-    Label fullNameText = new Label();
+    Label lblFullName = new Label();
     @FXML
-    Label formLabel = new Label();
+    Label lblForm = new Label();
     @FXML
     Label welcomeBack = new Label();
     @FXML
@@ -258,7 +258,7 @@ public class StudentDashboard extends Application implements Initializable {
                 //set dateLabel
                 int day = fetchDayOfWeek(date);
                 String dayString = fetchDayOfWeekString(date);
-                dateLabel.setText(dayString + " " + day + " " + date.getMonth());
+                lblDate.setText(dayString + " " + day + " " + date.getMonth());
             }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -302,40 +302,20 @@ public class StudentDashboard extends Application implements Initializable {
     }
 
     private ObservableList<Announcement> prepareHomePane() throws IOException{
-        /*
-        JSONObject nameObj;
-        String firstName = "";
-        String lastName = "";
-        int form = 0;
-        String studentResponseBody = performHttpGet("https://artemisystem.xyz/api/students/home/" + userId);
-        try {
-            nameObj = new JSONObject(studentResponseBody);
-            firstName = (nameObj.get("first_name")).toString();
-            lastName = (nameObj.get("last_name").toString());
-            form = nameObj.getInt("Form");
-        }
-        catch (JSONException e){
-            e.printStackTrace();
-        }
-        fullNameText.setText(firstName + " " + lastName);
-        formLabel.setText("FORM " + form);
-        this.setCurrentForm(form);
-        welcomeBack.setText("Welcome back " + firstName);
 
-        */
-
-        //Get daily motivational quote of the day
+        Gson gson = new Gson();
+        String currentStudentJSON = performHttpGet(App.BASEURL + STUDENT_LIST_PATH + "/" + String.valueOf(userId));
+        StudentJSON[] currentStudentInfo = gson.fromJson(currentStudentJSON, StudentJSON[].class);
+        lblForm.setText("FORM " + String.valueOf(currentStudentInfo[0].getForm()));
+        lblFullName.setText(currentStudentInfo[0].getUser_details().get("first_name") + " " + currentStudentInfo[0].getUser_details().get("last_name"));
 
         String quoteResponseBody = performHttpGet(App.BASEURL + QUOTE_PATH);
 
-        Gson gson1 = new Gson();
-        Quote dailyQuote = gson1.fromJson(quoteResponseBody, Quote.class);
+        Quote dailyQuote = gson.fromJson(quoteResponseBody, Quote.class);
         quoteText.setText(dailyQuote.getQuote() + " - " + dailyQuote.getAuthor());
 
         //Get announcements list
         String announcementsResponseBody = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
-
-            Gson gson = new Gson();
 
             Type announcementListType = new TypeToken<ArrayList<Announcement>>() {
             }.getType();
@@ -722,12 +702,12 @@ public class StudentDashboard extends Application implements Initializable {
         this.fullName = fullName;
     }
 
-    public Label getDateLabel() {
-        return dateLabel;
+    public Label getLblDate() {
+        return lblDate;
     }
 
-    public void setDateLabel(String dd) {
-        dateLabel.setText(dd);
+    public void setLblDate(String dd) {
+        lblDate.setText(dd);
     }
 
 
