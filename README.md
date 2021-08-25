@@ -25,10 +25,10 @@ This is my first "big" project, so don't expect much from it. You may come acros
 
 Links to other P.A.T Phases | Location
 --------------------------- | -----
-Phase 1 | [View]()
-Phase 2 | [View]()
-Phase 3 | (This code is the 3rd phase)
-Phase 4 | [View]()
+✔️Phase 1 | [View]()
+✔️Phase 2 | [View]()
+✔️Phase 3 | (This code is the 3rd phase)
+✔️Phase 4 | [View]()
 
 ## Dependencies
 
