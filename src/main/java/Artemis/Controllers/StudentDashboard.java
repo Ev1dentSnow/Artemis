@@ -491,13 +491,20 @@ public class StudentDashboard extends Application implements Initializable {
 
                 for(String subject : subjects){
                     Tab subjectTab = new Tab(subject);
-
                     AnchorPane background = new AnchorPane();
 
                     MFXTableView<Marks> marksTableView = new MFXTableView<>();
+                    MFXTableColumn<Marks> colTask = new MFXTableColumn<>("Task", Comparator.comparing(Marks::getAssignmentName));
+                    MFXTableColumn<Marks> colMark = new MFXTableColumn<>("Mark", Comparator.comparing(Marks::getMarkAwardedStringRepresentation));
+                    MFXTableColumn<Marks> colPercentage = new MFXTableColumn<>("Percentage", Comparator.comparing(Marks::getPercentage));
 
+                    colTask.setRowCellFunction(marks -> new MFXTableRowCell(marks.getAssignmentName()));
+                    colMark.setRowCellFunction(marks -> new MFXTableRowCell(marks.getMarkAwardedStringRepresentation()));
+                    colPercentage.setRowCellFunction(marks -> new MFXTableRowCell(marks.getPercentage()));
+                    marksTableView.getTableColumns().addAll(colTask, colMark, colPercentage);
 
-                    Node wa = subjectTab.getContent();
+                    background.getChildren().add(marksTableView);
+                    subjectTab.setContent(background);
                     subjectsTabPane.getTabs().add(subjectTab);
                 }
             }
