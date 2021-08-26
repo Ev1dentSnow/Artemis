@@ -509,7 +509,50 @@ public class StudentDashboard extends Application implements Initializable {
                 }
             }
 
+            //Finally, iterate through the student marks and add them to the correct tables/tabs
+            for(Marks mark : studentMarks){
+                String task = mark.getAssignmentName();
+                double markAchieved = mark.getMarkAwarded();
+                String percentage = mark.getPercentage();
+                Date dateDue = mark.getAssignment().getDateDue();
+                String subject = mark.getAssignment().getTeacher().getSubject();
 
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dateDue);
+                int year = cal.get(Calendar.YEAR);
+
+                for(int a = 0; a < formTabPane.getTabs().size(); a++){
+                    Tab currentTab = formTabPane.getTabs().get(a);
+                    if(currentTab.getText().equals(String.valueOf(year))){
+                        JFXTabPane subjectTabPane = (JFXTabPane) currentTab.getContent();
+                        for(int i = 0; i < subjectTabPane.getTabs().size(); i++){
+                            Tab subjectTab = subjectTabPane.getTabs().get(i);
+                            if(subjectTab.getText().equals(subject)){
+                                AnchorPane ap = (AnchorPane) subjectTab.getContent();
+                                MFXTableView marksTable = (MFXTableView) ap.getChildren().get(0);
+
+                                List<Marks> list = new ArrayList<>();
+                                list.add(mark);
+                                ObservableList observableList = FXCollections.observableList(list);
+
+                                //After making amendments to the data, update the GUI components
+                                marksTable.getItems().add(observableList);
+                                ap.getChildren().set(0, marksTable);
+                                subjectTab.setContent(ap);
+                                subjectTabPane.getTabs().set(i, subjectTab);
+                                currentTab.setContent(subjectTabPane);
+                                formTabPane.getTabs().set(a, currentTab);
+
+                                System.out.println("poo");
+                                //MFXTableView<Marks> marksTable = subjectTab.getContent();
+                            }
+                        }
+                    }
+                }
+
+
+            }
 
 
         }

@@ -22,7 +22,7 @@ public class Marks {
       this.classId = classId;
       this.assignmentName = assignment.getAssignmentName();
       this.assignmentMaxMarks = assignment.getMaxMarks();
-      this.markAwardedStringRepresentation = Double.toString(markAwarded) + "/" + Double.toString(assignmentMaxMarks);
+      this.markAwardedStringRepresentation = Double.toString(this.markAwarded) + "/" + Double.toString(assignmentMaxMarks);
       this.percentage = String.valueOf(markAwarded / assignmentMaxMarks) + "%";
    }
 
