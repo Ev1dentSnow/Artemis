@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -75,6 +76,21 @@ public class StudentDashboard extends Application implements Initializable {
     private boolean marksPanePrepared = false;
     private boolean subjectsPanePrepared = false;
     private boolean disciplinePanePrepared = false;
+
+    @FXML
+    Tab formTab1 = new Tab();
+    @FXML
+    Tab formTab2 = new Tab();
+    @FXML
+    Tab formTab3 = new Tab();
+    @FXML
+    Tab formTab4 = new Tab();
+    @FXML
+    Tab formTab5 = new Tab();
+    @FXML
+    Tab formTab6 = new Tab();
+
+
 
     //The "daily motivation" quote on the home pane
     @FXML
@@ -437,66 +453,58 @@ public class StudentDashboard extends Application implements Initializable {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Marks[] studentMarks = gson.fromJson(response, Marks[].class);
 
-            //This algorithm here will determine how many "year" tabs and "subject/class" tabs should be placed on the student's marks pane
-            ArrayList<Tab> alreadyAddedYearTabs = new ArrayList<>();
-            ArrayList<Tab> alreadyAddedSubjectTabs = new ArrayList<>();
-            HashMap<Integer, List<String>> alreadyAddedSubjectYearTabs = new HashMap<>();
-            for(int i = 0; i < studentMarks.length; i++){
+            //First add the required year and subjects per year tabs to a hashmap
+            HashMap<Integer, List<String>> yearAndSubjectTabsRequired = new HashMap<>();
+            for(int i = 0; i < studentMarks.length; i++) {
 
-                //Determine the year a mark object assignment was due
                 Date dueDate = studentMarks[i].getAssignment().getDateDue();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dueDate);
                 int year = calendar.get(Calendar.YEAR);
 
-                //NB! If a year tab is being added, we are also adding the first subject tab for that year, under that year, for the first time
+                String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
 
-                if(!alreadyAddedSubjectYearTabs.containsKey(year)) {
-
-                    //Add a year tab and a subject tab (as each subjects mark has a year)
-                    Tab yearTab = new Tab(String.valueOf(year));
-                    JFXTabPane subjectsTabPane = new JFXTabPane();
-                    yearTab.setContent(subjectsTabPane);
-                    formTabPane.getTabs().add(yearTab);
-                    alreadyAddedYearTabs.add(yearTab);
-
-                    String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
-
-                    //Fetch the subjects tab pane which is nested in the year tab, in order to add a subject tab
-                    JFXTabPane subjectTabPane = (JFXTabPane) yearTab.getContent();
-                    Tab subjectTab = new Tab(currentSubject);
-                    subjectTabPane.getTabs().add(subjectTab);
+                if(!yearAndSubjectTabsRequired.containsKey(year)){
                     List<String> subjectToBeAdded = new ArrayList<>();
                     subjectToBeAdded.add(currentSubject);
-                    alreadyAddedSubjectYearTabs.put(year, subjectToBeAdded);
-
+                    yearAndSubjectTabsRequired.put(year, subjectToBeAdded);
                 }
 
-                //In the case that a required year tab already exists, we just need to add the required subject tab under the required existing year tab
-                else{
-
-                    String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
-                    ObservableList<Tab> yearTabs = formTabPane.getTabs();
-
-                    //Get the correct year tab which we want to add a subject to
-                    for(int j = 0; j < yearTabs.size(); j++){
-                        if(yearTabs.get(j).getText().equals(String.valueOf(year))){
-                            Tab yearTab = yearTabs.get(j);
-                            JFXTabPane subjectsTabPane = (JFXTabPane) yearTab.getContent();
-                            Tab subjectTab = new Tab(currentSubject);
-                            subjectsTabPane.getTabs().add(subjectTab);
-                            //Now update the hashmap of already added subjects and years to include the recently added subject
-                            List<String> alreadyAddedSubjects = alreadyAddedSubjectYearTabs.get(year);
-                            alreadyAddedSubjects.add(currentSubject);
-                            alreadyAddedSubjectYearTabs.put(year, alreadyAddedSubjects);
-                        }
+                else if(yearAndSubjectTabsRequired.containsKey(year)){
+                    if(!yearAndSubjectTabsRequired.get(year).contains(currentSubject)){
+                        List<String> amendedSubjectsList = yearAndSubjectTabsRequired.get(year);
+                        amendedSubjectsList.add(currentSubject);
+                        yearAndSubjectTabsRequired.put(year, amendedSubjectsList);
                     }
-
                 }
-
             }
 
-            marksPanePrepared = true;
+            //Now read from the hashmap and add the required tabs to the window
+            for(Map.Entry<Integer, List<String >> entry : yearAndSubjectTabsRequired.entrySet()){
+                int year = entry.getKey();
+                Tab yearTab = new Tab(String.valueOf(year));
+                formTabPane.getTabs().add(yearTab);
+
+                List<String> subjects = entry.getValue();
+                JFXTabPane subjectsTabPane = new JFXTabPane();
+                yearTab.setContent(subjectsTabPane);
+
+                for(String subject : subjects){
+                    Tab subjectTab = new Tab(subject);
+
+                    AnchorPane background = new AnchorPane();
+
+                    MFXTableView<Marks> marksTableView = new MFXTableView<>();
+
+
+                    Node wa = subjectTab.getContent();
+                    subjectsTabPane.getTabs().add(subjectTab);
+                }
+            }
+
+
+
+
         }
 
 

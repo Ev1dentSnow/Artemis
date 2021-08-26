@@ -426,11 +426,6 @@
                      </children>
                   </Pane>
                </children></Pane>
-            <Pane id="StudentMarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
-               <children>
-                  <JFXTabPane fx:id="formTabPane" layoutX="49.0" layoutY="38.0" prefHeight="510.0" prefWidth="831.0" stylesheets="@CSS/TabbedPanes.css" />
-               </children>
-            </Pane>
             <Pane id="SubjectsPane" fx:id="subjectsPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
                <children>
                   <Text layoutX="96.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your classes">
@@ -449,6 +444,11 @@
                      </font>
                   </Label>
                   <MFXTableView fx:id="dotsTable" headerText="Total Dots: 0" layoutX="110.0" layoutY="63.0" />
+               </children>
+            </Pane>
+            <Pane id="StudentMarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
+               <children>
+                  <JFXTabPane fx:id="formTabPane" layoutX="49.0" layoutY="38.0" prefHeight="510.0" prefWidth="831.0" stylesheets="@CSS/TabbedPanes.css" />
                </children>
             </Pane>
          </children></StackPane>
