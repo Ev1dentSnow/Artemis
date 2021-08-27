@@ -74,6 +74,7 @@ public class AdminDashboard extends Application implements Initializable {
     private final String WEATHER_PATH = "api/weather";
     private ObservableList<Student> studentsList;
 
+    CloseableHttpClient client = HttpClients.createDefault();
 
     @FXML
     private ListView announcementList;
@@ -201,7 +202,6 @@ public class AdminDashboard extends Application implements Initializable {
 
     private CloseableHttpResponse performHttpPost(String url) throws  IOException{
 
-        CloseableHttpClient client = HttpClients.createDefault();
         HttpPost request = new HttpPost(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
 
@@ -211,6 +211,9 @@ public class AdminDashboard extends Application implements Initializable {
         }
         catch (ConnectException e){
             displayAlert("Error connecting to server", Alert.AlertType.ERROR);
+        }
+        finally {
+            System.out.println();
         }
         return null;
     }
@@ -223,7 +226,6 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     private CloseableHttpResponse performHttpGet(String url) throws IOException {
-        CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
 
@@ -239,7 +241,6 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     private CloseableHttpResponse performHttpDelete(String url) throws IOException{
-        CloseableHttpClient client = HttpClients.createDefault();
         HttpDelete request = new HttpDelete(url);
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
 
@@ -329,6 +330,7 @@ public class AdminDashboard extends Application implements Initializable {
         event.consume();
 
         StudentFullInfo.postRequest = true;
+
         Stage window = new Stage();
         AnchorPane viewFullInfoPane = FXMLLoader.load(getClass().getResource("/StudentFullInfo.fxml"));
         window.setScene(new Scene(viewFullInfoPane));
@@ -438,6 +440,9 @@ public class AdminDashboard extends Application implements Initializable {
         CloseableHttpResponse announcementsResponse = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
         String announcementsResponseString = EntityUtils.toString(announcementsResponse.getEntity());
 
+        EntityUtils.consume(announcementsResponse.getEntity());
+        announcementsResponse.close();
+
         //Deserialize all the announcements
         if(announcementsResponse.getStatusLine().getStatusCode() == 200){
             Gson gson = new Gson();
@@ -455,6 +460,9 @@ public class AdminDashboard extends Application implements Initializable {
         //Now fetching the weather data
         CloseableHttpResponse weatherResponse = performHttpGet(App.BASEURL + WEATHER_PATH);
         String weatherResponseString = EntityUtils.toString(weatherResponse.getEntity());
+
+        EntityUtils.consume(weatherResponse.getEntity());
+        weatherResponse.close();
 
         //Deserialize the weather data
 
@@ -483,6 +491,9 @@ public class AdminDashboard extends Application implements Initializable {
             studentsList = FXCollections.observableArrayList();
 
             StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
+
+            EntityUtils.consume(response.getEntity());
+            response.close();
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -560,7 +571,7 @@ public class AdminDashboard extends Application implements Initializable {
 
         event.consume();
         StudentFullInfo.postRequest = false;
-        Student selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
 
         if (!(selectedStudent == null)){
 

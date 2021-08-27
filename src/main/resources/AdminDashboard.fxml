@@ -63,7 +63,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#timetablesActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Timetables" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#timetablesActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Marks" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -247,25 +247,39 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <MFXTableView fx:id="studentsTable" headerText="Students" layoutX="23.0" layoutY="82.0" />
-                                    <MFXButton fx:id="btnRefreshStudents" buttonType="RAISED" layoutX="584.0" layoutY="32.0" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #5cb85c;" text="Refresh" textFill="WHITE">
-                                       <graphic>
-                                          <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/refresh.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </MFXButton>
-                                    <MFXButton fx:id="btnViewFullInfo" layoutX="725.0" layoutY="32.0" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #00a6ff;" text="View Full Info" textFill="WHITE">
-                                       <graphic>
-                                          <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@Images/eye-fill.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </MFXButton>
+                                    <VBox alignment="TOP_RIGHT" layoutX="136.0" layoutY="92.0" maxWidth="703.0" prefHeight="200.0" prefWidth="693.0" spacing="30.0">
+                                       <children>
+                                          <HBox prefHeight="40.0" prefWidth="271.0" spacing="30.0">
+                                             <children>
+                                                <MFXButton fx:id="btnRefreshStudents" buttonType="RAISED" onAction="#refreshStudentsActionPerformed" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #5cb85c;" text="Refresh" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@Images/refresh.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </MFXButton>
+                                                <MFXButton fx:id="btnViewFullInfo" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #00a6ff;" text="View Full Info" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@Images/eye-fill.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets left="420.0" />
+                                             </padding>
+                                          </HBox>
+                                          <MFXTableView fx:id="studentsTable" headerText="Students" maxWidth="703.0" prefHeight="103.0" prefWidth="698.0" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </AnchorPane>
                           </content>

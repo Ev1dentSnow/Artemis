@@ -4,10 +4,12 @@ import Artemis.App;
 import Artemis.Models.House;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
+import Artemis.Models.User;
 import com.google.gson.Gson;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -46,6 +49,9 @@ public class StudentFullInfo extends Application implements Initializable {
      *  is being used for a PATCH request
      */
     public static boolean postRequest = false;
+
+    CloseableHttpClient client = HttpClients.createDefault();
+    private final String USERS_PATH = "api/users";
 
     @FXML
     Label lblFirstNameError;
@@ -106,8 +112,8 @@ public class StudentFullInfo extends Application implements Initializable {
     private Button btnResetPassword;
 
     private Stage primaryStage;
-
     private static Student currentStudent;
+    private User[] usersList;
 
     public static void main(String[] args) {
         launch(args);
@@ -133,12 +139,22 @@ public class StudentFullInfo extends Application implements Initializable {
         houseComboBox.getItems().add(new House("DeBeer", "Yellow").getName());
         houseComboBox.getItems().add(new House("Knapp Fischer", "Green").getName());
         houseComboBox.getItems().add(new House("Murray", "Purple").getName());
-        houseComboBox.getSelectionModel().selectItem(currentStudent.getHouse());
+
+        //If it's a POST request (new student being created), there's no such thing as a current student
+        if(!postRequest){
+            houseComboBox.getSelectionModel().selectItem(currentStudent.getHouse());
+        }
+
 
 
         //edit mode is disabled by default to prevent accidents
         disableTextFields();
         resetErrorLabels();
+        try {
+            getReservedEmailsAndUsernamesList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -150,6 +166,35 @@ public class StudentFullInfo extends Application implements Initializable {
     public void start(Stage primaryStage) {
 
     }
+
+    /**
+     * Gets a list of existing usernames and emails to ensure that no duplicate usernames or email addresses
+     * are entered into the system
+     * @throws IOException
+     */
+
+    private void getReservedEmailsAndUsernamesList() throws IOException {
+        CloseableHttpResponse response = performHttpGet(App.BASEURL + USERS_PATH);
+        String json = EntityUtils.toString(response.getEntity());
+        Gson gson = new Gson();
+        usersList = gson.fromJson(json, User[].class);
+    }
+
+    private CloseableHttpResponse performHttpGet(String url) throws IOException {
+        HttpGet request = new HttpGet(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+
+        try{
+            CloseableHttpResponse response = client.execute(request);
+            return response;
+        }
+        catch(ConnectException e){
+            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
+        }
+
+        return null;
+    }
+
 
     private void setTextFields(Student student){
 
@@ -431,6 +476,8 @@ public class StudentFullInfo extends Application implements Initializable {
             String json = String.format("{\"user_details\": {\"password\": \"%s\"}}", currentStudent.getUsername());
             performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
         }
+        Stage currentWindow = (Stage) lblEmailError.getScene().getWindow();
+        currentWindow.close();
 
     }
 
@@ -473,6 +520,15 @@ public class StudentFullInfo extends Application implements Initializable {
         if(username == null || username.equals("")){
             invalidFields.add(txfUsername);
         }
+
+        //Check if username is already taken
+        for(User user : usersList){
+            if(user.getUsername().equals(username)){
+                invalidFields.add(txfUsername);
+                displayAlert("This username has already been taken", Alert.AlertType.ERROR);
+            }
+        }
+
         if(primaryContactName == null || primaryContactName.equals("")){
             invalidFields.add(txfPrimaryContactName);
         }
@@ -501,6 +557,15 @@ public class StudentFullInfo extends Application implements Initializable {
         if(email == null || email.equals("") || !pattern.matcher(email).matches()){
             invalidFields.add(txfEmail);
         }
+
+        //Check if student email has already been taken
+        for(User user : usersList){
+            if(user.getEmail().equals(email)){
+                invalidFields.add(txfEmail);
+                displayAlert("This student email address has already been taken", Alert.AlertType.ERROR);
+            }
+        }
+
         if(primaryContactEmail == null || primaryContactEmail.equals("") || !pattern.matcher(primaryContactEmail).matches()){
             invalidFields.add(txfPrimaryContactEmail);
         }
@@ -565,4 +630,13 @@ public class StudentFullInfo extends Application implements Initializable {
     public static void setCurrentStudent(Student currentStudent) {
         StudentFullInfo.currentStudent = currentStudent;
     }
+
+    public boolean isEditModeEnabled() {
+        return editModeEnabled;
+    }
+
+    public void setEditModeEnabled(boolean editModeEnabled) {
+        this.editModeEnabled = editModeEnabled;
+    }
+
 }

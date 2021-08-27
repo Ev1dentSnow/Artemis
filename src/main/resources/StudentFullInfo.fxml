@@ -52,7 +52,7 @@
             </Text>
          </children>
       </VBox>
-      <VBox layoutX="169.0" layoutY="142.0" prefHeight="305.0" prefWidth="194.0">
+      <VBox layoutX="169.0" layoutY="142.0" prefHeight="0.0" prefWidth="194.0">
          <children>
             <TextField fx:id="txfFirstName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css" />
             <Label fx:id="lblFirstNameError" prefHeight="17.0" prefWidth="167.0" text="This field cannot be empty" textFill="RED" />
@@ -67,7 +67,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </TextField>
-            <Label fx:id="lblUsernameError" prefHeight="17.0" prefWidth="184.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
+            <Label fx:id="lblUsernameError" maxHeight="50.0" prefHeight="30.0" prefWidth="194.0" text="Ensure that this field is not blank&#10;&#10;&#10;" textFill="RED" />
             <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
                <VBox.margin>
                   <Insets top="38.0" />

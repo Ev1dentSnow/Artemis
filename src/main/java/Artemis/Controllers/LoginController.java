@@ -102,6 +102,9 @@ public class LoginController extends Application {
                 responseStatusCode = response.getStatusLine().getStatusCode();
                 String responseBody = EntityUtils.toString(response.getEntity());
 
+                EntityUtils.consume(response.getEntity());
+                response.close();
+
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 Alert selectLoginTypeAlert = new Alert(Alert.AlertType.INFORMATION);
