@@ -94,6 +94,10 @@ public class AdminDashboard extends Application implements Initializable {
     ImageView sixthDayImage = new ImageView();
     @FXML
     ImageView seventhDayImage = new ImageView();
+    @FXML
+    private MFXButton btnAddStudent = new MFXButton();
+    @FXML
+    private MFXButton btnRemoveStudent = new MFXButton();
 
 
     @FXML
@@ -122,10 +126,6 @@ public class AdminDashboard extends Application implements Initializable {
     MFXTableView<Student> studentsTable = new MFXTableView<>();
 
 
-    @FXML
-    Text lblStudentSearchMatches = new Text();
-    @FXML
-    Button btnCancelStudentSearch = new Button();
     @FXML
     MFXButton btnViewFullInfo = new MFXButton();
     @FXML
@@ -348,7 +348,7 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void removeStudentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
-        Student selectedStudent = (Student) studentsTable.getSelectionModel().getSelectedItem();
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
 
         if(selectedStudent == null){
             displayAlert("Select a student to be removed from the table first", Alert.AlertType.ERROR);

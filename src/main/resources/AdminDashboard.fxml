@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.calendarfx.view.YearMonthView?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import javafx.geometry.Insets?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -241,25 +241,25 @@
             </Pane>
             <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
-                  <TabPane prefHeight="668.0" prefWidth="1049.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Manage students">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="639.0" prefWidth="1034.0">
+                  <JFXTabPane prefHeight="668.0" prefWidth="1050.0" stylesheets="@CSS/TabbedPanes.css">
+                     <tabs>
+                        <Tab text="Manage/View students">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <MFXTableView fx:id="studentsTable" headerText="Students" layoutX="29.0" layoutY="82.0" prefWidth="100.0" />
-                                    <MFXButton fx:id="btnRefreshStudents" layoutX="731.0" layoutY="25.0" onAction="#refreshStudentsActionPerformed" prefHeight="28.0" prefWidth="123.0" rippleColor="WHITE" style="-fx-background-color: #5cb85c;" stylesheets="@CSS/AdminDashboard_dark.css" text="Refresh" textFill="WHITE">
+                                    <MFXTableView fx:id="studentsTable" headerText="Students" layoutX="23.0" layoutY="82.0" />
+                                    <MFXButton fx:id="btnRefreshStudents" buttonType="RAISED" layoutX="584.0" layoutY="32.0" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #5cb85c;" text="Refresh" textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@Images/refresh.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                     </MFXButton>
-                                    <MFXButton fx:id="btnViewFullInfo" layoutX="876.0" layoutY="25.0" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="123.0" rippleColor="WHITE" style="-fx-background-color: #0392ff;" text="View Full Info" textFill="WHITE">
+                                    <MFXButton fx:id="btnViewFullInfo" layoutX="725.0" layoutY="32.0" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #00a6ff;" text="View Full Info" textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="18.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@Images/eye-fill.png" />
                                              </image>
@@ -268,15 +268,46 @@
                                     </MFXButton>
                                  </children>
                               </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="Add or remove a student">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Add/Remove a student">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <HBox layoutX="100.0" layoutY="67.0" prefHeight="480.0" prefWidth="851.0" spacing="45.0">
+                                       <children>
+                                          <MFXButton fx:id="btnAddStudent" buttonType="RAISED" contentDisplay="TOP" onAction="#addStudentActionPerformed" prefHeight="518.0" prefWidth="435.0" style="-fx-background-color: #0275d8;" text="Add a new student" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="98.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@Images/user-add-line%20(2).png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MFXButton>
+                                          <MFXButton fx:id="btnRemoveStudent" buttonType="RAISED" contentDisplay="TOP" onAction="#removeStudentActionPerformed" prefHeight="518.0" prefWidth="435.0" style="-fx-background-color: #d9534f;" text="Remove an existing student" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="98.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@Images/user-unfollow-line%20(1).png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MFXButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
                </children></Pane>
          </children>
       </StackPane>
