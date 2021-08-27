@@ -515,9 +515,6 @@ public class StudentDashboard extends Application implements Initializable {
 
             //Finally, iterate through the student marks and add them to the correct tables/tabs
             for(Marks mark : studentMarks){
-                String task = mark.getAssignmentName();
-                double markAchieved = mark.getMarkAwarded();
-                String percentage = mark.getPercentage();
                 Date dateDue = mark.getAssignment().getDateDue();
                 String subject = mark.getAssignment().getTeacher().getSubject();
 
@@ -543,18 +540,11 @@ public class StudentDashboard extends Application implements Initializable {
                                 subjectTabPane.getTabs().set(i, subjectTab);
                                 currentTab.setContent(subjectTabPane);
                                 formTabPane.getTabs().set(a, currentTab);
-
-                                System.out.println("poo");
-                                //MFXTableView<Marks> marksTable = subjectTab.getContent();
                             }
                         }
                     }
                 }
-
-
             }
-
-
         }
         marksPanePrepared = true;
     }
@@ -589,16 +579,20 @@ public class StudentDashboard extends Application implements Initializable {
             Gson gson = new Gson();
             Dots[] dotsArray = gson.fromJson(response, Dots[].class);
 
+            for(Dots dot : dotsArray){
+                dot.initialize();
+            }
+
             List<Dots> dotsList = Arrays.asList(dotsArray);
             ObservableList dotsObservableList = FXCollections.observableList(dotsList);
 
             MFXTableColumn<Dots> colID = new MFXTableColumn<>("ID", Comparator.comparing(Dots::getId));
             MFXTableColumn<Dots> colReason = new MFXTableColumn<>("Reason", Comparator.comparing(Dots::getReason));
-            MFXTableColumn<Dots> colGivenBy = new MFXTableColumn<>("Given by", Comparator.comparing(Dots::getAssigningTeacherName));
+            MFXTableColumn<Dots> colGivenBy = new MFXTableColumn<>("Given by", Comparator.comparing(Dots::getAssigningTeacherFullName));
 
             colID.setRowCellFunction(dots -> new MFXTableRowCell(String.valueOf(dots.getId())));
             colReason.setRowCellFunction(dots -> new MFXTableRowCell(dots.getReason()));
-            colGivenBy.setRowCellFunction(dots -> new MFXTableRowCell(dots.getAssigningTeacherName()));
+            colGivenBy.setRowCellFunction(dots -> new MFXTableRowCell(dots.getAssigningTeacherFullName()));
 
             dotsTable.setItems(dotsObservableList);
             dotsTable.getTableColumns().addAll(colID, colReason, colGivenBy);

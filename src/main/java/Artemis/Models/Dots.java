@@ -10,12 +10,17 @@ public class Dots {
     private int studentId;
     @SerializedName(value = "assigning_teacher")
     private Teacher assigningTeacher;
+    private String assigningTeacherFullName;
 
     public Dots(int id, String reason, int studentId, Teacher assigningTeacher) {
         this.id = id;
         this.reason = reason;
         this.studentId = studentId;
         this.assigningTeacher = assigningTeacher;
+    }
+
+    public void initialize(){
+        this.assigningTeacherFullName = assigningTeacher.getFirstName() + " " + assigningTeacher.getLastName();
     }
 
     public int getId() {
@@ -46,12 +51,15 @@ public class Dots {
         return assigningTeacher;
     }
 
-    public String getAssigningTeacherName(){
-        return assigningTeacher.getFullName();
-    }
-
     public void setAssigningTeacherId(Teacher assigningTeacher) {
         this.assigningTeacher = assigningTeacher;
     }
 
+    public String getAssigningTeacherFullName() {
+        return assigningTeacherFullName;
+    }
+
+    public void setAssigningTeacherFullName(String assigningTeacherFullName) {
+        this.assigningTeacherFullName = assigningTeacherFullName;
+    }
 }
