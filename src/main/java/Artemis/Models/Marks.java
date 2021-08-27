@@ -10,12 +10,23 @@ public class Marks {
    private double markAwarded;
    @SerializedName(value = "class_id")
    private int classId;
+   private String assignmentName;
+   private double assignmentMaxMarks;
+   private String markAwardedStringRepresentation;
+   private String percentage;
 
    public Marks(int id, Assignment assignment, double markAwarded, int classId) {
       this.id = id;
       this.assignment = assignment;
       this.markAwarded = markAwarded;
       this.classId = classId;
+   }
+
+   public void initialize(){
+      this.assignmentName = assignment.getAssignmentName();
+      this.assignmentMaxMarks = assignment.getMaxMarks();
+      this.markAwardedStringRepresentation = markAwarded + "/" + assignmentMaxMarks;
+      this.percentage = (markAwarded / assignmentMaxMarks) * 100  + "%";
    }
 
    public int getId() {
@@ -28,6 +39,38 @@ public class Marks {
 
    public Assignment getAssignment() {
       return assignment;
+   }
+
+   public String getAssignmentName() {
+      return assignmentName;
+   }
+
+   public double getAssignmentMaxMarks() {
+      return assignmentMaxMarks;
+   }
+
+   public void setAssignmentMaxMarks(double assignmentMaxMarks) {
+      this.assignmentMaxMarks = assignmentMaxMarks;
+   }
+
+   public String getMarkAwardedStringRepresentation() {
+      return markAwardedStringRepresentation;
+   }
+
+   public void setMarkAwardedStringRepresentation(String markAwardedStringRepresentation) {
+      this.markAwardedStringRepresentation = markAwardedStringRepresentation;
+   }
+
+   public String getPercentage() {
+      return percentage;
+   }
+
+   public void setPercentage(String percentage) {
+      this.percentage = percentage;
+   }
+
+   public void setAssignmentName(String assignmentName) {
+      this.assignmentName = assignmentName;
    }
 
    public void setAssignment(Assignment assignment) {
