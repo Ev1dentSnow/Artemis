@@ -536,12 +536,8 @@ public class StudentDashboard extends Application implements Initializable {
                                 AnchorPane ap = (AnchorPane) subjectTab.getContent();
                                 MFXTableView marksTable = (MFXTableView) ap.getChildren().get(0);
 
-                                List<Marks> list = new ArrayList<>();
-                                list.add(mark);
-                                ObservableList observableList = FXCollections.observableList(list);
-
                                 //After making amendments to the data, update the GUI components
-                                marksTable.getItems().add(observableList);
+                                marksTable.getItems().add(mark);
                                 ap.getChildren().set(0, marksTable);
                                 subjectTab.setContent(ap);
                                 subjectTabPane.getTabs().set(i, subjectTab);
@@ -560,10 +556,7 @@ public class StudentDashboard extends Application implements Initializable {
 
 
         }
-
-
-
-
+        marksPanePrepared = true;
     }
 
     private void prepareSubjectsPane() throws IOException {
