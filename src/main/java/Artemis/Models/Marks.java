@@ -20,10 +20,13 @@ public class Marks {
       this.assignment = assignment;
       this.markAwarded = markAwarded;
       this.classId = classId;
+   }
+
+   public void initialize(){
       this.assignmentName = assignment.getAssignmentName();
       this.assignmentMaxMarks = assignment.getMaxMarks();
-      this.markAwardedStringRepresentation = Double.toString(this.markAwarded) + "/" + Double.toString(assignmentMaxMarks);
-      this.percentage = String.valueOf(markAwarded / assignmentMaxMarks) + "%";
+      this.markAwardedStringRepresentation = markAwarded + "/" + assignmentMaxMarks;
+      this.percentage = (markAwarded / assignmentMaxMarks) * 100  + "%";
    }
 
    public int getId() {

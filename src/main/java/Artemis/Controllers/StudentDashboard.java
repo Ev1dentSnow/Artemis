@@ -453,6 +453,10 @@ public class StudentDashboard extends Application implements Initializable {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Marks[] studentMarks = gson.fromJson(response, Marks[].class);
 
+            for(Marks mark : studentMarks){
+                mark.initialize();
+            }
+
             //First add the required year and subjects per year tabs to a hashmap
             HashMap<Integer, List<String>> yearAndSubjectTabsRequired = new HashMap<>();
             for(int i = 0; i < studentMarks.length; i++) {
