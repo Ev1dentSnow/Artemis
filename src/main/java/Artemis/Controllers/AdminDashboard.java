@@ -119,6 +119,8 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     Pane timetablesPane = new Pane();
     @FXML
+    Pane adminPane = new Pane();
+    @FXML
     Button signOut = new Button();
 
     //Students Pane Componenets
@@ -295,12 +297,18 @@ public class AdminDashboard extends Application implements Initializable {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(studentsPane);
 
-        if(!studentsPanePrepared){
+        if (!studentsPanePrepared) {
 
             prepareStudentsPane();
             studentsPanePrepared = true;
         }
+    }
 
+    @FXML
+    private void adminPanelActionPerformed(ActionEvent event){
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(adminPane);
     }
 
 
@@ -595,6 +603,18 @@ public class AdminDashboard extends Application implements Initializable {
             displayAlert("Select a student first", Alert.AlertType.ERROR);
         }
 
+    }
+
+    @FXML
+    private void publishNewAnnouncementActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        AnchorPane newAnnouncementPane = FXMLLoader.load(getClass().getResource("/PublishAnnouncement.fxml"));
+        Stage newAnnouncementStage = new Stage();
+        Scene newAnnouncementScene = new Scene(newAnnouncementPane);
+        newAnnouncementStage.setScene(newAnnouncementScene);
+        newAnnouncementStage.initModality(Modality.APPLICATION_MODAL);
+        newAnnouncementStage.setTitle("Publish a new announcement");
+        newAnnouncementStage.showAndWait();
     }
 
 
