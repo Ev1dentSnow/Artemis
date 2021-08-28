@@ -19,7 +19,7 @@
 
 
 ## About
-This is the client side desktop application of my Artemis School Management System which I created for my 2021 Matric IT PAT. The backend it interacts with is a REST API written in the Django REST Framework for Python (a framework for Django). It can be found here [link placeholder]
+This is the client side desktop application of my Artemis School Management System which I created for my 2021 Matric IT PAT. The backend it interacts with is a REST API written in the Django REST Framework for Python (a framework for Django). It can be found [here](https://github.com/Ev1dentSnow/artemis-api)
 
 This is my first "big" project, so don't expect much from it. You may come across be some horrendous programming practices and other ugly things if you chose to take a look at the source code
 
