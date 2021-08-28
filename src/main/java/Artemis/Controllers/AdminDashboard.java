@@ -608,6 +608,7 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void publishNewAnnouncementActionPerformed(ActionEvent event) throws IOException {
         event.consume();
+        PublishNewAnnouncement.setAccessToken(accessToken);
         AnchorPane newAnnouncementPane = FXMLLoader.load(getClass().getResource("/PublishAnnouncement.fxml"));
         Stage newAnnouncementStage = new Stage();
         Scene newAnnouncementScene = new Scene(newAnnouncementPane);
