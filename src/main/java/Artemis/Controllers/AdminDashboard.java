@@ -5,6 +5,7 @@ import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Student;
+import Artemis.Models.Teacher;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
@@ -127,6 +128,8 @@ public class AdminDashboard extends Application implements Initializable {
 
     @FXML
     MFXTableView<Student> studentsTable = new MFXTableView<>();
+    @FXML
+    MFXTableView<Teacher> teachersTable = new MFXTableView<>();
 
 
     @FXML
@@ -617,6 +620,41 @@ public class AdminDashboard extends Application implements Initializable {
         newAnnouncementStage.setTitle("Publish a new announcement");
         newAnnouncementStage.showAndWait();
     }
+
+    @FXML
+    private void addTeacherActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        TeacherFullInfo.postRequest = true;
+        AnchorPane teacherFullInfoPane = FXMLLoader.load(getClass().getResource("/TeacherFullInfo.fxml"));
+        Stage teacherFullInfoStage = new Stage();
+        Scene teacherFullInfoScene = new Scene(teacherFullInfoPane);
+        teacherFullInfoStage.setScene(teacherFullInfoScene);
+        teacherFullInfoStage.initModality(Modality.APPLICATION_MODAL);
+        teacherFullInfoStage.showAndWait();
+        TeacherFullInfo.postRequest = false;
+    }
+
+    @FXML
+    private void removeTeacherActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        Teacher selectedTeacher = teachersTable.getSelectionModel().getSelectedItem();
+
+        if(selectedTeacher == null){
+            displayAlert("Select a teacher to be removed from the table first", Alert.AlertType.ERROR);
+        }
+        else{
+            Optional<ButtonType> result = displayAlert("Are you sure you would like to permanently delete a teacher with the ID: \"" +
+                    selectedTeacher.getId() + "\" and the last name \"" + selectedTeacher.getLastName() + "\""
+                    + " from the system?", Alert.AlertType.CONFIRMATION);
+
+            if (result.get() == ButtonType.OK){
+                performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedTeacher.getId());
+            }
+        }
+
+    }
+
+
 
 
     /**

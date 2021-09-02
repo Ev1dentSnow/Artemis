@@ -7,59 +7,27 @@ package Artemis.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  *
  * @author Moagi Moja
  */
-public class Teacher {
+public class Teacher extends User {
 
-    @SerializedName(value = "user_id")
-    private int userId;
-    @SerializedName(value = "first_name")
-    private String firstName;
-    @SerializedName(value = "last_name")
-    private String lastName;
-    private String fullName;
     private String subject;
 
-    public Teacher(int userId, String firstName, String lastName, String subject) {
-        this.userId = userId;
+    public Teacher(int id, String firstName, String lastName, String username, Date dob, String house,
+                   String email, String comments, String subject) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.dob = dob;
+        this.house = house;
+        this.email = email;
+        this.comments = comments;
         this.subject = subject;
-        this.fullName = this.firstName + this.lastName;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getSubject() {

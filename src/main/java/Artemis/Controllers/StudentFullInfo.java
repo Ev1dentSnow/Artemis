@@ -113,6 +113,7 @@ public class StudentFullInfo extends Application implements Initializable {
 
     private Stage primaryStage;
     private static Student currentStudent;
+    //used to see which email addresses and usernames have already been taken
     private User[] usersList;
 
     public static void main(String[] args) {
