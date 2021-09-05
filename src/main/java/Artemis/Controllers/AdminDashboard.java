@@ -4,6 +4,7 @@ package Artemis.Controllers;
 import Artemis.App;
 import Artemis.Models.Announcement;
 import Artemis.Models.JSON.Serializers.StudentJSON;
+import Artemis.Models.JSON.Serializers.TeacherJSON;
 import Artemis.Models.Student;
 import Artemis.Models.Teacher;
 import Artemis.Models.Weather.Daily;
@@ -70,9 +71,12 @@ public class AdminDashboard extends Application implements Initializable {
     private static String accessToken;
     private static int userId;
     private boolean studentsPanePrepared = false;
+    private boolean teachersPanePrepared = false;
 
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
+    private final String TEACHERS_PATH = "api/teachers";
+    private ObservableList<Teacher> teachersList;
     private ObservableList<Student> studentsList;
 
     CloseableHttpClient client = HttpClients.createDefault();
@@ -315,25 +319,6 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
 
-    /**
-     * Filters the list of students to see if they correspond with a search
-     * phrase entered in the students table search bar
-     * @param studentList
-     * @param searchPhrase
-     * @return filteredList
-     */
-    private ObservableList<Student> filterList(List<Student> studentList, String searchPhrase){
-
-        ObservableList<Student> filteredList = FXCollections.observableArrayList();
-        for(int i = 0; i < studentList.size(); i++){
-            if(studentList.get(i).getFirstName().toLowerCase().contains(searchPhrase.toLowerCase())){
-                filteredList.add(studentList.get(i));
-            }
-        }
-        return filteredList;
-    }
-
-
 
     //Student Pane 2nd tab method
     @FXML
@@ -379,10 +364,14 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void teachersActionPerformed(ActionEvent event){
+    private void teachersActionPerformed(ActionEvent event) throws IOException, ParseException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(teachersPane);
+
+        if(!teachersPanePrepared) {
+            prepareTeachersPane();
+        }
     }
 
     @FXML
@@ -500,7 +489,6 @@ public class AdminDashboard extends Application implements Initializable {
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
 
             studentsList = FXCollections.observableArrayList();
-
             StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
 
             EntityUtils.consume(response.getEntity());
@@ -558,6 +546,64 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
+    private void prepareTeachersPane() throws IOException, ParseException {
+
+        CloseableHttpResponse response = performHttpGet(App.BASEURL + TEACHERS_PATH);
+
+        if(response.getStatusLine().getStatusCode() == 200) {
+
+            Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
+            teachersList = FXCollections.observableArrayList();
+            TeacherJSON[] teacherJSON = gson.fromJson(EntityUtils.toString(response.getEntity()), TeacherJSON[].class);
+            EntityUtils.consume(response.getEntity());
+            response.close();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            for(int i = 0; i < teacherJSON.length; i++) {
+
+                HashMap userDetails = teacherJSON[i].getUser_details();
+
+                int id = Integer.parseInt((String) userDetails.get("id"));
+                String username = (String) userDetails.get("username");
+                String email = (String) userDetails.get("email");
+                String dob = (String) userDetails.get("dob");
+                String house = (String) userDetails.get("house");
+                String firstName = (String) userDetails.get("first_name");
+                String lastName = (String) userDetails.get("last_name");
+                String comments = (String) userDetails.get("comments");
+                String subject = teacherJSON[i].getSubject();
+
+                teachersList.add(new Teacher(id, firstName, lastName, username, dateFormat.parse(dob), house, email, comments, subject));
+
+            }
+
+            MFXTableColumn<Teacher> colID = new MFXTableColumn<>("ID", Comparator.comparing(Teacher::getId));
+            MFXTableColumn<Teacher> colFirstName = new MFXTableColumn<>("First Name", Comparator.comparing(Teacher::getFirstName));
+            MFXTableColumn<Teacher> colLastName = new MFXTableColumn<>("Last Name", Comparator.comparing(Teacher::getLastName));
+            MFXTableColumn<Teacher> colSubject = new MFXTableColumn<>("Subject", Comparator.comparing(Teacher::getSubject));
+            MFXTableColumn<Teacher> colHouse = new MFXTableColumn<>("House", Comparator.comparing(Teacher::getHouse));
+            MFXTableColumn<Teacher> colEmail = new MFXTableColumn<>("Email", Comparator.comparing(Teacher::getEmail));
+
+            colID.setRowCellFunction(teacher ->  new MFXTableRowCell(String.valueOf(teacher.getId())));
+            colFirstName.setRowCellFunction(teacher -> new MFXTableRowCell(teacher.getFirstName()));
+            colLastName.setRowCellFunction(teacher -> new MFXTableRowCell(teacher.getLastName()));
+            colSubject.setRowCellFunction(teacher -> new MFXTableRowCell(String.valueOf(teacher.getSubject())));
+            colHouse.setRowCellFunction(teacher -> new MFXTableRowCell(teacher.getHouse()));
+            colEmail.setRowCellFunction(teacher -> new MFXTableRowCell(teacher.getEmail()));
+
+            teachersTable.setItems(teachersList);
+            teachersTable.getTableColumns().addAll(colID, colFirstName, colLastName, colSubject, colHouse, colEmail);
+
+        }
+        else if(response.getStatusLine().getStatusCode() == 401){
+            displayAlert("Unauthorized, please re-authenticate", Alert.AlertType.ERROR);
+        }
+        else if(response.getStatusLine().getStatusCode() == 403){
+            displayAlert("Forbidden, please re-authenticate", Alert.AlertType.ERROR);
+        }
+    }
+
 
     /**
      * Fetches updated data for the students table from the API
@@ -578,7 +624,7 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     @FXML
-    private void viewFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException {
+    private void viewStudentFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException {
 
         event.consume();
         StudentFullInfo.postRequest = false;
@@ -604,6 +650,30 @@ public class AdminDashboard extends Application implements Initializable {
         }
         else{
             displayAlert("Select a student first", Alert.AlertType.ERROR);
+        }
+
+    }
+
+    @FXML
+    private void viewTeacherFullInfoActionPerformed(ActionEvent event) throws IOException {
+
+        event.consume();
+        TeacherFullInfo.postRequest = false;
+        Teacher selectedTeacher = teachersTable.getSelectionModel().getSelectedItem();
+
+        if(!(selectedTeacher == null)) {
+
+            TeacherFullInfo.setCurrentTeacher(selectedTeacher);
+            AnchorPane fullInfoPane = FXMLLoader.load(getClass().getResource("/TeacherFullInfo.fxml"));
+            Stage viewFullInfoStage = new Stage();
+            viewFullInfoStage.setUserData(selectedTeacher);
+            Scene viewFullInfoScene = new Scene(fullInfoPane);
+            viewFullInfoStage.setScene(viewFullInfoScene);
+            viewFullInfoStage.initModality(Modality.APPLICATION_MODAL);
+            viewFullInfoStage.setTitle("Full Information");
+            viewFullInfoStage.showAndWait();
+            TeacherFullInfo.setCurrentTeacher(null); //resetting the current student to null so all fields are cleared
+
         }
 
     }

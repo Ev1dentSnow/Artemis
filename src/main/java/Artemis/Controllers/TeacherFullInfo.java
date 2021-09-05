@@ -2,6 +2,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.House;
+import Artemis.Models.Student;
 import Artemis.Models.Teacher;
 import Artemis.Models.User;
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ public class TeacherFullInfo extends Application implements Initializable {
     private boolean editModeEnabled = false;
     CloseableHttpClient client = HttpClients.createDefault();
     private final String USERS_PATH = "api/users";
+    private static Student currentStudent;
 
     @FXML
     private Label lblFirstNameError;
@@ -47,7 +49,6 @@ public class TeacherFullInfo extends Application implements Initializable {
     private Label lblDobError;
     @FXML
     private Label lblEmailError;
-
     @FXML
     private TextField txfFirstName;
     @FXML
@@ -241,4 +242,11 @@ public class TeacherFullInfo extends Application implements Initializable {
     }
 
 
+    public static Teacher getCurrentTeacher() {
+        return currentTeacher;
+    }
+
+    public static void setCurrentTeacher(Teacher currentTeacher) {
+        TeacherFullInfo.currentTeacher = currentTeacher;
+    }
 }

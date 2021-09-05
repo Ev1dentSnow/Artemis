@@ -299,7 +299,7 @@
                                                       <Insets />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton fx:id="btnViewFullInfo" onAction="#viewFullInfoActionPerformed" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #00a6ff;" text="View Full Info" textFill="WHITE">
+                                                <MFXButton fx:id="btnViewFullInfo" onAction="#viewStudentFullInfoActionPerformed" prefHeight="28.0" prefWidth="124.0" rippleColor="WHITE" style="-fx-background-color: #00a6ff;" text="View Full Info" textFill="WHITE">
                                                    <graphic>
                                                       <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -379,7 +379,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </MFXButton>
-                                          <MFXButton layoutX="10.0" layoutY="10.0" prefHeight="33.0" prefWidth="120.0" style="-fx-background-color: #0275d8;" text="View full info" textFill="WHITE">
+                                          <MFXButton layoutX="10.0" layoutY="10.0" onAction="#viewTeacherFullInfoActionPerformed" prefHeight="33.0" prefWidth="120.0" style="-fx-background-color: #0275d8;" text="View full info" textFill="WHITE">
                                              <graphic>
                                                 <ImageView fitHeight="25.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
