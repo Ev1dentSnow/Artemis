@@ -77,7 +77,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#adminPanelActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Admin Panel" textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#adminPanelActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Administration" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -85,7 +85,7 @@
                            </image></ImageView>
                      </graphic>
                      <font>
-                        <Font name="Roboto Medium" size="13.0" />
+                        <Font name="Roboto Medium" size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
@@ -236,43 +236,6 @@
                         <ListView fx:id="announcementList" layoutX="11.0" layoutY="93.0" prefHeight="480.0" prefWidth="455.0" stylesheets="@CSS/AnnouncementTable_dark.css" />
                      </children>
                   </Pane>
-               </children>
-            </Pane>
-            <Pane id="AdminPane" fx:id="adminPane" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
-               <children>
-                  <VBox layoutX="93.0" layoutY="46.0" prefHeight="557.0" prefWidth="870.0">
-                     <children>
-                        <HBox prefHeight="329.0" prefWidth="870.0" spacing="50.0">
-                           <children>
-                              <MFXButton contentDisplay="TOP" onAction="#publishNewAnnouncementActionPerformed" prefHeight="314.0" prefWidth="338.0" rippleColor="WHITE" style="-fx-background-color: #0275d8;" text="Publish new announcement" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Images/icons8-commercial-90.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </MFXButton>
-                              <MFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="314.0" prefWidth="338.0" rippleColor="WHITE" style="-fx-background-color: #ffc107;" text="Manage existing announcements" textFill="WHITE">
-                                 <graphic>
-                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Images/icons8-settings-90.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </MFXButton>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0" />
-                     </children>
-                  </VBox>
                </children>
             </Pane>
             <Pane id="StudentsPane" fx:id="studentsPane" prefHeight="686.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
@@ -433,6 +396,55 @@
                      </tabs>
                   </JFXTabPane>
                </children></Pane>
+            <Pane id="AdminPane" fx:id="adminPane" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
+               <children>
+                  <VBox layoutX="93.0" layoutY="46.0" prefHeight="557.0" prefWidth="870.0">
+                     <children>
+                        <HBox prefHeight="329.0" prefWidth="870.0" spacing="50.0">
+                           <children>
+                              <MFXButton contentDisplay="TOP" onAction="#publishNewAnnouncementActionPerformed" prefHeight="314.0" prefWidth="338.0" rippleColor="WHITE" style="-fx-background-color: #0275d8;" text="Publish new &#10;announcement&#10;" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/icons8-commercial-90.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                              <MFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" onAction="#deleteSelectedAnnouncementActionPerformed" prefHeight="314.0" prefWidth="338.0" rippleColor="WHITE" style="-fx-background-color: #ffc107;" text="Delete selected &#10;announcement" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/delete-bin-line.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton contentDisplay="TOP" layoutX="398.0" layoutY="10.0" onAction="#deleteAllAnnouncementsActionPerformed" prefHeight="314.0" prefWidth="338.0" rippleColor="WHITE" style="-fx-background-color: #dc3545#dc3545;" text="Delete all announcements" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/delete-bin-line.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </children>

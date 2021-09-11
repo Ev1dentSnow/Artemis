@@ -13,6 +13,10 @@ import Artemis.Models.Weather.Weather;
 import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableColumn;
@@ -79,10 +83,9 @@ public class AdminDashboard extends Application implements Initializable {
     private ObservableList<Teacher> teachersList;
     private ObservableList<Student> studentsList;
 
-    CloseableHttpClient client = HttpClients.createDefault();
-
     @FXML
-    private ListView announcementList;
+    private ListView<Announcement> announcementList;
+    private Announcement selectedAnnouncement;
 
     //Weather "widget" images
 
@@ -195,37 +198,14 @@ public class AdminDashboard extends Application implements Initializable {
         //Prepare the home pane (announcements, weather, etc)
         try {
             prepareHomePane();
-        } catch (IOException e) {
+        } catch (IOException | UnirestException e) {
             e.printStackTrace();
         }
 
 
     }
 
-    /**
-     * Executes an HTTP POST request to the supplied URL, and returns the response
-     * @param url
-     * @return CloseableHttpResponse
-     * @throws IOException
-     */
 
-    private CloseableHttpResponse performHttpPost(String url) throws  IOException{
-
-        HttpPost request = new HttpPost(url);
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-
-        try{
-            CloseableHttpResponse response = client.execute(request);
-            return response;
-        }
-        catch (ConnectException e){
-            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
-        }
-        finally {
-            System.out.println();
-        }
-        return null;
-    }
 
     /**
      * Executes a HTTP GET request to the supplied URL, and returns the response
@@ -234,33 +214,19 @@ public class AdminDashboard extends Application implements Initializable {
      * @throws IOException
      */
 
-    private CloseableHttpResponse performHttpGet(String url) throws IOException {
-        HttpGet request = new HttpGet(url);
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+    private HttpResponse performHttpGet(String url) throws UnirestException {
 
-        try{
-            CloseableHttpResponse response = client.execute(request);
-            return response;
-        }
-        catch(ConnectException e){
-            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
-        }
-
-        return null;
+        return Unirest.get(url)
+                .header("Authorization", "Bearer " + accessToken)
+                .asJson();
     }
 
-    private CloseableHttpResponse performHttpDelete(String url) throws IOException{
-        HttpDelete request = new HttpDelete(url);
-        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+    private HttpResponse performHttpDelete(String url) throws UnirestException {
 
-        try{
-            CloseableHttpResponse response = client.execute(request);
-            return response;
-        }
-        catch(ConnectException e){
-            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
-        }
-        return null;
+        return Unirest.delete(url)
+               .header("Authorization", "Bearer " + accessToken)
+               .asString();
+
     }
 
 
@@ -299,7 +265,7 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void studentsActionPerformed(ActionEvent event) throws IOException, ParseException {
+    private void studentsActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(studentsPane);
@@ -344,7 +310,7 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     @FXML
-    private void removeStudentActionPerformed(ActionEvent event) throws IOException {
+    private void removeStudentActionPerformed(ActionEvent event) throws UnirestException {
         event.consume();
         Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
 
@@ -357,14 +323,21 @@ public class AdminDashboard extends Application implements Initializable {
                     + " from the system?", Alert.AlertType.CONFIRMATION);
 
             if (result.get() == ButtonType.OK){
-                performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedStudent.getId());
+                HttpResponse response = performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedStudent.getId());
+
+                if (response.getStatus() == 204) {
+                    displayAlert("Student deleted!", Alert.AlertType.INFORMATION);
+                }
+                else {
+                    displayAlert("Error deleting student", Alert.AlertType.ERROR);
+                }
             }
         }
 
     }
 
     @FXML
-    private void teachersActionPerformed(ActionEvent event) throws IOException, ParseException {
+    private void teachersActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
         event.consume();
         stackPane.getChildren().clear();
         stackPane.getChildren().add(teachersPane);
@@ -392,7 +365,7 @@ public class AdminDashboard extends Application implements Initializable {
         event.consume();
 
         //This request is to let the API know it can add the access token to the blacklist
-        CloseableHttpResponse result = performHttpPost("https://artemisystem.xyz/api/auth/logout");
+        //CloseableHttpResponse result = performHttpPost("https://artemisystem.xyz/api/auth/logout");
         displayAlert("Logged out successfully!", Alert.AlertType.INFORMATION);
 
         //Return to login screen
@@ -424,7 +397,7 @@ public class AdminDashboard extends Application implements Initializable {
      * @throws IOException
      */
 
-    private void prepareHomePane() throws IOException {
+    private void prepareHomePane() throws IOException, UnirestException {
 
         /*
         IN THIS METHOD...
@@ -436,37 +409,30 @@ public class AdminDashboard extends Application implements Initializable {
          */
 
         //First fetching the announcements
+        announcementList.getItems().clear();
+        HttpResponse announcementsResponse = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
+        String announcementsResponseString = announcementsResponse.getBody().toString();
 
-        CloseableHttpResponse announcementsResponse = performHttpGet(App.BASEURL + ANNOUCEMENTS_PATH);
-        String announcementsResponseString = EntityUtils.toString(announcementsResponse.getEntity());
-
-        EntityUtils.consume(announcementsResponse.getEntity());
-        announcementsResponse.close();
-
-        //Deserialize all the announcements
-        if(announcementsResponse.getStatusLine().getStatusCode() == 200){
+        if(announcementsResponse.getStatus() == 200){
             Gson gson = new Gson();
             Announcement[] announcements = gson.fromJson(announcementsResponseString, Announcement[].class);
 
             //Add each announcement to the list
             for(int i = 0; i < announcements.length; i++){
-                announcementList.getItems().add(announcements[i].getSubject());
+                announcementList.getItems().add(announcements[i]);
             }
         }
         else{
-            displayAlert("Error fetching latest announcements. HTTP Status code: " + String.valueOf(announcementsResponse.getStatusLine().getStatusCode()), Alert.AlertType.ERROR);
+            displayAlert("Error fetching latest announcements. HTTP Status code: " + announcementsResponse.getStatus(), Alert.AlertType.ERROR);
         }
 
         //Now fetching the weather data
-        CloseableHttpResponse weatherResponse = performHttpGet(App.BASEURL + WEATHER_PATH);
-        String weatherResponseString = EntityUtils.toString(weatherResponse.getEntity());
-
-        EntityUtils.consume(weatherResponse.getEntity());
-        weatherResponse.close();
+        HttpResponse weatherResponse = performHttpGet(App.BASEURL + WEATHER_PATH);
+        String weatherResponseString = weatherResponse.getBody().toString();
 
         //Deserialize the weather data
 
-        if(weatherResponse.getStatusLine().getStatusCode() == 200){
+        if(weatherResponse.getStatus() == 200){
             Gson gson = new Gson();
             ForecastWeather weatherData = gson.fromJson(weatherResponseString, ForecastWeather.class);
 
@@ -482,17 +448,14 @@ public class AdminDashboard extends Application implements Initializable {
      * @throws ParseException
      */
 
-    private void prepareStudentsPane() throws IOException, ParseException {
-        CloseableHttpResponse response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH);
+    private void prepareStudentsPane() throws IOException, ParseException, UnirestException {
+        HttpResponse response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH);
 
-        if(response.getStatusLine().getStatusCode() == 200){
+        if(response.getStatus() == 200){
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
 
             studentsList = FXCollections.observableArrayList();
-            StudentJSON[] studentJson = gson.fromJson(EntityUtils.toString(response.getEntity()), StudentJSON[].class);
-
-            EntityUtils.consume(response.getEntity());
-            response.close();
+            StudentJSON[] studentJson = gson.fromJson(response.getBody().toString(), StudentJSON[].class);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -538,25 +501,23 @@ public class AdminDashboard extends Application implements Initializable {
             studentsTable.getTableColumns().addAll(colID, colFirstName, colLastName, colForm, colHouse, colEmail);
 
         }
-        else if(response.getStatusLine().getStatusCode() == 401){
+        else if(response.getStatus() == 401){
             displayAlert("Unauthorized, please re-authenticate", Alert.AlertType.ERROR);
         }
-        else if(response.getStatusLine().getStatusCode() == 403){
+        else if(response.getStatus() == 403){
             displayAlert("Forbidden, please re-authenticate", Alert.AlertType.ERROR);
         }
     }
 
-    private void prepareTeachersPane() throws IOException, ParseException {
+    private void prepareTeachersPane() throws IOException, ParseException, UnirestException {
 
-        CloseableHttpResponse response = performHttpGet(App.BASEURL + TEACHERS_PATH);
+        HttpResponse response = performHttpGet(App.BASEURL + TEACHERS_PATH);
 
-        if(response.getStatusLine().getStatusCode() == 200) {
+        if(response.getStatus() == 200) {
 
             Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMMM yyyy HH:mm:ss zzz").create();
             teachersList = FXCollections.observableArrayList();
-            TeacherJSON[] teacherJSON = gson.fromJson(EntityUtils.toString(response.getEntity()), TeacherJSON[].class);
-            EntityUtils.consume(response.getEntity());
-            response.close();
+            TeacherJSON[] teacherJSON = gson.fromJson(response.getBody().toString(), TeacherJSON[].class);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -596,10 +557,10 @@ public class AdminDashboard extends Application implements Initializable {
             teachersTable.getTableColumns().addAll(colID, colFirstName, colLastName, colSubject, colHouse, colEmail);
 
         }
-        else if(response.getStatusLine().getStatusCode() == 401){
+        else if(response.getStatus() == 401){
             displayAlert("Unauthorized, please re-authenticate", Alert.AlertType.ERROR);
         }
-        else if(response.getStatusLine().getStatusCode() == 403){
+        else if(response.getStatus() == 403){
             displayAlert("Forbidden, please re-authenticate", Alert.AlertType.ERROR);
         }
     }
@@ -611,7 +572,7 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     @FXML
-    private void refreshStudentsActionPerformed(ActionEvent event) throws IOException, ParseException {
+    private void refreshStudentsActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
         prepareStudentsPane();
     }
 
@@ -624,7 +585,7 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     @FXML
-    private void viewStudentFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException {
+    private void viewStudentFullInfoActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
 
         event.consume();
         StudentFullInfo.postRequest = false;
@@ -679,7 +640,7 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void publishNewAnnouncementActionPerformed(ActionEvent event) throws IOException {
+    private void publishNewAnnouncementActionPerformed(ActionEvent event) throws IOException, UnirestException {
         event.consume();
         PublishNewAnnouncement.setAccessToken(accessToken);
         AnchorPane newAnnouncementPane = FXMLLoader.load(getClass().getResource("/PublishAnnouncement.fxml"));
@@ -689,6 +650,45 @@ public class AdminDashboard extends Application implements Initializable {
         newAnnouncementStage.initModality(Modality.APPLICATION_MODAL);
         newAnnouncementStage.setTitle("Publish a new announcement");
         newAnnouncementStage.showAndWait();
+        prepareHomePane();
+    }
+
+    @FXML
+    private void deleteSelectedAnnouncementActionPerformed(ActionEvent event) throws UnirestException, IOException {
+        event.consume();
+        selectedAnnouncement = announcementList.getSelectionModel().getSelectedItem();
+
+        if (selectedAnnouncement != null) {
+            HttpResponse response = performHttpDelete(App.BASEURL + ANNOUCEMENTS_PATH + selectedAnnouncement.getId());
+
+            if (response.getStatus() == 204) {
+                displayAlert("Announcement deleted!", Alert.AlertType.INFORMATION);
+                prepareHomePane();
+            }
+            else {
+                displayAlert("Error deleting announcement", Alert.AlertType.ERROR);
+            }
+            displayAlert("Announcement deleted!", Alert.AlertType.INFORMATION);
+        }
+
+        else {
+            displayAlert("Select an announcement from the Home Panel first", Alert.AlertType.ERROR);
+        }
+
+    }
+
+    @FXML
+    private void deleteAllAnnouncementsActionPerformed(ActionEvent event) throws UnirestException, IOException {
+        event.consume();
+        HttpResponse response = performHttpDelete(App.BASEURL + ANNOUCEMENTS_PATH);
+
+        if (response.getStatus() == 204) {
+            displayAlert("All announcements purged!", Alert.AlertType.INFORMATION);
+            prepareHomePane();
+        }
+        else {
+            displayAlert("Error purging all announcements", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -705,7 +705,7 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void removeTeacherActionPerformed(ActionEvent event) throws IOException {
+    private void removeTeacherActionPerformed(ActionEvent event) throws UnirestException {
         event.consume();
         Teacher selectedTeacher = teachersTable.getSelectionModel().getSelectedItem();
 
@@ -718,7 +718,14 @@ public class AdminDashboard extends Application implements Initializable {
                     + " from the system?", Alert.AlertType.CONFIRMATION);
 
             if (result.get() == ButtonType.OK){
-                performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedTeacher.getId());
+                HttpResponse response = performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + selectedTeacher.getId());
+
+                if (response.getStatus() == 204) {
+                    displayAlert("Teacher deleted!", Alert.AlertType.INFORMATION);
+                }
+                else {
+                    displayAlert("Error deleting teacher", Alert.AlertType.ERROR);
+                }
             }
         }
 
