@@ -34,6 +34,9 @@ Links to other P.A.T Phases | Location
 
 This project uses the gradle build system for managing all required libraries. All required libraries can be found in this repository's "build.gradle" file
 
+## Contributing
+
+This code is released "as is". Feel free to fork it if you wish, but no pull requests will be reviewed or accepted
 
 ## Acknowledgements
 
