@@ -381,11 +381,6 @@
                   <MFXTableView fx:id="dotsTable" headerText="Total Dots: 0" layoutX="110.0" layoutY="63.0" />
                </children>
             </Pane>
-            <Pane id="StudentMarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
-               <children>
-                  <JFXTabPane fx:id="formTabPane" layoutX="49.0" layoutY="38.0" prefHeight="510.0" prefWidth="831.0" stylesheets="@CSS/TabbedPanes.css" />
-               </children>
-            </Pane>
             <Pane id="HomePane" fx:id="homePane" prefHeight="534.0" prefWidth="853.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
                <children>
                   <AnchorPane layoutX="517.0" layoutY="304.0" prefHeight="245.0" prefWidth="359.0" styleClass="widget-header" stylesheets="@CSS/StudentDashboard_light.css">
@@ -451,6 +446,16 @@
                      </children>
                   </Pane>
                </children></Pane>
+            <Pane id="StudentMarksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="rightside-pane" stylesheets="@CSS/StudentDashboard_light.css">
+               <children>
+                  <JFXTabPane fx:id="formTabPane" layoutX="49.0" layoutY="38.0" prefHeight="510.0" prefWidth="831.0" stylesheets="@CSS/TabbedPanes.css" />
+                  <Text fx:id="lblNoMarks" layoutX="330.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="262.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
          </children></StackPane>
       <Pane layoutX="178.0" prefHeight="66.0" prefWidth="922.0" styleClass="top-bar-pane" stylesheets="@CSS/StudentDashboard_light.css" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0">
          <opaqueInsets>

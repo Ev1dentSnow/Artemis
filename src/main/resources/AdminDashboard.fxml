@@ -100,9 +100,9 @@
                <font>
                   <Font name="Roboto Medium" size="13.0" />
                </font></Label>
-            <Label layoutX="63.0" layoutY="640.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard_dark.css" text="Administrator" textFill="#d0cdcd">
+            <Label fx:id="lblUserRole" layoutX="63.0" layoutY="640.0" prefHeight="16.0" prefWidth="78.0" styleClass="label-medium" stylesheets="@CSS/AdminDashboard_dark.css" text="Teacher" textFill="#d0cdcd">
                <font>
-                  <Font name="Roboto Medium" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Label>
             <ImageView id="avatarr" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="signOut" layoutX="10.0" layoutY="506.0" mnemonicParsing="false" onAction="#signOutActionPerformed" prefHeight="35.0" prefWidth="130.0" styleClass="signout-button" stylesheets="@CSS/AdminDashboard_dark.css" text="Sign Out" textFill="WHITE" />

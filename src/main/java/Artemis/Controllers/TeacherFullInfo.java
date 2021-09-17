@@ -156,6 +156,15 @@ public class TeacherFullInfo extends Application implements Initializable {
     @FXML
     private void btnConfirmActionPerformed(ActionEvent event){
         event.consume();
+
+        if (postRequest) {
+
+        }
+
+        else {
+
+        }
+
     }
 
     @FXML

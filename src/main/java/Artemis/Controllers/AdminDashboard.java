@@ -71,12 +71,12 @@ import static javafx.collections.FXCollections.observableArrayList;
 
 public class AdminDashboard extends Application implements Initializable {
 
-
+    //permission level 1 -> teachers ; permission level 2 -> admins
+    private static int permissionLevel;
     private static String accessToken;
     private static int userId;
     private boolean studentsPanePrepared = false;
     private boolean teachersPanePrepared = false;
-
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
     private final String TEACHERS_PATH = "api/teachers";
@@ -108,7 +108,6 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private MFXButton btnRemoveStudent = new MFXButton();
 
-
     @FXML
     YearMonthView calendar = new YearMonthView();
     @FXML
@@ -130,33 +129,18 @@ public class AdminDashboard extends Application implements Initializable {
     Pane adminPane = new Pane();
     @FXML
     Button signOut = new Button();
-
-    //Students Pane Componenets
-
+    @FXML
+    Label lblUserRole = new Label();
     @FXML
     MFXTableView<Student> studentsTable = new MFXTableView<>();
     @FXML
     MFXTableView<Teacher> teachersTable = new MFXTableView<>();
-
-
     @FXML
     MFXButton btnViewFullInfo = new MFXButton();
     @FXML
     MFXButton btnRefreshStudents = new MFXButton();
 
-
-
-
-
-    //2nd Tab of Students Pane components
-
-
-
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
-
-
-
-
 
     public static void main(String[] args) {
         launch(args);
@@ -202,10 +186,7 @@ public class AdminDashboard extends Application implements Initializable {
             e.printStackTrace();
         }
 
-
     }
-
-
 
     /**
      * Executes a HTTP GET request to the supplied URL, and returns the response
@@ -266,15 +247,24 @@ public class AdminDashboard extends Application implements Initializable {
 
     @FXML
     private void studentsActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
-        event.consume();
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add(studentsPane);
 
-        if (!studentsPanePrepared) {
+        if (permissionLevel == 2) {
 
-            prepareStudentsPane();
-            studentsPanePrepared = true;
+            event.consume();
+            stackPane.getChildren().clear();
+            stackPane.getChildren().add(studentsPane);
+
+            if (!studentsPanePrepared) {
+
+                prepareStudentsPane();
+                studentsPanePrepared = true;
+            }
+
         }
+        else {
+            displayAlert("Only Admins may access this page", Alert.AlertType.ERROR);
+        }
+
     }
 
     @FXML
@@ -283,7 +273,6 @@ public class AdminDashboard extends Application implements Initializable {
         stackPane.getChildren().clear();
         stackPane.getChildren().add(adminPane);
     }
-
 
 
     //Student Pane 2nd tab method
@@ -338,12 +327,19 @@ public class AdminDashboard extends Application implements Initializable {
 
     @FXML
     private void teachersActionPerformed(ActionEvent event) throws IOException, ParseException, UnirestException {
-        event.consume();
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add(teachersPane);
 
-        if(!teachersPanePrepared) {
-            prepareTeachersPane();
+        if (permissionLevel == 2) {
+            event.consume();
+            stackPane.getChildren().clear();
+            stackPane.getChildren().add(teachersPane);
+
+            if (!teachersPanePrepared) {
+                prepareTeachersPane();
+            }
+
+        }
+        else {
+            displayAlert("Insufficient permissions, only admins may access this", Alert.AlertType.ERROR);
         }
     }
 
@@ -380,8 +376,6 @@ public class AdminDashboard extends Application implements Initializable {
         window.show();
         }
 
-
-
     /*
 
     ------------------------------------
@@ -398,6 +392,13 @@ public class AdminDashboard extends Application implements Initializable {
      */
 
     private void prepareHomePane() throws IOException, UnirestException {
+
+        if (permissionLevel == 1) {
+            lblUserRole.setText("Teacher");
+        }
+        else {
+            lblUserRole.setText("Administrator");
+        }
 
         /*
         IN THIS METHOD...
@@ -830,6 +831,15 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     //GETTERS AND SETTERS
+
+
+    public static int getPermissionLevel() {
+        return permissionLevel;
+    }
+
+    public static void setPermissionLevel(int permissionLevel) {
+        AdminDashboard.permissionLevel = permissionLevel;
+    }
 
     public static String getAccessToken() {
         return accessToken;

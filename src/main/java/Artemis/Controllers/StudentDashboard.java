@@ -95,6 +95,8 @@ public class StudentDashboard extends Application implements Initializable {
     //The "daily motivation" quote on the home pane
     @FXML
     Text quoteText = new Text();
+    @FXML
+    Text lblNoMarks = new Text();
 
     @FXML
     MFXTableView<Dots> dotsTable = new MFXTableView<>();
@@ -448,18 +450,25 @@ public class StudentDashboard extends Application implements Initializable {
          */
 
 
-        if(!marksPanePrepared){
+        if (!marksPanePrepared) {
+            boolean marksEmpty = false;
             String response = performHttpGet(App.BASEURL + MARKS_PATH);
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             Marks[] studentMarks = gson.fromJson(response, Marks[].class);
 
-            for(Marks mark : studentMarks){
-                mark.initialize();
+            if (studentMarks.length == 0) { // Handling a case where the student has no marks, and thus no tabs
+                marksEmpty = true;
             }
+
+            if (!marksEmpty) {
+
+                for (Marks mark : studentMarks) {
+                    mark.initialize();
+                }
 
             //First add the required year and subjects per year tabs to a hashmap
             HashMap<Integer, List<String>> yearAndSubjectTabsRequired = new HashMap<>();
-            for(int i = 0; i < studentMarks.length; i++) {
+            for (int i = 0; i < studentMarks.length; i++) {
 
                 Date dueDate = studentMarks[i].getAssignment().getDateDue();
                 Calendar calendar = Calendar.getInstance();
@@ -468,14 +477,12 @@ public class StudentDashboard extends Application implements Initializable {
 
                 String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
 
-                if(!yearAndSubjectTabsRequired.containsKey(year)){
+                if (!yearAndSubjectTabsRequired.containsKey(year)) {
                     List<String> subjectToBeAdded = new ArrayList<>();
                     subjectToBeAdded.add(currentSubject);
                     yearAndSubjectTabsRequired.put(year, subjectToBeAdded);
-                }
-
-                else if(yearAndSubjectTabsRequired.containsKey(year)){
-                    if(!yearAndSubjectTabsRequired.get(year).contains(currentSubject)){
+                } else if (yearAndSubjectTabsRequired.containsKey(year)) {
+                    if (!yearAndSubjectTabsRequired.get(year).contains(currentSubject)) {
                         List<String> amendedSubjectsList = yearAndSubjectTabsRequired.get(year);
                         amendedSubjectsList.add(currentSubject);
                         yearAndSubjectTabsRequired.put(year, amendedSubjectsList);
@@ -484,7 +491,7 @@ public class StudentDashboard extends Application implements Initializable {
             }
 
             //Now read from the hashmap and add the required tabs to the window
-            for(Map.Entry<Integer, List<String >> entry : yearAndSubjectTabsRequired.entrySet()){
+            for (Map.Entry<Integer, List<String>> entry : yearAndSubjectTabsRequired.entrySet()) {
                 int year = entry.getKey();
                 Tab yearTab = new Tab(String.valueOf(year));
                 formTabPane.getTabs().add(yearTab);
@@ -493,7 +500,7 @@ public class StudentDashboard extends Application implements Initializable {
                 JFXTabPane subjectsTabPane = new JFXTabPane();
                 yearTab.setContent(subjectsTabPane);
 
-                for(String subject : subjects){
+                for (String subject : subjects) {
                     Tab subjectTab = new Tab(subject);
                     AnchorPane background = new AnchorPane();
 
@@ -514,7 +521,7 @@ public class StudentDashboard extends Application implements Initializable {
             }
 
             //Finally, iterate through the student marks and add them to the correct tables/tabs
-            for(Marks mark : studentMarks){
+            for (Marks mark : studentMarks) {
                 Date dateDue = mark.getAssignment().getDateDue();
                 String subject = mark.getAssignment().getTeacher().getSubject();
 
@@ -523,13 +530,13 @@ public class StudentDashboard extends Application implements Initializable {
                 cal.setTime(dateDue);
                 int year = cal.get(Calendar.YEAR);
 
-                for(int a = 0; a < formTabPane.getTabs().size(); a++){
+                for (int a = 0; a < formTabPane.getTabs().size(); a++) {
                     Tab currentTab = formTabPane.getTabs().get(a);
-                    if(currentTab.getText().equals(String.valueOf(year))){
+                    if (currentTab.getText().equals(String.valueOf(year))) {
                         JFXTabPane subjectTabPane = (JFXTabPane) currentTab.getContent();
-                        for(int i = 0; i < subjectTabPane.getTabs().size(); i++){
+                        for (int i = 0; i < subjectTabPane.getTabs().size(); i++) {
                             Tab subjectTab = subjectTabPane.getTabs().get(i);
-                            if(subjectTab.getText().equals(subject)){
+                            if (subjectTab.getText().equals(subject)) {
                                 AnchorPane ap = (AnchorPane) subjectTab.getContent();
                                 MFXTableView marksTable = (MFXTableView) ap.getChildren().get(0);
 
@@ -544,6 +551,10 @@ public class StudentDashboard extends Application implements Initializable {
                         }
                     }
                 }
+            }
+        }
+            else {
+                lblNoMarks.setText("You have no marks");
             }
         }
         marksPanePrepared = true;

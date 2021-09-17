@@ -133,13 +133,16 @@ public class LoginController extends Application {
 
                     if(permissionLevel.contains("student")){
                         StudentDashboard.setUserId(userId);
-                       loadStudentDashboard(event);
+                        loadStudentDashboard(event);
                     }
                     else if(permissionLevel.contains("teacher")){
-                        loadTeacherDashboard(event);
+                        loadAdminDashboard(event);
+                        AdminDashboard.setPermissionLevel(1);
+                        AdminDashboard.setAccessToken(accessToken);
                     }
                     else if(permissionLevel.contains("admin")){
                         loadAdminDashboard(event);
+                        AdminDashboard.setPermissionLevel(2);
                         AdminDashboard.setAccessToken(accessToken);
                     }
                     else if(permissionLevel.contains("teacher") && permissionLevel.contains("admin")) //Some teachers are admins too!
@@ -193,9 +196,6 @@ public class LoginController extends Application {
         window.show();
     }
 
-    private void loadTeacherDashboard(ActionEvent event){
-
-    }
 
     private void loadAdminDashboard(ActionEvent event) throws IOException {
         AdminDashboard.setAccessToken(accessToken);
