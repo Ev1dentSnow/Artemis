@@ -210,13 +210,49 @@ public class TeacherFullInfo extends Application implements Initializable {
 
         if (noInvalidFields) {
 
+            Map<String, String> requestHeaders = new HashMap<>();
+            requestHeaders.put("accept", "application/json");
+            requestHeaders.put("Authorization", "Bearer " + accessToken);
+
             if (postRequest) {
+
+                HashMap<String, String> userDetails = new HashMap<String, String>();
+                userDetails.put("first_name", firstName);
+                userDetails.put("last_name", lastName);
+                userDetails.put("username", username);
+
+                if(txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", username); //Default password is the same as the student's username if none is supplied
+                }
+                else{
+                    userDetails.put("password", newPassword);
+                }
+
+                userDetails.put("dob", dob);
+                userDetails.put("email", email);
+                userDetails.put("house", house);
+
+                if (txaComments.getText().equals("")) {
+                    userDetails.remove("comments");
+                }
+
+                TeacherJSON teacher = new TeacherJSON(userDetails, subject);
+                Gson gson = new Gson();
+                String json = gson.toJson(teacher);
+
+                try {
+                    HttpResponse<JsonNode> response = Unirest.post(App.BASEURL + App.TEACHER_LIST_PATH)
+                            .headers(requestHeaders)
+                            .body(json)
+                            .asJson();
+                }
+                catch (UnirestException e) {
+                    displayAlert("An error occurred while sending data to the server", Alert.AlertType.ERROR);
+                }
 
             } else {
 
-
                 HashMap<String, String> userDetails = new HashMap<>();
-
                 userDetails.put("first_name", firstName);
                 userDetails.put("last_name", lastName);
                 userDetails.put("username", username);
@@ -246,13 +282,9 @@ public class TeacherFullInfo extends Application implements Initializable {
                 Gson gson = new Gson();
                 String json = gson.toJson(teacher);
 
-                Map<String, String> headers = new HashMap<>();
-                headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer " + accessToken);
-
                 try {
                     HttpResponse<JsonNode> response = Unirest.patch(App.BASEURL + App.TEACHER_LIST_PATH + currentTeacher.getId())
-                            .headers(headers)
+                            .headers(requestHeaders)
                             .body(json)
                             .asJson();
 
