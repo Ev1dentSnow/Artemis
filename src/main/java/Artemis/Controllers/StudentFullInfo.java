@@ -317,47 +317,47 @@ public class StudentFullInfo extends Application implements Initializable {
 
         boolean noInvalidFields = true;
 
-        if (invalidFields.contains(txfFirstName)){
+        if (invalidFields.contains(txfFirstName)) {
             triggerErrorLabel(lblFirstNameError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfLastName)){
+        if (invalidFields.contains(txfLastName)) {
             triggerErrorLabel(lblLastNameError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfUsername)){
+        if (invalidFields.contains(txfUsername)) {
             triggerErrorLabel(lblUsernameError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfDOB)){
+        if (invalidFields.contains(txfDOB)) {
             triggerErrorLabel(lblDobError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfEmail)){
+        if (invalidFields.contains(txfEmail)) {
             triggerErrorLabel(lblEmailError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfForm)){
+        if (invalidFields.contains(txfForm)) {
             triggerErrorLabel(lblFormError);
             noInvalidFields = false;
         }
-        if (invalidFields.contains(txfPrimaryContactName)){
+        if (invalidFields.contains(txfPrimaryContactName)) {
             triggerErrorLabel(lblPrimaryContactNameError);
             noInvalidFields = false;
         }
-        if(invalidFields.contains(txfPrimaryContactEmail)){
+        if (invalidFields.contains(txfPrimaryContactEmail)) {
             triggerErrorLabel(lblPrimaryContactEmailError);
             noInvalidFields = false;
         }
-        if(invalidFields.contains(txfSecondaryContactName)){
+        if (invalidFields.contains(txfSecondaryContactName)) {
             triggerErrorLabel(lblSecondaryContactNameError);
             noInvalidFields = false;
         }
-        if(invalidFields.contains(txfSecondaryContactEmail)){
+        if (invalidFields.contains(txfSecondaryContactEmail)) {
             triggerErrorLabel(lblSecondaryContactEmailError);
             noInvalidFields = false;
         }
-        if(houseComboBox.getSelectionModel().getSelectedItem() == null){
+        if (houseComboBox.getSelectionModel().getSelectedItem() == null){
             noInvalidFields = false;
             displayAlert("A house must be selected", Alert.AlertType.ERROR);
         }
@@ -414,6 +414,7 @@ public class StudentFullInfo extends Application implements Initializable {
                 userDetails.put("house", house);
                 userDetails.put("comments", comments);
 
+                //Remove empty fields
                 Iterator userDetailsIterator = userDetails.entrySet().iterator();
 
                 while (userDetailsIterator.hasNext()) {
@@ -434,7 +435,7 @@ public class StudentFullInfo extends Application implements Initializable {
                     CloseableHttpResponse wa = performHTTP_PATCH(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getId(), json);
                     System.out.println(EntityUtils.toString(wa.getEntity()));
                 } catch (IOException e) {
-                    displayAlert("An error occured while sending data to the server", Alert.AlertType.ERROR);
+                    displayAlert("An error occurred while sending data to the server", Alert.AlertType.ERROR);
                 }
             }
 
@@ -512,13 +513,13 @@ public class StudentFullInfo extends Application implements Initializable {
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
         //Generic text user info validation
-        if(firstName == null || firstName.equals("")){
+        if (firstName == null || firstName.equals("")) {
             invalidFields.add(txfFirstName);
         }
-        if(lastName == null || lastName.equals("")){
+        if (lastName == null || lastName.equals("")) {
             invalidFields.add(txfLastName);
         }
-        if(username == null || username.equals("")){
+        if (username == null || username.equals("")) {
             invalidFields.add(txfUsername);
         }
 
@@ -554,8 +555,8 @@ public class StudentFullInfo extends Application implements Initializable {
             invalidFields.add(txfForm);
         }
 
-        //Email Validation
-        if(email == null || email.equals("") || !pattern.matcher(email).matches()){
+        //Email format validation
+        if (email == null || email.equals("") || !pattern.matcher(email).matches()) {
             invalidFields.add(txfEmail);
         }
 

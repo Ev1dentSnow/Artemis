@@ -2,11 +2,19 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.House;
+import Artemis.Models.JSON.Serializers.TeacherJSON;
 import Artemis.Models.Student;
 import Artemis.Models.Teacher;
 import Artemis.Models.User;
 import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
+import com.mashape.unirest.request.body.RequestBodyEntity;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +31,11 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class TeacherFullInfo extends Application implements Initializable {
 
@@ -46,8 +56,6 @@ public class TeacherFullInfo extends Application implements Initializable {
     @FXML
     private Label lblUsernameError;
     @FXML
-    private Label lblDobError;
-    @FXML
     private Label lblEmailError;
     @FXML
     private TextField txfFirstName;
@@ -56,8 +64,6 @@ public class TeacherFullInfo extends Application implements Initializable {
     @FXML
     private TextField txfUsername;
     @FXML
-    private TextField txfDOB;
-    @FXML
     private TextField txfNewPassword;
     @FXML
     private TextField txfEmail;
@@ -65,6 +71,10 @@ public class TeacherFullInfo extends Application implements Initializable {
     private MFXComboBox<String> houseComboBox;
     @FXML
     private MFXComboBox<String> subjectComboBox;
+    @FXML
+    private MFXDatePicker dobDatePicker;
+    @FXML
+    private TextArea txaComments;
     @FXML
     private Button btnConfirm;
     @FXML
@@ -156,12 +166,105 @@ public class TeacherFullInfo extends Application implements Initializable {
     @FXML
     private void btnConfirmActionPerformed(ActionEvent event){
         event.consume();
+        resetErrorLabels();
 
-        if (postRequest) {
+        String firstName = txfFirstName.getText();
+        String lastName = txfLastName.getText();
+        String username = txfUsername.getText();
+        String dob = dobDatePicker.getDate().toString();
+        String newPassword = txfNewPassword.getText();
+        String email = txfEmail.getText();
+        String house = houseComboBox.getSelectionModel().getSelectedItem();
+        String comments = txaComments.getText();
+        String subject = subjectComboBox.getSelectionModel().getSelectedItem();
 
+        ArrayList<TextField> invalidFields = validateData(firstName, lastName, username, email);
+
+        boolean noInvalidFields = true;
+
+        if (invalidFields.contains(txfFirstName)) {
+            triggerErrorLabel(lblFirstNameError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfLastName)) {
+            triggerErrorLabel(lblLastNameError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfUsername)) {
+            triggerErrorLabel(lblUsernameError);
+            noInvalidFields = false;
+        }
+        if (invalidFields.contains(txfEmail)) {
+            triggerErrorLabel(lblEmailError);
+            noInvalidFields = false;
         }
 
-        else {
+        if (houseComboBox.getSelectionModel().getSelectedItem() == null) {
+            noInvalidFields = false;
+            displayAlert("A house must be selected", Alert.AlertType.ERROR);
+        }
+        if (subjectComboBox.getSelectionModel().getSelectedItem() == null) {
+            noInvalidFields = false;
+            displayAlert("A subject must be selected", Alert.AlertType.ERROR);
+        }
+
+        if (noInvalidFields) {
+
+            if (postRequest) {
+
+            } else {
+
+
+                HashMap<String, String> userDetails = new HashMap<>();
+
+                userDetails.put("first_name", firstName);
+                userDetails.put("last_name", lastName);
+                userDetails.put("username", username);
+
+                if(!txfNewPassword.getText().equals("")) {
+                    userDetails.put("password", newPassword);
+                }
+
+                userDetails.put("dob", dob);
+                userDetails.put("email", email);
+                userDetails.put("house", house);
+                userDetails.put("comments", comments);
+
+                //Remove empty fields
+                Iterator userDetailsIterator = userDetails.entrySet().iterator();
+
+                while (userDetailsIterator.hasNext()) {
+                    Map.Entry userDetailsElement = (Map.Entry) userDetailsIterator.next();
+                    String value = (String) userDetailsElement.getValue();
+
+                    if (value.equals("")) {
+                        userDetailsIterator.remove();
+                    }
+                }
+
+                TeacherJSON teacher = new TeacherJSON(userDetails, subject);
+                Gson gson = new Gson();
+                String json = gson.toJson(teacher);
+
+                Map<String, String> headers = new HashMap<>();
+                headers.put("accept", "application/json");
+                headers.put("Authorization", "Bearer " + accessToken);
+
+                try {
+                    HttpResponse<JsonNode> response = Unirest.patch(App.BASEURL + App.TEACHER_LIST_PATH + currentTeacher.getId())
+                            .headers(headers)
+                            .body(json)
+                            .asJson();
+
+                }
+                catch (UnirestException e) {
+                    displayAlert("An error occurred while sending data to the server", Alert.AlertType.ERROR);
+                }
+
+            }
+
+            Stage currentWindow = (Stage) btnConfirm.getScene().getWindow();
+            currentWindow.close();
 
         }
 
@@ -198,7 +301,10 @@ public class TeacherFullInfo extends Application implements Initializable {
         lblLastNameError.setStyle("-fx-text-fill: #202020;");
         lblUsernameError.setStyle("-fx-text-fill: #202020;");
         lblEmailError.setStyle("-fx-text-fill: #202020;");
-        lblDobError.setStyle("-fx-text-fill: #202020;");
+    }
+
+    private void triggerErrorLabel(Label errorLabel) {
+        errorLabel.setStyle("-fx-text-fill: red;");
     }
 
     private Optional<ButtonType> displayAlert(String content, Alert.AlertType alertType){
@@ -222,7 +328,6 @@ public class TeacherFullInfo extends Application implements Initializable {
         txfFirstName.setText(teacher.getFirstName());
         txfLastName.setText(teacher.getLastName());
         txfUsername.setText(teacher.getUsername());
-        txfDOB.setText(formatter.format(teacher.getDob()));
         txfNewPassword.setText("");
         txfEmail.setText(teacher.getEmail());
 
@@ -232,7 +337,6 @@ public class TeacherFullInfo extends Application implements Initializable {
         txfFirstName.setDisable(false);
         txfLastName.setDisable(false);
         txfUsername.setDisable(false);
-        txfDOB.setDisable(false);
         txfNewPassword.setDisable(false);
         txfEmail.setDisable(false);
         houseComboBox.setDisable(false);
@@ -243,11 +347,47 @@ public class TeacherFullInfo extends Application implements Initializable {
         txfFirstName.setDisable(true);
         txfLastName.setDisable(true);
         txfUsername.setDisable(true);
-        txfDOB.setDisable(true);
         txfNewPassword.setDisable(true);
         txfEmail.setDisable(true);
         houseComboBox.setDisable(true);
         subjectComboBox.setDisable(true);
+    }
+
+    private ArrayList<TextField> validateData(String firstName, String lastName, String username,
+                                              String email) {
+
+        ArrayList<TextField> invalidFields = new ArrayList<>();
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        if (firstName == null || firstName.equals("")) {
+            invalidFields.add(txfFirstName);
+        }
+        if (lastName == null || lastName.equals("")) {
+            invalidFields.add(txfLastName);
+        }
+        if (username == null || username.equals("")) {
+            invalidFields.add(txfUsername);
+        }
+
+        //Check if username is already taken
+        for(User user : usersList){
+            if(user.getUsername().equals(username)){
+                invalidFields.add(txfUsername);
+                displayAlert("This username has already been taken", Alert.AlertType.ERROR);
+            }
+        }
+
+        //Email format validation
+        if (email == null || email.equals("") || !pattern.matcher(email).matches()) {
+            invalidFields.add(txfEmail);
+        }
+        return invalidFields;
     }
 
 

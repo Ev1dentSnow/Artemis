@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -22,7 +23,7 @@
             <Font size="29.0" />
          </font>
       </Text>
-      <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="125.0" prefHeight="418.0" prefWidth="141.0">
+      <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="133.0" prefHeight="418.0" prefWidth="141.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
@@ -40,7 +41,7 @@
                   <Insets top="65.0" />
                </VBox.margin>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password (if change request received):" wrappingWidth="132.787109375">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password (if change request received):" textAlignment="RIGHT" wrappingWidth="132.787109375">
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
@@ -52,7 +53,7 @@
             </Text>
          </children>
       </VBox>
-      <VBox layoutX="169.0" layoutY="142.0" prefHeight="0.0" prefWidth="194.0">
+      <VBox layoutX="169.0" layoutY="142.0" prefHeight="418.0" prefWidth="194.0">
          <children>
             <TextField fx:id="txfFirstName" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css" />
             <Label fx:id="lblFirstNameError" prefHeight="17.0" prefWidth="167.0" text="This field cannot be empty" textFill="RED" />
@@ -68,16 +69,15 @@
                </VBox.margin>
             </TextField>
             <Label fx:id="lblUsernameError" maxHeight="50.0" prefHeight="30.0" prefWidth="194.0" text="Ensure that this field is not blank&#10;&#10;&#10;" textFill="RED" />
-            <TextField fx:id="txfDOB" layoutX="10.0" layoutY="166.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
-               <VBox.margin>
-                  <Insets top="38.0" />
-               </VBox.margin>
-            </TextField>
-            <Label fx:id="lblDobError" prefHeight="17.0" prefWidth="193.0" text="Correct Format: YYYY-MM-DD" textFill="RED" />
             <Label prefHeight="17.0" prefWidth="179.0" />
-            <TextField fx:id="txfNewPassword" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
+            <MFXDatePicker fx:id="dobDatePicker" colorText="true" lineColor="#ffffffb2" maxHeight="-Infinity" maxWidth="-Infinity" pickerColor="WHITE" prefHeight="30.0" prefWidth="208.0" style="-fx-foreground-color: white;">
                <VBox.margin>
                   <Insets top="10.0" />
+               </VBox.margin>
+            </MFXDatePicker>
+            <TextField fx:id="txfNewPassword" prefHeight="27.0" prefWidth="194.0" styleClass="text-fields" stylesheets="@CSS/StudentFullInfo.css">
+               <VBox.margin>
+                  <Insets top="50.0" />
                </VBox.margin>
             </TextField>
             <Label prefHeight="17.0" prefWidth="171.0" textFill="RED" />
@@ -140,7 +140,7 @@
       </Button>
       <Label layoutX="264.0" layoutY="116.0" text="Confirm" textFill="WHITE" />
       <Label layoutX="417.0" layoutY="116.0" text="Cancel" textFill="WHITE" />
-      <Button fx:id="btnResetPassword" layoutX="540.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetPasswordActionPerformed" prefHeight="29.0" prefWidth="184.0" styleClass="reset-password-button" stylesheets="@CSS/StudentFullInfo.css" text="Reset password to default" textFill="WHITE">
+      <Button fx:id="btnResetPassword" layoutX="540.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetPasswordActionPerformed" prefHeight="46.0" prefWidth="184.0" styleClass="reset-password-button" stylesheets="@CSS/StudentFullInfo.css" text="Reset password to same&#10;as username&#10;" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
