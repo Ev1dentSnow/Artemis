@@ -693,7 +693,7 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
-    private void addTeacherActionPerformed(ActionEvent event) throws IOException {
+    private void addTeacherActionPerformed(ActionEvent event) throws IOException, UnirestException, ParseException {
         event.consume();
         TeacherFullInfo.postRequest = true;
         AnchorPane teacherFullInfoPane = FXMLLoader.load(getClass().getResource("/TeacherFullInfo.fxml"));
@@ -703,6 +703,7 @@ public class AdminDashboard extends Application implements Initializable {
         teacherFullInfoStage.initModality(Modality.APPLICATION_MODAL);
         teacherFullInfoStage.showAndWait();
         TeacherFullInfo.postRequest = false;
+        prepareTeachersPane();
     }
 
     @FXML

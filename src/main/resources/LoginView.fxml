@@ -27,7 +27,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="404.0" prefHeight="556.0" prefWidth="489.0" styleClass="rightside-pane" stylesheets="@CSS/LoginViewStylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="404.0" prefHeight="556.0" prefWidth="439.0" styleClass="rightside-pane" stylesheets="@CSS/LoginViewStylesheet.css">
          <children>
             <Button fx:id="btnLogin" layoutX="68.0" layoutY="384.0" mnemonicParsing="false" onAction="#submitLoginDetails" prefHeight="37.0" prefWidth="354.0" styleClass="loginbtn" stylesheets="@CSS/LoginViewStylesheet.css" text="Login">
                <font>

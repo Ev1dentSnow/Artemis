@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class App extends Application{
@@ -32,11 +33,12 @@ public class App extends Application{
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-        Parent root = loader.load();
+        Region root = loader.load();
         Scene loginScene = new Scene(root);
         primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("/Images/ArtemisAlpha.png")));
         primaryStage.setTitle("Artemis");
         primaryStage.setScene(loginScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

@@ -211,7 +211,7 @@ public class TeacherFullInfo extends Application implements Initializable {
         if (noInvalidFields) {
 
             Map<String, String> requestHeaders = new HashMap<>();
-            requestHeaders.put("accept", "application/json");
+            requestHeaders.put("Content-Type", "application/json");
             requestHeaders.put("Authorization", "Bearer " + accessToken);
 
             if (postRequest) {

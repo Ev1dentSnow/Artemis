@@ -6,6 +6,10 @@
 -fx-background-color:#00468D;
 }
 
+.top-panel{
+    -fx-background-color: #282828;
+}
+
 .dashboard{
 -fx-background-color:#181818;
 -fx-background-radius:15px;
