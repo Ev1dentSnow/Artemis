@@ -63,7 +63,7 @@
                         <Font name="Roboto Medium" size="13.0" />
                      </font>
                   </Button>
-                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#timetablesActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Marks   " textFill="WHITE">
+                  <Button graphicTextGap="20.0" mnemonicParsing="false" onAction="#marksActionPerformed" prefHeight="60.0" prefWidth="151.0" styleClass="sidebar-buttons" text="Marks   " textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -154,7 +154,6 @@
          </children></Pane>
       <StackPane fx:id="stackPane" layoutX="150.0" layoutY="68.0" prefHeight="668.0" prefWidth="1042.0">
          <children>
-            <Pane id="TimetablesPane" fx:id="timetablesPane" prefHeight="200.0" prefWidth="200.0" />
             <Pane id="HomePane" fx:id="homePane" prefHeight="606.0" prefWidth="1012.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
                   <Pane id="WeatherCard" layoutX="540.0" layoutY="355.0" prefHeight="272.0" prefWidth="436.0" styleClass="weather-panel" stylesheets="@CSS/AdminDashboard_dark.css">
@@ -469,6 +468,31 @@
                   </VBox>
                </children>
             </Pane>
+            <Pane id="marksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
+               <children>
+                  <Text fill="WHITE" layoutX="97.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 1 - Select a class">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <HBox layoutX="52.0" layoutY="78.0" prefHeight="569.0" prefWidth="973.0" spacing="50.0">
+                     <children>
+                        <ListView fx:id="lstClassList" onMouseClicked="#classListClicked" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstStudentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#studentsListClicked" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstAssignmentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#assignmentsListClicked" prefHeight="487.0" prefWidth="277.0" />
+                     </children>
+                  </HBox>
+                  <Text fill="WHITE" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 2 - Select a student">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="730.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 3 - Select an assignment">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
          </children>
       </StackPane>
    </children>

@@ -50,7 +50,7 @@ import java.util.List;
 
 public class LoginController extends Application {
 
-    private static final String LOGIN_PATH = "api/authentication";
+    private static final String LOGIN_PATH = "api/auth";
 
     private boolean keyTyped = true;
     @FXML
@@ -136,8 +136,8 @@ public class LoginController extends Application {
                         loadStudentDashboard(event);
                     }
                     else if(permissionLevel.contains("teacher")){
-                        loadAdminDashboard(event);
                         AdminDashboard.setPermissionLevel(1);
+                        loadAdminDashboard(event);
                         AdminDashboard.setAccessToken(accessToken);
                     }
                     else if(permissionLevel.contains("admin")){

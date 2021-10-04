@@ -3,6 +3,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
+import Artemis.Models.JSON.Serializers.StudentClassJSON;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.JSON.Serializers.TeacherJSON;
 import Artemis.Models.Student;
@@ -14,7 +15,6 @@ import com.calendarfx.view.YearMonthView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -25,6 +25,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,27 +38,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
-import java.net.ConnectException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,7 +57,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.*;
-import io.github.palexdev.materialfx.*;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -77,9 +69,10 @@ public class AdminDashboard extends Application implements Initializable {
     private static int userId;
     private boolean studentsPanePrepared = false;
     private boolean teachersPanePrepared = false;
+    private boolean marksPanePrepared = false;
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
-    private final String TEACHERS_PATH = "api/teachers";
+    private final String TEACHERS_PATH = "api/teachers/";
     private ObservableList<Teacher> teachersList;
     private ObservableList<Student> studentsList;
 
@@ -124,7 +117,7 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     Pane teachersPane = new Pane();
     @FXML
-    Pane timetablesPane = new Pane();
+    Pane marksPane = new Pane();
     @FXML
     Pane adminPane = new Pane();
     @FXML
@@ -139,6 +132,12 @@ public class AdminDashboard extends Application implements Initializable {
     MFXButton btnViewFullInfo = new MFXButton();
     @FXML
     MFXButton btnRefreshStudents = new MFXButton();
+    @FXML
+    private ListView lstClassList = new ListView();
+    @FXML
+    private ListView lstStudentsList = new ListView();
+    @FXML
+    private ListView lstAssignmentsList = new ListView();
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -268,6 +267,18 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
+    private void marksActionPerformed(ActionEvent event) {
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(marksPane);
+
+        if (!marksPanePrepared) {
+            prepareMarksPane();
+            marksPanePrepared = true;
+        }
+    }
+
+    @FXML
     private void adminPanelActionPerformed(ActionEvent event){
         event.consume();
         stackPane.getChildren().clear();
@@ -343,12 +354,6 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
-    @FXML
-    private void timetablesActionPerformed(ActionEvent event){
-        event.consume();
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add(timetablesPane);
-    }
 
     /**
      * Closes the window, notifies the API it can invalidate the access token,
@@ -564,6 +569,52 @@ public class AdminDashboard extends Application implements Initializable {
         else if(response.getStatus() == 403){
             displayAlert("Forbidden, please re-authenticate", Alert.AlertType.ERROR);
         }
+    }
+
+    private void prepareMarksPane() {
+
+        HttpResponse response = null;
+        try {
+            response = performHttpGet(App.BASEURL + TEACHERS_PATH + userId + "/classes");
+        } catch (UnirestException e) {
+            displayAlert("There was an error fetching marks from the server", Alert.AlertType.ERROR);
+        }
+
+        if (response.getStatus() == 200) {
+            StudentClassJSON.setToStringNumber(0);
+            Gson gson = new Gson();
+            StudentClassJSON[] studentClassJSONs = gson.fromJson(response.getBody().toString(), StudentClassJSON[].class);
+
+            for (StudentClassJSON currentClass : studentClassJSONs) {
+                lstClassList.getItems().add(currentClass);
+            }
+        }
+    }
+
+
+    @FXML
+    private void classListClicked(MouseEvent event) throws UnirestException {
+
+        event.consume();
+        lstStudentsList.getItems().clear();
+        StudentClassJSON.setToStringNumber(1);
+        //HttpResponse response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH);
+        for (int i = 0; i < lstClassList.getItems().size(); i++) {
+            StudentClassJSON currentStudent = (StudentClassJSON) lstClassList.getItems().get(i);
+            for (int j : currentStudent.getClasss().getStudentIDs()) {
+                if (Integer.parseInt(currentStudent.getStudent().getUser_details().get("id")) == j) {
+                    lstStudentsList.getItems().add(currentStudent);
+                }
+            }
+        }
+
+    }
+
+    @FXML
+    private void StudentsListClicked(MouseEvent event) {
+
+        event.consume();
+
     }
 
 

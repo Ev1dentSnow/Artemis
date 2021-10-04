@@ -10,11 +10,14 @@ public class Classes {
     private String name;
     @SerializedName(value = "graduation_date")
     private Date graduationDate;
+    @SerializedName(value = "students")
+    private int[] studentIDs;
 
-    public Classes(int id, String name, Date graduationDate) {
+    public Classes(int id, String name, Date graduationDate, int[] studentIDs) {
         this.id = id;
         this.name = name;
         this.graduationDate = graduationDate;
+        this.studentIDs = studentIDs;
     }
 
     public int getId() {
@@ -39,5 +42,13 @@ public class Classes {
 
     public void setGraduationDate(Date graduationDate) {
         this.graduationDate = graduationDate;
+    }
+
+    public int[] getStudentIDs() {
+        return studentIDs;
+    }
+
+    public void setStudentIDs(int[] studentIDs) {
+        this.studentIDs = studentIDs;
     }
 }
