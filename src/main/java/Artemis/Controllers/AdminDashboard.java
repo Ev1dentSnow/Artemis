@@ -3,9 +3,11 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Announcement;
+import Artemis.Models.JSON.Serializers.AssignMarkJSON;
 import Artemis.Models.JSON.Serializers.StudentClassJSON;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.JSON.Serializers.TeacherJSON;
+import Artemis.Models.Marks;
 import Artemis.Models.Student;
 import Artemis.Models.Teacher;
 import Artemis.Models.Weather.Daily;
@@ -25,8 +27,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,7 +49,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,7 +68,8 @@ public class AdminDashboard extends Application implements Initializable {
     private static int userId;
     private boolean studentsPanePrepared = false;
     private boolean teachersPanePrepared = false;
-    private boolean marksPanePrepared = false;
+    private boolean editMarksPanePrepared = false;
+    private boolean enterMarksPanePrepared = false;
     private final String ANNOUCEMENTS_PATH = "api/announcements/";
     private final String WEATHER_PATH = "api/weather";
     private final String TEACHERS_PATH = "api/teachers/";
@@ -79,6 +79,7 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private ListView<Announcement> announcementList;
     private Announcement selectedAnnouncement;
+    private StudentClassJSON selectedClass;
 
     //Weather "widget" images
 
@@ -117,7 +118,11 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     Pane teachersPane = new Pane();
     @FXML
-    Pane marksPane = new Pane();
+    Pane marksHomePane = new Pane();
+    @FXML
+    Pane editMarksPane = new Pane();
+    @FXML
+    Pane enterMarksPane = new Pane();
     @FXML
     Pane adminPane = new Pane();
     @FXML
@@ -138,6 +143,16 @@ public class AdminDashboard extends Application implements Initializable {
     private ListView lstStudentsList = new ListView();
     @FXML
     private ListView lstAssignmentsList = new ListView();
+    @FXML
+    private ListView lstClassList1 = new ListView();
+    @FXML
+    private ListView lstStudentsList1 = new ListView();
+    @FXML
+    private ListView lstAssignmentsList1 = new ListView();
+    @FXML
+    private MFXButton btnEditExistingMarks = new MFXButton();
+    @FXML
+    private MFXButton btnEnterNewMarks = new MFXButton();
 
     final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
@@ -201,6 +216,18 @@ public class AdminDashboard extends Application implements Initializable {
                 .asJson();
     }
 
+    private HttpResponse performHttpPatch(String url, String jsonBody) throws UnirestException {
+
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Content-Type", "application/json");
+        requestHeaders.put("Authorization", "Bearer " + accessToken);
+
+        return Unirest.patch(url)
+                .headers(requestHeaders)
+                .body(jsonBody)
+                .asJson();
+    }
+
     private HttpResponse performHttpDelete(String url) throws UnirestException {
 
         return Unirest.delete(url)
@@ -258,23 +285,38 @@ public class AdminDashboard extends Application implements Initializable {
                 prepareStudentsPane();
                 studentsPanePrepared = true;
             }
-
         }
         else {
             displayAlert("Only Admins may access this page", Alert.AlertType.ERROR);
         }
-
     }
 
     @FXML
     private void marksActionPerformed(ActionEvent event) {
         event.consume();
         stackPane.getChildren().clear();
-        stackPane.getChildren().add(marksPane);
+        stackPane.getChildren().add(marksHomePane);
+    }
 
-        if (!marksPanePrepared) {
-            prepareMarksPane();
-            marksPanePrepared = true;
+    @FXML
+    private void enterNewMarksActionPerformed(ActionEvent event) {
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(enterMarksPane);
+        if (!enterMarksPanePrepared) {
+            prepareEnterMarksPane();
+            enterMarksPanePrepared = true;
+        }
+    }
+
+    @FXML
+    private void editExistingMarksActionPerformed(ActionEvent event) {
+        event.consume();
+        stackPane.getChildren().clear();
+        stackPane.getChildren().add(editMarksPane);
+        if (!editMarksPanePrepared) {
+            prepareEditMarksPane();
+            editMarksPanePrepared = true;
         }
     }
 
@@ -571,7 +613,7 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
-    private void prepareMarksPane() {
+    private void prepareEditMarksPane() {
 
         HttpResponse response = null;
         try {
@@ -591,30 +633,125 @@ public class AdminDashboard extends Application implements Initializable {
         }
     }
 
+    private void prepareEnterMarksPane() {
+
+        HttpResponse response = null;
+        try {
+            response = performHttpGet(App.BASEURL + TEACHERS_PATH + userId + "/classes");
+        } catch (UnirestException e) {
+            displayAlert("There was an error fetching marks from the server", Alert.AlertType.ERROR);
+        }
+
+        if (response.getStatus() == 200) {
+            StudentClassJSON.setToStringNumber(0);
+            Gson gson = new Gson();
+            StudentClassJSON[] studentClassJSONs = gson.fromJson(response.getBody().toString(), StudentClassJSON[].class);
+
+            for (StudentClassJSON currentClass : studentClassJSONs) {
+                lstClassList1.getItems().add(currentClass);
+            }
+        }
+
+    }
+
 
     @FXML
     private void classListClicked(MouseEvent event) throws UnirestException {
 
         event.consume();
         lstStudentsList.getItems().clear();
+
+
+
+        //Checks whether the user has selected a different class from the class list or not
+        if (selectedClass != lstClassList.getSelectionModel().getSelectedItem()) {
+            StudentClassJSON.setToStringNumber(0);
+        }
+
+        //Add only students that are part of the selected class to the students list
+
         StudentClassJSON.setToStringNumber(1);
-        //HttpResponse response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH);
         for (int i = 0; i < lstClassList.getItems().size(); i++) {
             StudentClassJSON currentStudent = (StudentClassJSON) lstClassList.getItems().get(i);
-            for (int j : currentStudent.getClasss().getStudentIDs()) {
-                if (Integer.parseInt(currentStudent.getStudent().getUser_details().get("id")) == j) {
-                    lstStudentsList.getItems().add(currentStudent);
-                }
+
+            StudentClassJSON currentClass = (StudentClassJSON) lstClassList.getSelectionModel().getSelectedItem();
+            if (currentStudent.getClasss().getId() == currentClass.getClasss().getId()) {
+                lstStudentsList.getItems().add(currentStudent);
             }
+
+        }
+        selectedClass = (StudentClassJSON) lstClassList.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void studentsListClicked(MouseEvent event) {
+
+        event.consume();
+        lstAssignmentsList.getItems().clear();
+        StudentClassJSON current = (StudentClassJSON) lstStudentsList.getSelectionModel().getSelectedItem();
+        String studentID = current.getStudent().getUser_details().get("id");
+
+        HttpResponse response = null;
+        try {
+            response = performHttpGet(App.BASEURL + App.STUDENT_LIST_PATH + studentID + "/marks");
+        } catch (UnirestException e) {
+            displayAlert("Error fetching data from server", Alert.AlertType.ERROR);
+        }
+
+        if (response.getStatus() == 200) {
+            Gson gson = new Gson();
+            Marks[] marks = gson.fromJson(response.getBody().toString(), Marks[].class);
+
+            for (Marks mark : marks) {
+                lstAssignmentsList.getItems().add(mark);
+            }
+        }
+        else {
+            displayAlert("Error fetching data from server", Alert.AlertType.ERROR);
         }
 
     }
 
     @FXML
-    private void StudentsListClicked(MouseEvent event) {
-
+    private void assignmentsListClicked(MouseEvent event) {
         event.consume();
+        Marks selectedMark = (Marks) lstAssignmentsList.getSelectionModel().getSelectedItem();
+        if (selectedMark != null) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Edit mark");
+            dialog.setHeaderText("Current Mark: " + selectedMark.getMarkAwarded() + "/" + selectedMark.getAssignment().getMaxMarks());
+            dialog.setContentText("New mark (only quantity of marks to be awarded without a slash): ");
 
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()){
+                selectedMark.setMarkAwarded(Double.parseDouble(result.get()));
+                StudentClassJSON currentStudent = (StudentClassJSON) lstStudentsList.getSelectionModel().getSelectedItem();
+
+                HttpResponse response = null;
+                AssignMarkJSON assignMarkJSON = new AssignMarkJSON();
+                assignMarkJSON.setAssignment_id(selectedMark.getAssignment().getId());
+                assignMarkJSON.setStudent_id(Integer.parseInt(currentStudent.getStudent().getUser_details().get("id")));
+                assignMarkJSON.setClass_id(selectedMark.getClassId());
+                assignMarkJSON.setMark_awarded(selectedMark.getMarkAwarded());
+
+                Gson gson = new Gson();
+                String jsonBody = gson.toJson(assignMarkJSON);
+
+                try {
+                    response = performHttpPatch(App.BASEURL + App.STUDENT_LIST_PATH + currentStudent.getStudent().getUser_details().get("id") + "/marks/" + selectedMark.getId(), jsonBody);
+                } catch (UnirestException e) {
+                    e.printStackTrace();
+                }
+
+                if (response.getStatus() == 200) {
+                    displayAlert("Mark updated successfully", Alert.AlertType.INFORMATION);
+                }
+                else {
+                    displayAlert("Error sending data to the server", Alert.AlertType.ERROR);
+                }
+            }
+        }
     }
 
 

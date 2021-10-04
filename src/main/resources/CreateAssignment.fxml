@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="596.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Artemis.Controllers.PublishNewAnnouncement">
+   <children>
+      <VBox layoutX="86.0" layoutY="100.0" prefHeight="251.0" prefWidth="423.0" spacing="10.0">
+         <children>
+            <VBox prefHeight="66.0" prefWidth="454.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="117.0" text="Assignment Name" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <MFXTextField fx:id="txfAssignmentName" lineColor="WHITE" lineStrokeCap="SQUARE" prefHeight="25.0" prefWidth="548.0" style="-fx-text-fill: #FFFFFF;" unfocusedLineColor="#6e6e6e" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="454.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="256.0" text="Maximum Marks (enter a decimal value)" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <MFXTextField fx:id="txfMaxMarks" lineColor="WHITE" lineStrokeCap="SQUARE" prefHeight="25.0" prefWidth="548.0" style="-fx-text-fill: #FFFFFF;" unfocusedLineColor="#6e6e6e" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="106.0" prefHeight="66.0" prefWidth="454.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="99.0" text="Date assigned" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <MFXDatePicker fx:id="dateAssigned" lineColor="#ffffffb2" maxHeight="-Infinity" maxWidth="-Infinity" pickerColor="WHITE" prefHeight="30.0" prefWidth="125.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="162.0" prefHeight="66.0" prefWidth="454.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="99.0" text="Date due" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <MFXDatePicker fx:id="dateDue" lineColor="#ffffffb2" maxHeight="-Infinity" maxWidth="-Infinity" pickerColor="WHITE" prefHeight="30.0" prefWidth="125.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox layoutX="87.0" layoutY="403.0" prefHeight="50.0" prefWidth="423.0" spacing="20.0">
+         <children>
+            <MFXButton onAction="#createActionPerformed" prefHeight="37.0" prefWidth="134.0" rippleColor="WHITE" style="-fx-background-color: #198754;" text="Create" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/icons8-tick-box-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+            <MFXButton layoutX="10.0" layoutY="10.0" onAction="#cancelActionPerformed" prefHeight="37.0" prefWidth="134.0" rippleColor="WHITE" style="-fx-background-color: #dc3545;" text="Cancel" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/icons8-close-window-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+         </children>
+      </HBox>
+      <Label layoutX="156.0" layoutY="41.0" prefHeight="28.0" prefWidth="238.0" text="Create a new assignment" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

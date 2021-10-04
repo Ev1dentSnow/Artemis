@@ -419,9 +419,92 @@
                      </tabs>
                   </JFXTabPane>
                </children></Pane>
+            <Pane id="marksPane" fx:id="marksHomePane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
+               <children>
+                  <HBox layoutX="72.0" layoutY="73.0" prefHeight="560.0" prefWidth="894.0" spacing="40.0">
+                     <children>
+                        <MFXButton fx:id="btnEnterNewMarks" contentDisplay="TOP" onAction="#enterNewMarksActionPerformed" prefHeight="560.0" prefWidth="426.0" style="-fx-background-color: #0275d8 #0275d8;" text="Enter new marks" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="82.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Images/icons8-business-report-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MFXButton>
+                        <MFXButton fx:id="btnEditExistingMarks" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" onAction="#editExistingMarksActionPerformed" prefHeight="560.0" prefWidth="426.0" style="-fx-background-color: #ffc107 #ffc107;" text="Edit existing marks" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="82.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Images/icons8-search-client-white-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane id="marksPane" fx:id="editMarksPane" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
+               <children>
+                  <Text fill="WHITE" layoutX="97.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 1 - Select a class">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <HBox layoutX="52.0" layoutY="78.0" prefHeight="569.0" prefWidth="973.0" spacing="50.0">
+                     <children>
+                        <ListView fx:id="lstClassList" onMouseClicked="#classListClicked" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstStudentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#studentsListClicked" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstAssignmentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#assignmentsListClicked" prefHeight="487.0" prefWidth="277.0" />
+                     </children>
+                  </HBox>
+                  <Text fill="WHITE" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 2 - Select a student">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="730.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 3 - Select an assignment">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+            <Pane id="marksPane" fx:id="enterMarksPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
+               <children>
+                  <HBox layoutX="40.0" layoutY="68.0" prefHeight="569.0" prefWidth="973.0" spacing="50.0">
+                     <children>
+                        <ListView fx:id="lstClassList1" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstStudentsList1" layoutX="10.0" layoutY="10.0" prefHeight="487.0" prefWidth="277.0" />
+                        <ListView fx:id="lstAssignmentsList1" layoutX="10.0" layoutY="10.0" prefHeight="487.0" prefWidth="277.0" />
+                     </children>
+                  </HBox>
+                  <Text fill="WHITE" layoutX="81.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 1 - Select a class">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="398.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 2 - Select a student">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="710.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 3 - Select an assignment">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
             <Pane id="AdminPane" fx:id="adminPane" prefHeight="681.0" prefWidth="1042.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
                <children>
-                  <VBox layoutX="93.0" layoutY="46.0" prefHeight="557.0" prefWidth="870.0">
+                  <VBox layoutX="93.0" layoutY="46.0" prefHeight="557.0" prefWidth="870.0" spacing="30.0">
                      <children>
                         <HBox prefHeight="329.0" prefWidth="870.0" spacing="50.0">
                            <children>
@@ -463,36 +546,25 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0" />
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0">
+                           <children>
+                              <MFXButton contentDisplay="TOP" onAction="#createNewAssignmentActionPerformed" prefHeight="279.0" prefWidth="260.0" rippleColor="WHITE" style="-fx-background-color: #0275d8;" text="Create new&#10;assignment&#10;" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/icons8-books-48.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                           </children></HBox>
                      </children>
                   </VBox>
                </children>
             </Pane>
-            <Pane id="marksPane" fx:id="marksPane" prefHeight="200.0" prefWidth="200.0" styleClass="background-dark" stylesheets="@CSS/AdminDashboard_dark.css">
-               <children>
-                  <Text fill="WHITE" layoutX="97.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 1 - Select a class">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Text>
-                  <HBox layoutX="52.0" layoutY="78.0" prefHeight="569.0" prefWidth="973.0" spacing="50.0">
-                     <children>
-                        <ListView fx:id="lstClassList" onMouseClicked="#classListClicked" prefHeight="487.0" prefWidth="277.0" />
-                        <ListView fx:id="lstStudentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#studentsListClicked" prefHeight="487.0" prefWidth="277.0" />
-                        <ListView fx:id="lstAssignmentsList" layoutX="10.0" layoutY="10.0" onMouseClicked="#assignmentsListClicked" prefHeight="487.0" prefWidth="277.0" />
-                     </children>
-                  </HBox>
-                  <Text fill="WHITE" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 2 - Select a student">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="730.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Step 3 - Select an assignment">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Text>
-               </children></Pane>
          </children>
       </StackPane>
    </children>

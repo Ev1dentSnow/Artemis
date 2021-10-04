@@ -92,4 +92,8 @@ public class Marks {
    public void setClassId(int classId) {
       this.classId = classId;
    }
+
+   public String toString() {
+      return assignment.getAssignmentName();
+   }
 }
