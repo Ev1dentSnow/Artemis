@@ -60,8 +60,6 @@ public class CreateNewAssignment extends Application {
         LocalDate da = dateAssigned.getDate();
         LocalDate dd = dateDue.getDate();
 
-
-
         Assignment newAssignment = new Assignment();
         newAssignment.setAssignmentName(assignmentName);
         newAssignment.setMaxMarks(maxMarks);
@@ -89,15 +87,14 @@ public class CreateNewAssignment extends Application {
             e.printStackTrace();
         }
 
-        if (response.getStatusLine().getStatusCode() == 200) {
+        if (response.getStatusLine().getStatusCode() == 201) {
             displayAlert("Assignment created successfully!", Alert.AlertType.INFORMATION);
+            Stage currentWindow = (Stage) txfAssignmentName.getScene().getWindow();
+            currentWindow.close();
         }
         else {
             displayAlert("Error sending data to the server", Alert.AlertType.ERROR);
         }
-
-
-
 
     }
 

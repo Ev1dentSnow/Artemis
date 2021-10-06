@@ -957,15 +957,22 @@ public class AdminDashboard extends Application implements Initializable {
     @FXML
     private void createNewAssignmentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
-        CreateNewAssignment.setAccessToken(accessToken);
-        CreateNewAssignment.setTeacherID(userId);
-        Stage stage = new Stage();
-        AnchorPane ap = FXMLLoader.load(getClass().getResource("/CreateAssignment.fxml"));
-        Scene scene = new Scene(ap);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+
+        //Only teachers may create new assignments, not admins
+        if (permissionLevel != 1) {
+            displayAlert("Only teachers may create new assignments, not admins", Alert.AlertType.ERROR);
+        }
+        else {
+            CreateNewAssignment.setAccessToken(accessToken);
+            CreateNewAssignment.setTeacherID(userId);
+            Stage stage = new Stage();
+            AnchorPane ap = FXMLLoader.load(getClass().getResource("/CreateAssignment.fxml"));
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
 
     }
 
