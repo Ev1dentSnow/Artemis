@@ -546,7 +546,7 @@
                               </MFXButton>
                            </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0">
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="329.0" prefWidth="870.0" spacing="50.0">
                            <children>
                               <MFXButton contentDisplay="TOP" onAction="#createNewAssignmentActionPerformed" prefHeight="279.0" prefWidth="260.0" rippleColor="WHITE" style="-fx-background-color: #0275d8;" text="Create new&#10;assignment&#10;" textFill="WHITE">
                                  <font>
@@ -556,6 +556,30 @@
                                     <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@Images/icons8-books-48.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                              <MFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" onAction="#createNewDotActionPerformed" prefHeight="279.0" prefWidth="260.0" rippleColor="WHITE" style="-fx-background-color: #0275d8;" text="Give student dot" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/icons8-control-panel-64.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                              <MFXButton contentDisplay="TOP" layoutX="320.0" layoutY="10.0" onAction="#deleteDotActionPerformed" prefHeight="279.0" prefWidth="260.0" rippleColor="WHITE" style="-fx-background-color: #dc3545#dc3545 #dc3545#dc3545;" text="Remove student dot" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="86.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Images/delete-bin-line.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

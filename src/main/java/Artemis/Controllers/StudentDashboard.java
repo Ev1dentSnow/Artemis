@@ -6,8 +6,7 @@ import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.jfoenix.controls.JFXTabPane;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -453,15 +452,24 @@ public class StudentDashboard extends Application implements Initializable {
         if (!marksPanePrepared) {
             boolean marksEmpty = false;
             String response = performHttpGet(App.BASEURL + MARKS_PATH);
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-            Marks[] studentMarks = gson.fromJson(response, Marks[].class);
 
-            if (studentMarks.length == 0) { // Handling a case where the student has no marks, and thus no tabs
+            if (response.equals("[]")) { //Handling a case where the student has no marks, and thus no tabs
                 marksEmpty = true;
             }
 
-            if (!marksEmpty) {
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd")
+                    //registering this type adapter allows the date to be deserialized into a LocalDate instead of a Date, preventing a runtime exception
+                    .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>(){
+                        @Override
+                        public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                            return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
+                        }
+            }).create();
 
+            Marks[] studentMarks = gson.fromJson(response, Marks[].class);
+
+            if (!marksEmpty) {
                 for (Marks mark : studentMarks) {
                     mark.initialize();
                 }
@@ -470,10 +478,8 @@ public class StudentDashboard extends Application implements Initializable {
             HashMap<Integer, List<String>> yearAndSubjectTabsRequired = new HashMap<>();
             for (int i = 0; i < studentMarks.length; i++) {
 
-                Date dueDate = studentMarks[i].getAssignment().getDateDue();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(dueDate);
-                int year = calendar.get(Calendar.YEAR);
+                LocalDate dueDate = studentMarks[i].getAssignment().getDateDue();
+                int year = dueDate.getYear();
 
                 String currentSubject = studentMarks[i].getAssignment().getTeacher().getSubject();
 
@@ -522,13 +528,11 @@ public class StudentDashboard extends Application implements Initializable {
 
             //Finally, iterate through the student marks and add them to the correct tables/tabs
             for (Marks mark : studentMarks) {
-                Date dateDue = mark.getAssignment().getDateDue();
+                LocalDate dateDue = mark.getAssignment().getDateDue();
                 String subject = mark.getAssignment().getTeacher().getSubject();
 
 
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(dateDue);
-                int year = cal.get(Calendar.YEAR);
+                int year = dateDue.getYear();
 
                 for (int a = 0; a < formTabPane.getTabs().size(); a++) {
                     Tab currentTab = formTabPane.getTabs().get(a);
@@ -599,11 +603,11 @@ public class StudentDashboard extends Application implements Initializable {
 
             MFXTableColumn<Dots> colID = new MFXTableColumn<>("ID", Comparator.comparing(Dots::getId));
             MFXTableColumn<Dots> colReason = new MFXTableColumn<>("Reason", Comparator.comparing(Dots::getReason));
-            MFXTableColumn<Dots> colGivenBy = new MFXTableColumn<>("Given by", Comparator.comparing(Dots::getAssigningTeacherFullName));
+            MFXTableColumn<Dots> colGivenBy = new MFXTableColumn<>("Assigning teacher ID", Comparator.comparing(Dots::getAssigningTeacherId));
 
             colID.setRowCellFunction(dots -> new MFXTableRowCell(String.valueOf(dots.getId())));
             colReason.setRowCellFunction(dots -> new MFXTableRowCell(dots.getReason()));
-            colGivenBy.setRowCellFunction(dots -> new MFXTableRowCell(dots.getAssigningTeacherFullName()));
+            colGivenBy.setRowCellFunction(dots -> new MFXTableRowCell(String.valueOf(dots.getAssigningTeacherId())));
 
             dotsTable.setItems(dotsObservableList);
             dotsTable.getTableColumns().addAll(colID, colReason, colGivenBy);

@@ -2,20 +2,16 @@ package Artemis.Controllers;
 
 
 import Artemis.App;
-import Artemis.Models.Announcement;
+import Artemis.Models.*;
 import Artemis.Models.JSON.Serializers.AssignMarkJSON;
 import Artemis.Models.JSON.Serializers.StudentClassJSON;
 import Artemis.Models.JSON.Serializers.StudentJSON;
 import Artemis.Models.JSON.Serializers.TeacherJSON;
-import Artemis.Models.Marks;
-import Artemis.Models.Student;
-import Artemis.Models.Teacher;
 import Artemis.Models.Weather.Daily;
 import Artemis.Models.Weather.ForecastWeather;
 import Artemis.Models.Weather.Weather;
 import com.calendarfx.view.YearMonthView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -47,8 +43,17 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.ConnectException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -699,7 +704,17 @@ public class AdminDashboard extends Application implements Initializable {
         }
 
         if (response.getStatus() == 200) {
-            Gson gson = new Gson();
+
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd")
+                    //registering this type adapter allows the date to be deserialized into a LocalDate instead of a Date, preventing a runtime exception
+                    .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>(){
+                        @Override
+                        public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                            return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
+                        }
+                    }).create();
+
             Marks[] marks = gson.fromJson(response.getBody().toString(), Marks[].class);
 
             for (Marks mark : marks) {
@@ -881,6 +896,79 @@ public class AdminDashboard extends Application implements Initializable {
     }
 
     @FXML
+    private void deleteDotActionPerformed(ActionEvent event) {
+        event.consume();
+        HttpResponse response = null;
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
+        int studentID = 0;
+
+        if (selectedStudent != null) {
+            studentID = selectedStudent.getId();
+            try {
+                response = performHttpDelete(App.BASEURL + App.STUDENT_LIST_PATH + studentID + "/dots");
+                displayAlert("Dot removed successfully", Alert.AlertType.INFORMATION);
+
+            } catch (UnirestException e) {
+                displayAlert("Error fetching data from server", Alert.AlertType.ERROR);
+            }
+        }
+        else {
+            displayAlert("Select a student from the students table first", Alert.AlertType.ERROR);
+        }
+
+    }
+
+    @FXML
+    private void createNewDotActionPerformed(ActionEvent event) {
+        event.consume();
+        CloseableHttpResponse response = null;
+        Student selectedStudent = studentsTable.getSelectionModel().getSelectedItem();
+        int studentID = 0;
+
+        if (selectedStudent != null) {
+            studentID = selectedStudent.getId();
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Add new dot");
+            dialog.setContentText("Enter reason: ");
+
+            Optional<String> reason = dialog.showAndWait();
+
+            Teacher assigningTeacher = new Teacher();
+            assigningTeacher.setId(userId);
+            Dots newDot = new Dots(0, reason.get(), selectedStudent.getId(), assigningTeacher);
+
+            Gson gson = new Gson();
+            String jsonBody = gson.toJson(newDot);
+
+            try {
+                response = performHttpPost(App.BASEURL + App.STUDENT_LIST_PATH + studentID + "/dots", jsonBody);
+            }
+            catch (IOException e) {
+                displayAlert("Error fetching data from server", Alert.AlertType.ERROR);
+            }
+        }
+        else {
+            displayAlert("Select a student from the students table first", Alert.AlertType.ERROR);
+        }
+
+    }
+
+    @FXML
+    private void createNewAssignmentActionPerformed(ActionEvent event) throws IOException {
+        event.consume();
+        CreateNewAssignment.setAccessToken(accessToken);
+        Stage stage = new Stage();
+        AnchorPane ap = FXMLLoader.load(getClass().getResource("/CreateAssignment.fxml"));
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+    }
+
+    @FXML
     private void addTeacherActionPerformed(ActionEvent event) throws IOException, UnirestException, ParseException {
         event.consume();
         TeacherFullInfo.postRequest = true;
@@ -1053,4 +1141,30 @@ public class AdminDashboard extends Application implements Initializable {
     public void setStudentsList(ObservableList<Student> studentsList) {
         this.studentsList = studentsList;
     }
+
+    private CloseableHttpResponse performHttpPost(String url, String jsonData) throws IOException {
+
+        CloseableHttpClient client = HttpClients.createDefault();
+
+        HttpPost request = new HttpPost(url);
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+
+        StringEntity entity = new StringEntity(jsonData);
+        request.setEntity(entity);
+
+        try{
+            CloseableHttpResponse response = client.execute(request);
+            return response;
+        }
+        catch (ConnectException e){
+            displayAlert("Error connecting to server", Alert.AlertType.ERROR);
+        }
+        finally {
+            System.out.println();
+        }
+        return null;
+    }
+
 }

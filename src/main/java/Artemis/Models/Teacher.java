@@ -30,6 +30,18 @@ public class Teacher extends User {
         this.subject = subject;
     }
 
+    public Teacher() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getSubject() {
         return subject;
     }

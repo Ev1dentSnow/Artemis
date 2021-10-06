@@ -465,7 +465,8 @@
             <DropShadow height="5.91" radius="6.2275">
                <color>
                   <Color opacity="0.19784946739673615" />
-               </color></DropShadow>
+               </color>
+            </DropShadow>
          </effect>
          <children>
             <Label fx:id="lblDate" alignment="CENTER" layoutX="8.0" layoutY="18.0" prefHeight="29.0" prefWidth="185.0" text="Monday 12 February" textAlignment="CENTER">
@@ -486,7 +487,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+            </Button>
             <Separator layoutX="196.0" layoutY="12.0" orientation="VERTICAL" prefHeight="41.0" prefWidth="5.0" />
             <Label fx:id="timeLabel" alignment="CENTER" layoutX="202.0" layoutY="18.0" prefHeight="30.0" prefWidth="88.0" text="9:21 AM" textAlignment="CENTER">
                <font>
@@ -506,15 +508,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+            </Button>
             <Label layoutX="782.0" layoutY="39.0" text="Settings">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Label>
+               </cursor>
+            </Label>
             <Label layoutX="843.0" layoutY="39.0" text="Sign Out">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Label>
+               </cursor>
+            </Label>
             <Button layoutX="728.0" layoutY="10.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="34.0" styleClass="top-bar-button" stylesheets="@CSS/StudentDashboard_light.css">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -531,7 +536,8 @@
             <Label layoutX="723.0" layoutY="39.0" text="Help">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Label>
+               </cursor>
+            </Label>
          </children>
       </Pane>
    </children>

@@ -2,6 +2,7 @@ package Artemis.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Assignment {
@@ -12,18 +13,22 @@ public class Assignment {
     @SerializedName(value = "max_marks")
     private double maxMarks;
     @SerializedName(value = "date_assigned")
-    private Date dateAssigned;
+    private LocalDate dateAssigned;
     @SerializedName(value = "date_due")
-    private Date dateDue;
+    private LocalDate dateDue;
     private Teacher teacher;
 
-    public Assignment(int id, String assignmentName, double maxMarks, Date dateAssigned, Date dateDue, Teacher teacher) {
+    public Assignment(int id, String assignmentName, double maxMarks, LocalDate dateAssigned, LocalDate dateDue, Teacher teacher) {
         this.id = id;
         this.assignmentName = assignmentName;
         this.maxMarks = maxMarks;
         this.dateAssigned = dateAssigned;
         this.dateDue = dateDue;
         this.teacher = teacher;
+    }
+
+    public Assignment() {
+
     }
 
     public int getId() {
@@ -50,19 +55,19 @@ public class Assignment {
         this.maxMarks = maxMarks;
     }
 
-    public Date getDateAssigned() {
+    public LocalDate getDateAssigned() {
         return dateAssigned;
     }
 
-    public void setDateAssigned(Date dateAssigned) {
+    public void setDateAssigned(LocalDate dateAssigned) {
         this.dateAssigned = dateAssigned;
     }
 
-    public Date getDateDue() {
+    public LocalDate getDateDue() {
         return dateDue;
     }
 
-    public void setDateDue(Date dateDue) {
+    public void setDateDue(LocalDate dateDue) {
         this.dateDue = dateDue;
     }
 
