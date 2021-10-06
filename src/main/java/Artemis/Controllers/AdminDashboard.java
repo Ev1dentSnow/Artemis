@@ -942,7 +942,7 @@ public class AdminDashboard extends Application implements Initializable {
             String jsonBody = gson.toJson(newDot);
 
             try {
-                response = performHttpPost(App.BASEURL + App.STUDENT_LIST_PATH + studentID + "/dots", jsonBody);
+                response = performHttpPost(App.BASEURL + App.STUDENT_LIST_PATH + studentID + "/dots/", jsonBody);
             }
             catch (IOException e) {
                 displayAlert("Error fetching data from server", Alert.AlertType.ERROR);
@@ -958,6 +958,7 @@ public class AdminDashboard extends Application implements Initializable {
     private void createNewAssignmentActionPerformed(ActionEvent event) throws IOException {
         event.consume();
         CreateNewAssignment.setAccessToken(accessToken);
+        CreateNewAssignment.setTeacherID(userId);
         Stage stage = new Stage();
         AnchorPane ap = FXMLLoader.load(getClass().getResource("/CreateAssignment.fxml"));
         Scene scene = new Scene(ap);

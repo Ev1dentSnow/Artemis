@@ -2,6 +2,7 @@ package Artemis.Controllers;
 
 import Artemis.App;
 import Artemis.Models.Assignment;
+import Artemis.Models.Teacher;
 import com.google.gson.*;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -28,6 +29,7 @@ import java.util.Optional;
 public class CreateNewAssignment extends Application {
 
     private static String accessToken;
+    private static int teacherID;
     private static final String ASSIGNMENTS_PATH = "api/assignments/";
     CloseableHttpClient client = HttpClients.createDefault();
 
@@ -65,7 +67,9 @@ public class CreateNewAssignment extends Application {
         newAssignment.setMaxMarks(maxMarks);
         newAssignment.setDateDue(dd);
         newAssignment.setDateAssigned(da);
-        //newAssignment.setTeacher(0);
+        Teacher teacher = new Teacher();
+        teacher.setId(teacherID);
+        newAssignment.setTeacher(teacher);
 
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
@@ -146,5 +150,13 @@ public class CreateNewAssignment extends Application {
 
     public static void setAccessToken(String accessToken) {
         CreateNewAssignment.accessToken = accessToken;
+    }
+
+    public static int getTeacherID() {
+        return teacherID;
+    }
+
+    public static void setTeacherID(int teacherID) {
+        CreateNewAssignment.teacherID = teacherID;
     }
 }
