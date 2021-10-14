@@ -9,7 +9,7 @@
   <p align="center">
     My Matric 2021 I.T PAT (Practical Assessment Task) Project
     <br />
-    <a href="https://drive.google.com/drive/folders/1lDkCS8fMY73fF0ninxjlbkCQ0p5umJR7?usp=sharing"><strong>Explore the docs »</strong></a>
+    <a href="https://drive.google.com/drive/folders/1lDkCS8fMY73fF0ninxjlbkCQ0p5umJR7?usp=sharing" target="_blank"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="">View Demo</a>
